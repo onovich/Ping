@@ -2,16 +2,16 @@ namespace Ping {
 
     public class GameFSMComponent {
 
-        public GameStatus status;
+        public GameFSMStatus status;
 
         public bool gaming_isEntering;
 
         public void NotInGame_Enter() {
-            status = GameStatus.NotInGame;
+            status = GameFSMStatus.NotInGame;
         }
 
         public void Gaming_Enter() {
-            status = GameStatus.Gaming;
+            status = GameFSMStatus.Gaming;
             gaming_isEntering = true;
         }
 

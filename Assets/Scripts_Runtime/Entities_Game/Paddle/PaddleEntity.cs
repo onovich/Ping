@@ -6,23 +6,36 @@ namespace Ping {
     public class PaddleEntity : MonoBehaviour {
 
         // Base Info
-        public int playerID;
+        int playerID;
 
         // Attr
-        public float moveSpeed;
-        public float moveSpeedMax;
+        float moveSpeed;
+        float moveSpeedMax;
+
+        // FSM
+        PaddleFSMComponent fsmCom;
 
         // Score
-        public int score;
+        int score;
 
         // Input
-        public PaddleInputComponent inputCom;
+        PaddleInputComponent inputCom;
 
         // Physics
         [SerializeField] Rigidbody2D rb;
 
         public void Ctor() {
             inputCom = new PaddleInputComponent();
+            fsmCom = new PaddleFSMComponent();
+        }
+
+        // Base Info
+        public void SetPlayerID(int id) {
+            playerID = id;
+        }
+
+        public int GetPlayerID() {
+            return playerID;
         }
 
         // Pos
@@ -40,7 +53,19 @@ namespace Ping {
 
         // Attr
         public float Attr_GetMoveSpeed() {
-            return moveSpeed;
+            return Mathf.Clamp(moveSpeed, 0, moveSpeedMax);
+        }
+
+        public void Attr_SetMoveSpeed(float speed) {
+            moveSpeed = speed;
+        }
+
+        public float Attr_GetMoveSpeedMax() {
+            return moveSpeedMax;
+        }
+
+        public void Attr_SetMoveSpeedMax(float speed) {
+            moveSpeedMax = speed;
         }
 
         // Move
@@ -52,10 +77,6 @@ namespace Ping {
             return rb.velocity;
         }
 
-        public void Move_ByDir(Vector2 dir, float dt) {
-            Move_Apply(dir, Attr_GetMoveSpeed(), dt);
-        }
-
         public void Move_Stop() {
             Move_Apply(Vector2.zero, 0, 0);
         }
@@ -64,8 +85,26 @@ namespace Ping {
             rb.velocity = dir.normalized * moveSpeed;
         }
 
+        // FSM
+        public void FSM_EnterMoving() {
+            fsmCom.Moving_Enter();
+        }
+
+        public PaddleFSMStatus FSM_GetStatus() {
+            return fsmCom.status;
+        }
+
+        public PaddleFSMComponent FSM_GetComponent() {
+            return fsmCom;
+        }
+
         public void TearDown() {
             Destroy(gameObject);
+        }
+
+        // Input
+        public void Input_SetMoveAxis(Vector2 axis) {
+            inputCom.moveAxis = axis;
         }
 
     }

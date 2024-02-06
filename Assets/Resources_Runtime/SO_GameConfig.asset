@@ -16,6 +16,7 @@ MonoBehaviour:
   fieldBoundMin: {x: 0, y: 0}
   player1PaddleSpawnPos: {x: 0, y: -4}
   player2PaddleSpawnPos: {x: 0, y: 4}
-  ballMoveSpeed: 0
-  paddleMoveSpeed: 0
-  paddleMoveSpeedMax: 0
+  ballMoveSpeed: 2
+  ballMoveSpeedMax: 10
+  paddleMoveSpeed: 2
+  paddleMoveSpeedMax: 10

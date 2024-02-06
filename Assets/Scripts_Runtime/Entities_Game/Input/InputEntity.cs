@@ -6,12 +6,20 @@ namespace Ping {
 
     public class InputEntity {
 
-        public Vector2 moveAxis;
-        public bool isUI_Setting;
+        Vector2 moveAxis;
+        bool isUI_Setting;
         InputKeybindingComponent keybindingCom;
 
         public void Ctor() {
             keybindingCom.Ctor();
+        }
+
+        public Vector2 Move_GetAxis() {
+            return moveAxis;
+        }
+
+        public bool IsUI_Setting() {
+            return isUI_Setting;
         }
 
         public void ProcessInput(Camera camera, float dt) {

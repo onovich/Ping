@@ -5,7 +5,7 @@ namespace Ping {
 
     public struct InputKeybindingComponent {
 
-        public Dictionary<InputKeyEnum, KeyCode[]> all;
+        Dictionary<InputKeyEnum, KeyCode[]> all;
 
         public void Ctor() {
             all = new Dictionary<InputKeyEnum, KeyCode[]>();

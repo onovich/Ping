@@ -1,6 +1,6 @@
 namespace Ping {
 
-    public enum GameStatus {
+    public enum GameFSMStatus {
         NotInGame,
         Gaming,
     }

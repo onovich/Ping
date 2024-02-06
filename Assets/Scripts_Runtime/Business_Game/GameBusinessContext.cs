@@ -6,7 +6,7 @@ namespace Ping.Business.Game {
 
         // Entity
         public GameEntity gameEntity;
-
+        public PlayerEntity playerEntity;
         public InputEntity inputEntity;
 
         public FieldEntity fieldEntity;
@@ -26,6 +26,7 @@ namespace Ping.Business.Game {
 
         public GameBusinessContext() {
             gameEntity = new GameEntity();
+            playerEntity = new PlayerEntity();
         }
 
         public void Reset() {
@@ -46,7 +47,7 @@ namespace Ping.Business.Game {
 
         // Paddle
         public void Paddle_Set(PaddleEntity paddleEntity) {
-            if (paddleEntity.playerID == 1) {
+            if (paddleEntity.GetPlayerID() == 1) {
                 player1PaddleEntity = paddleEntity;
             } else {
                 player2PaddleEntity = paddleEntity;
@@ -54,7 +55,7 @@ namespace Ping.Business.Game {
         }
 
         public void Paddle_Clear(PaddleEntity paddleEntity) {
-            if (paddleEntity.playerID == 1) {
+            if (paddleEntity.GetPlayerID() == 1) {
                 player1PaddleEntity = null;
             } else {
                 player2PaddleEntity = null;
@@ -67,6 +68,11 @@ namespace Ping.Business.Game {
             } else {
                 return player2PaddleEntity;
             }
+        }
+
+        public PaddleEntity Paddle_GetOwner() {
+            var ownerID = playerEntity.GetOwnerPlayerID();
+            return Paddle_Get(ownerID);
         }
 
         // Field

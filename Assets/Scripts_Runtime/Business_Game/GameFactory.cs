@@ -32,7 +32,8 @@ namespace Ping.Business.Game {
             ball.Ctor();
 
             // Set Attr
-            ball.moveSpeed = config.ballMoveSpeed;
+            ball.Attr_SetMoveSpeed(config.ballMoveSpeed);
+            ball.Attr_SetMoveSpeedMax(config.ballMoveSpeedMax);
 
             // Set Pos
             ball.Pos_SetPos(pos);
@@ -57,14 +58,17 @@ namespace Ping.Business.Game {
             paddle.Ctor();
 
             // Base Info
-            paddle.playerID = id;
+            paddle.SetPlayerID(id);
 
             // Set Attr
-            paddle.moveSpeed = config.paddleMoveSpeed;
-            paddle.moveSpeedMax = config.paddleMoveSpeedMax;
+            paddle.Attr_SetMoveSpeed(config.paddleMoveSpeed);
+            paddle.Attr_SetMoveSpeedMax(config.paddleMoveSpeedMax);
 
             // Set Pos
             paddle.Pos_SetPos(pos);
+
+            // Set FSM
+            paddle.FSM_EnterMoving();
 
             return paddle;
         }

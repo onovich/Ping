@@ -9,7 +9,7 @@ namespace Ping.Business.Game {
 
             // Game
             var game = ctx.gameEntity;
-            game.fsmComponent.Gaming_Enter();
+            game.FSM_EnterGaming();
 
             // Field
             GameFieldDomain.Spawn(ctx);
@@ -20,6 +20,10 @@ namespace Ping.Business.Game {
             // Paddle 1
             GamePaddleDomain.Spawn(ctx, 1, config.player1PaddleSpawnPos);
             GamePaddleDomain.Spawn(ctx, 2, config.player2PaddleSpawnPos);
+
+            // Player
+            var player = ctx.playerEntity;
+            player.SetOwnerPlayerID(1);
 
             // UI
             UIApp.Score_Open(ctx.uiAppContext);
@@ -34,7 +38,7 @@ namespace Ping.Business.Game {
 
             // Game
             var game = ctx.gameEntity;
-            game.fsmComponent.NotInGame_Enter();
+            game.FSM_EnterNotInGame();
 
             // Field
             var field = ctx.Field_Get();

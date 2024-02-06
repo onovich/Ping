@@ -6,10 +6,11 @@ namespace Ping {
     public class BallEntity : MonoBehaviour {
 
         // Attr
-        public float moveSpeed;
+        float moveSpeed;
+        float moveSpeedMax;
 
         // FSM
-        public BallFSMComponent fsmCom;
+        BallFSMComponent fsmCom;
 
         // Physics
         [SerializeField] Rigidbody2D rb;
@@ -33,7 +34,19 @@ namespace Ping {
 
         // Attr
         public float Attr_GetMoveSpeed() {
-            return moveSpeed;
+            return Mathf.Clamp(moveSpeed, 0, moveSpeedMax);
+        }
+
+        public void Attr_SetMoveSpeed(float speed) {
+            moveSpeed = speed;
+        }
+
+        public float Attr_GetMoveSpeedMax() {
+            return moveSpeedMax;
+        }
+
+        public void Attr_SetMoveSpeedMax(float speed) {
+            moveSpeedMax = speed;
         }
 
         // Move
@@ -64,6 +77,14 @@ namespace Ping {
 
         public void FSM_EnterDead() {
             fsmCom.EnterDead();
+        }
+
+        public BallFSMStatus FSM_GetStatus() {
+            return fsmCom.status;
+        }
+
+        public BallFSMComponent FSM_GetComponent() {
+            return fsmCom;
         }
 
         public void TearDown() {

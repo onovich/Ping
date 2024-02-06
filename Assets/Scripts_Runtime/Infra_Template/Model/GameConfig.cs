@@ -14,6 +14,7 @@ namespace Ping {
 
         // Ball
         public float ballMoveSpeed;
+        public float ballMoveSpeedMax;
 
         // Paddle
         public float paddleMoveSpeed;
