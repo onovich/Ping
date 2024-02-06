@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: HUD
+  m_EditorClassIdentifier: 
+  m_GroupName: HUD
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d4abfbca3c48b984d8e1905c13dd1fb4
+  m_SerializeEntries: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f8531238f8589674a93b81826bd47ddf, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3ba80cb8a2e952c4d9b8af76ed349859, type: 2}
+    - {fileID: 11400000, guid: b96f4c6fbe1a44643aaa1d2f07cb6413, type: 2}
