@@ -10,6 +10,7 @@ namespace Ping {
 
         // Attr
         public float moveSpeed;
+        public float moveSpeedMax;
 
         // Score
         public int score;
@@ -19,9 +20,6 @@ namespace Ping {
 
         // Physics
         [SerializeField] Rigidbody2D rb;
-
-        // Pos
-        public Vector2Int lastPosInt;
 
         public void Ctor() {
             inputCom = new PaddleInputComponent();

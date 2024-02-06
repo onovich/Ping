@@ -7,11 +7,11 @@ namespace Ping.Business.Game {
         }
 
         public static void StartGame(GameBusinessContext ctx) {
-
+            GameGameDomain.NewGame(ctx);
         }
 
         public static void ExitGame(GameBusinessContext ctx) {
-
+            GameGameDomain.ExitGame(ctx);
         }
 
         public static void Tick(GameBusinessContext ctx, float dt) {

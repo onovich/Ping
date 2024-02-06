@@ -7,8 +7,8 @@ namespace Ping {
     public class GameConfig : ScriptableObject {
 
         // Field
-        public Vector2Int max;
-        public Vector2Int min;
+        public Vector2Int fieldBoundMax;
+        public Vector2Int fieldBoundMin;
         public Vector2Int player1PaddleSpawnPos;
         public Vector2Int player2PaddleSpawnPos;
 
@@ -17,6 +17,7 @@ namespace Ping {
 
         // Paddle
         public float paddleMoveSpeed;
+        public float paddleMoveSpeedMax;
 
     }
 

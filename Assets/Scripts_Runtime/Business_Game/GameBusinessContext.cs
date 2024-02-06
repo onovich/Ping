@@ -20,16 +20,12 @@ namespace Ping.Business.Game {
         // Camera
         public Camera mainCamera;
 
-        // Service
-        public IDRecordService idRecordService;
-
         // Infra
         public TemplateInfraContext templateInfraContext;
         public AssetsInfraContext assetsInfraContext;
 
         public GameBusinessContext() {
             gameEntity = new GameEntity();
-            idRecordService = new IDRecordService();
         }
 
         public void Reset() {
@@ -54,6 +50,14 @@ namespace Ping.Business.Game {
                 player1PaddleEntity = paddleEntity;
             } else {
                 player2PaddleEntity = paddleEntity;
+            }
+        }
+
+        public void Paddle_Clear(PaddleEntity paddleEntity) {
+            if (paddleEntity.playerID == 1) {
+                player1PaddleEntity = null;
+            } else {
+                player2PaddleEntity = null;
             }
         }
 

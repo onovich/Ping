@@ -5,9 +5,6 @@ namespace Ping {
 
     public class BallEntity : MonoBehaviour {
 
-        // Base Info
-        public int playerID;
-
         // Attr
         public float moveSpeed;
 
@@ -54,6 +51,19 @@ namespace Ping {
 
         void Move_Apply(Vector2 dir, float moveSpeed, float fixdt) {
             rb.velocity = dir.normalized * moveSpeed;
+        }
+
+        // FSM
+        public void FSM_EnterIdle() {
+            fsmCom.EnterIdle();
+        }
+
+        public void FSM_EnterMoving() {
+            fsmCom.EnterMoving();
+        }
+
+        public void FSM_EnterDead() {
+            fsmCom.EnterDead();
         }
 
         public void TearDown() {
