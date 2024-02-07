@@ -4,46 +4,55 @@ namespace Ping.Business.Game {
 
     public static class GameBallFSMController {
 
-        public static void FixedTickFSM(GameBusinessContext ctx, BallEntity Ball, float fixdt) {
+        public static void FixedTickFSM(GameBusinessContext ctx, BallEntity ball, float fixdt) {
 
-            FixedTickFSM_Any(ctx, Ball, fixdt);
+            FixedTickFSM_Any(ctx, ball, fixdt);
 
-            BallFSMStatus status = Ball.FSM_GetStatus();
+            BallFSMStatus status = ball.FSM_GetStatus();
             if (status == BallFSMStatus.Idle) {
-                FixedTickFSM_Idle(ctx, Ball, fixdt);
+                FixedTickFSM_Idle(ctx, ball, fixdt);
             } else if (status == BallFSMStatus.Moving) {
-                FixedTickFSM_Moving(ctx, Ball, fixdt);
+                FixedTickFSM_Moving(ctx, ball, fixdt);
             } else if (status == BallFSMStatus.Dead) {
-                FixedTickFSM_Dead(ctx, Ball, fixdt);
+                FixedTickFSM_Dead(ctx, ball, fixdt);
             } else {
                 PLog.LogError($"GameBallFSMController.FixedTickFSM: unknown status: {status}");
             }
 
         }
 
-        static void FixedTickFSM_Any(GameBusinessContext ctx, BallEntity Ball, float fixdt) {
+        static void FixedTickFSM_Any(GameBusinessContext ctx, BallEntity ball, float fixdt) {
 
         }
 
-        static void FixedTickFSM_Idle(GameBusinessContext ctx, BallEntity Ball, float fixdt) {
+        static void FixedTickFSM_Idle(GameBusinessContext ctx, BallEntity ball, float fixdt) {
+            BallFSMComponent fsm = ball.FSM_GetComponent();
+            if (fsm.idle_isEntering) {
+                fsm.idle_isEntering = false;
+            }
 
+            var turn = fsm.turn;
+            var side = turn % 2;
+            var dir = side == 0 ? Vector2.up : Vector2.down;
+
+            fsm.EnterMoving(dir);
         }
 
-        static void FixedTickFSM_Moving(GameBusinessContext ctx, BallEntity Ball, float fixdt) {
-            BallFSMComponent fsm = Ball.FSM_GetComponent();
+        static void FixedTickFSM_Moving(GameBusinessContext ctx, BallEntity ball, float fixdt) {
+            BallFSMComponent fsm = ball.FSM_GetComponent();
             if (fsm.moving_isEntering) {
                 fsm.moving_isEntering = false;
             }
 
-            // TODO: Move
-
+            GameBallDomain.BallMove(ctx, ball, fixdt);
+            
         }
 
-        static void FixedTickFSM_Dead(GameBusinessContext ctx, BallEntity Ball, float fixdt) {
-            BallFSMComponent fsm = Ball.FSM_GetComponent();
+        static void FixedTickFSM_Dead(GameBusinessContext ctx, BallEntity ball, float fixdt) {
+            BallFSMComponent fsm = ball.FSM_GetComponent();
             if (fsm.dead_isEntering) {
                 fsm.dead_isEntering = false;
-                Ball.Move_Stop();
+                ball.Move_Stop();
             }
         }
 

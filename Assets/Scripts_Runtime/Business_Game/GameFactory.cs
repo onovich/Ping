@@ -34,12 +34,14 @@ namespace Ping.Business.Game {
             // Set Attr
             ball.Attr_SetMoveSpeed(config.ballMoveSpeed);
             ball.Attr_SetMoveSpeedMax(config.ballMoveSpeedMax);
+            ball.Attr_SetRadius(config.ballRadius);
 
             // Set Pos
             ball.Pos_SetPos(pos);
 
             // Set FSM
-            ball.FSM_EnterIdle();
+            var fsmCom = ball.FSM_GetComponent();
+            fsmCom.EnterIdle();
 
             return ball;
 
@@ -68,7 +70,8 @@ namespace Ping.Business.Game {
             paddle.Pos_SetPos(pos);
 
             // Set FSM
-            paddle.FSM_EnterMoving();
+            var fsmCom = paddle.FSM_GetComponent();
+            fsmCom.Moving_Enter();
 
             return paddle;
         }

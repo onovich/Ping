@@ -8,6 +8,7 @@ namespace Ping {
         // Attr
         float moveSpeed;
         float moveSpeedMax;
+        float radius;
 
         // FSM
         BallFSMComponent fsmCom;
@@ -49,6 +50,14 @@ namespace Ping {
             moveSpeedMax = speed;
         }
 
+        public void Attr_SetRadius(float radius) {
+            this.radius = radius;
+        }
+
+        public float Attr_GetRadius() {
+            return radius;
+        }
+
         // Move
         public Vector2 Move_GetVelocity() {
             return rb.velocity;
@@ -67,14 +76,6 @@ namespace Ping {
         }
 
         // FSM
-        public void FSM_EnterIdle() {
-            fsmCom.EnterIdle();
-        }
-
-        public void FSM_EnterMoving() {
-            fsmCom.EnterMoving();
-        }
-
         public void FSM_EnterDead() {
             fsmCom.EnterDead();
         }
@@ -85,6 +86,10 @@ namespace Ping {
 
         public BallFSMComponent FSM_GetComponent() {
             return fsmCom;
+        }
+
+        public void FSM_SetMovingDir(Vector2 dir) {
+            fsmCom.movingDir = dir;
         }
 
         public void TearDown() {

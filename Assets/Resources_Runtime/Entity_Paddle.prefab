@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6100127577838682946}
   - component: {fileID: 9125883897303237458}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: spr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3656063073805261288}
   - component: {fileID: 3353443881365009181}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: coll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 6414712805679191740}
   - component: {fileID: -8706562405771554947}
   - component: {fileID: 917620404501982839}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Entity_Paddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,10 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e52a2682fe63a4d861e652d0366adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
-  moveSpeed: 0
-  moveSpeedMax: 0
-  score: 0
   rb: {fileID: 917620404501982839}
 --- !u!50 &917620404501982839
 Rigidbody2D:

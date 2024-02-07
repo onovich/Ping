@@ -86,10 +86,6 @@ namespace Ping {
         }
 
         // FSM
-        public void FSM_EnterMoving() {
-            fsmCom.Moving_Enter();
-        }
-
         public PaddleFSMStatus FSM_GetStatus() {
             return fsmCom.status;
         }

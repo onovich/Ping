@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9205596735334050776}
   - component: {fileID: 364237619179863880}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: coll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 5902671523452269357}
   - component: {fileID: -2730252824782564552}
   - component: {fileID: 1729988986364573536}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Entity_Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5881273861495874574}
   - component: {fileID: 3597957322403110216}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: spr
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,6 +14,9 @@ namespace Ping.Business.Game {
         public PaddleEntity player1PaddleEntity;
         public PaddleEntity player2PaddleEntity;
 
+        // TEMP
+        public Collider2D[] overlapTemp;
+
         // UI
         public UIAppContext uiAppContext;
 
@@ -27,6 +30,7 @@ namespace Ping.Business.Game {
         public GameBusinessContext() {
             gameEntity = new GameEntity();
             playerEntity = new PlayerEntity();
+            overlapTemp = new Collider2D[1000];
         }
 
         public void Reset() {
