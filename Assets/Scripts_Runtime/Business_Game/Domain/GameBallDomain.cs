@@ -28,21 +28,28 @@ namespace Ping.Business.Game {
 
         static void OverlapCheck(GameBusinessContext ctx, BallEntity ball) {
 
-            var overlaps = ctx.overlapTemp;
             int targetLayerMask = 1 << LayerConst.PADDLE;
-            int count = Physics2D.OverlapCircleNonAlloc(ball.Pos_GetPos(), ball.Attr_GetRadius(), overlaps, targetLayerMask);
+            var hits = ctx.raycastTemp;
+            var lastDirection = ball.Pos_GetVelocity();
+            int count = Physics2D.RaycastNonAlloc(ball.Pos_GetPos(), lastDirection, hits, ball.Attr_GetRadius() + 0.01f, targetLayerMask);
             if (count <= 0) {
                 return;
             }
-            var coll = overlaps[0];
-            var paddle = coll.transform.parent.GetComponentInChildren<PaddleEntity>();
-            Ball_HitPaddle(ctx, ball, paddle);
+
+            var hit = hits[0];
+            var paddle = hit.transform.GetComponentInChildren<PaddleEntity>();
+            var normal = hit.normal;
+            // R = I - 2 * (I · N) * N
+            // R: 反射向量; I: 入射向量; N: 法线单位向量
+            var dir = lastDirection - 2 * (Vector2.Dot(lastDirection, normal)) * normal;
+            Ball_HitPaddle(ctx, ball, paddle, dir);
 
         }
 
-        static void Ball_HitPaddle(GameBusinessContext ctx, BallEntity ball, PaddleEntity paddle) {
-            // TODO
+        static void Ball_HitPaddle(GameBusinessContext ctx, BallEntity ball, PaddleEntity paddle, Vector2 dir) {
             ball.Move_Stop();
+            BallFSMComponent fsm = ball.FSM_GetComponent();
+            fsm.movingDir = dir;
         }
 
     }

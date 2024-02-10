@@ -29,7 +29,7 @@ namespace Ping {
             return transform.position;
         }
 
-        public Vector2 Pos_GetVolecity() {
+        public Vector2 Pos_GetVelocity() {
             return rb.velocity;
         }
 

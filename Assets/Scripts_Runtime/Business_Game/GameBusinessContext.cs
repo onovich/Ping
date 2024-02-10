@@ -16,6 +16,7 @@ namespace Ping.Business.Game {
 
         // TEMP
         public Collider2D[] overlapTemp;
+        public RaycastHit2D[] raycastTemp;
 
         // UI
         public UIAppContext uiAppContext;
@@ -31,6 +32,7 @@ namespace Ping.Business.Game {
             gameEntity = new GameEntity();
             playerEntity = new PlayerEntity();
             overlapTemp = new Collider2D[1000];
+            raycastTemp = new RaycastHit2D[1000];
         }
 
         public void Reset() {
