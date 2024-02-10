@@ -34,6 +34,8 @@ namespace Ping.Business.Game {
             var turn = fsm.turn;
             var side = turn % 2;
             var dir = side == 0 ? Vector2.up : Vector2.down;
+            var game = ctx.gameEntity;
+            dir = game.random.GetRandomDirection(dir, 90);
 
             fsm.EnterMoving(dir);
         }
@@ -45,7 +47,7 @@ namespace Ping.Business.Game {
             }
 
             GameBallDomain.BallMove(ctx, ball, fixdt);
-            
+
         }
 
         static void FixedTickFSM_Dead(GameBusinessContext ctx, BallEntity ball, float fixdt) {

@@ -10,6 +10,7 @@ namespace Ping.Business.Game {
             // Game
             var game = ctx.gameEntity;
             game.FSM_EnterGaming();
+            game.random = new RandomService(101052099, 0);
 
             // Field
             GameFieldDomain.Spawn(ctx);

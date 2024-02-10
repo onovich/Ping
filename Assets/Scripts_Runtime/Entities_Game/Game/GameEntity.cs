@@ -2,6 +2,7 @@ namespace Ping {
 
     public class GameEntity {
 
+        public RandomService random;
         GameFSMComponent fsmComponent;
 
         public GameEntity() {
