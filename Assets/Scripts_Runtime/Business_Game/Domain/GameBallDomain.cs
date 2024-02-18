@@ -89,8 +89,8 @@ namespace Ping.Business.Game {
 
         static void Reflect(GameBusinessContext ctx, BallEntity ball, Vector2 normal) {
             var srcDir = ball.Pos_GetDirection();
-            var dctDir = MathFP.GetReflectDir(srcDir, normal);
-            ball.FSM_SetMovingDir(dctDir);
+            var drtDir = MathFP.GetReflectDir(srcDir, normal);
+            ball.FSM_SetMovingDir(drtDir);
         }
 
     }

@@ -14,8 +14,8 @@ namespace Ping {
         public static Vector2 GetReflectDir(Vector2 srcDir, Vector2 normal) {
             // R = I - 2 * (I · N) * N
             // R: 反射向量; I: 入射向量; N: 法线单位向量
-            var dctDir = srcDir - 2 * (Vector2.Dot(srcDir, normal)) * normal;
-            return dctDir - 2 * Vector2.Dot(dctDir, normal) * normal;
+            var drtDir = srcDir - 2 * (Vector2.Dot(srcDir, normal)) * normal;
+            return drtDir;
         }
 
     }

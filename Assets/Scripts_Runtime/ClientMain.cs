@@ -84,14 +84,6 @@ namespace Ping {
             GameBusiness.Tick(gameBusinessContext, dt);
         }
 
-        void FixedUpdate() {
-            if (!isLoadedAssets || isTearDown) {
-                return;
-            }
-            var fixdt = Time.fixedDeltaTime;
-            GameBusiness.FixedTick(gameBusinessContext, fixdt);
-        }
-
         void Init() {
 
             Application.targetFrameRate = 120;

@@ -24,17 +24,17 @@ namespace Ping.Business.Game {
             ProcessInput(ctx, dt);
             PreTick(ctx, dt);
 
-            // restTime += dt;
-            // const float intervalTime = 0.01f;
-            // if (restTime <= intervalTime) {
-            //     FixedTick(ctx, restTime);
-            //     restTime = 0;
-            // } else {
-            //     while (restTime >= intervalTime) {
-            //         FixedTick(ctx, intervalTime);
-            //         restTime -= intervalTime;
-            //     }
-            // }
+            restTime += dt;
+            const float intervalTime = 0.01f;
+            if (restTime <= intervalTime) {
+                FixedTick(ctx, restTime);
+                restTime = 0;
+            } else {
+                while (restTime >= intervalTime) {
+                    FixedTick(ctx, intervalTime);
+                    restTime -= intervalTime;
+                }
+            }
 
             LateTick(ctx, dt);
 
@@ -80,7 +80,7 @@ namespace Ping.Business.Game {
             if (paddle2 == null) { return; }
             GamePaddleFSMController.FixedTickFSM(ctx, paddle2, dt);
 
-            // Physics2D.Simulate(dt);
+            Physics2D.Simulate(dt);
 
         }
 
