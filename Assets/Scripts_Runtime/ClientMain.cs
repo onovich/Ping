@@ -84,6 +84,14 @@ namespace Ping {
             GameBusiness.Tick(gameBusinessContext, dt);
         }
 
+        void FixedUpdate() {
+            if (!isLoadedAssets || isTearDown) {
+                return;
+            }
+            var fixdt = Time.fixedDeltaTime;
+            GameBusiness.FixedTick(gameBusinessContext, fixdt);
+        }
+
         void Init() {
 
             Application.targetFrameRate = 120;
@@ -113,7 +121,7 @@ namespace Ping {
             };
 
             uiEventCenter.Login_OnExitGameClickHandle += () => {
-                LoginBusiness.ExitApplication(loginBusinessContext);
+                LoginBusiness.ExitLogin(loginBusinessContext);
             };
         }
 
@@ -125,6 +133,7 @@ namespace Ping {
 
         void OnApplicationQuit() {
             TearDown();
+            Application.Quit();
         }
 
         void OnDestroy() {
@@ -141,6 +150,7 @@ namespace Ping {
             uiAppContext.eventCenter.Clear();
 
             GameBusiness.TearDown(gameBusinessContext);
+            LoginBusiness.TearDown(loginBusinessContext);
             AssetsInfra.ReleaseAssets(assetsInfraContext);
             TemplateInfra.Release(templateInfraContext);
             // TemplateInfra.ReleaseAssets(templateInfraContext);

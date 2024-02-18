@@ -4,6 +4,8 @@ namespace Ping.Business.Game {
 
     public static class GameBusiness {
 
+        static float restTime;
+
         public static void Init(GameBusinessContext ctx) {
 
         }
@@ -22,15 +24,17 @@ namespace Ping.Business.Game {
             ProcessInput(ctx, dt);
             PreTick(ctx, dt);
 
-            float restTime = dt;
-            const float interval = 0.01f;
-            for (; restTime >= interval; restTime -= interval) {
-                FixedTick(ctx, interval);
-            }
-
-            if (restTime > 0) {
-                FixedTick(ctx, restTime);
-            }
+            // restTime += dt;
+            // const float intervalTime = 0.01f;
+            // if (restTime <= intervalTime) {
+            //     FixedTick(ctx, restTime);
+            //     restTime = 0;
+            // } else {
+            //     while (restTime >= intervalTime) {
+            //         FixedTick(ctx, intervalTime);
+            //         restTime -= intervalTime;
+            //     }
+            // }
 
             LateTick(ctx, dt);
 
@@ -56,7 +60,7 @@ namespace Ping.Business.Game {
 
         }
 
-        static void FixedTick(GameBusinessContext ctx, float dt) {
+        public static void FixedTick(GameBusinessContext ctx, float dt) {
 
             var game = ctx.gameEntity;
             var status = game.GetStatus();
@@ -76,7 +80,7 @@ namespace Ping.Business.Game {
             if (paddle2 == null) { return; }
             GamePaddleFSMController.FixedTickFSM(ctx, paddle2, dt);
 
-            Physics2D.Simulate(dt);
+            // Physics2D.Simulate(dt);
 
         }
 

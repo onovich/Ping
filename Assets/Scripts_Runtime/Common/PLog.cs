@@ -20,6 +20,16 @@ namespace Ping {
             Debug.LogError(msg);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void LogAssert(bool condition, string msg) {
+            Debug.Assert(condition, msg);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void LogAssertWithoutMsg(bool condition) {
+            Debug.Assert(condition);
+        }
+
     }
 
 }

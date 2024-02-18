@@ -29,8 +29,8 @@ namespace Ping {
             return transform.position;
         }
 
-        public Vector2 Pos_GetVelocity() {
-            return rb.velocity;
+        public Vector2 Pos_GetDirection() {
+            return fsmCom.movingDir;
         }
 
         // Attr
@@ -64,6 +64,8 @@ namespace Ping {
         }
 
         public void Move_ByDir(Vector2 dir, float dt) {
+            PLog.LogAssert(dir != Vector2.zero, "BallEntity.Move_ByDir: dir is zero");
+            PLog.LogAssert(Attr_GetMoveSpeed() > 0, "BallEntity.Move_ByDir: moveSpeed is zero");
             Move_Apply(dir, Attr_GetMoveSpeed(), dt);
         }
 
@@ -76,10 +78,6 @@ namespace Ping {
         }
 
         // FSM
-        public void FSM_EnterDead() {
-            fsmCom.EnterDead();
-        }
-
         public BallFSMStatus FSM_GetStatus() {
             return fsmCom.status;
         }

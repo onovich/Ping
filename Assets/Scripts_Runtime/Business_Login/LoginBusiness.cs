@@ -15,14 +15,16 @@ namespace Ping.Business.Login {
             UIApp.Login_Close(ctx.uiAppContext);
         }
 
-        public static void ExitApplication(LoginBusinessContext ctx) {
+        public static void ExitLogin(LoginBusinessContext ctx) {
             Exit(ctx);
-            Application.Quit();
-            PLog.Log("Application.Quit");
         }
 
         public static void OnUILoginClick(LoginBusinessContext ctx) {
             ctx.evt.Login();
+        }
+
+        public static void TearDown(LoginBusinessContext ctx) {
+            ExitLogin(ctx);
         }
 
     }

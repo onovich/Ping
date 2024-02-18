@@ -46,7 +46,7 @@ namespace Ping.Business.Game {
                 fsm.moving_isEntering = false;
             }
 
-            GameBallDomain.BallMove(ctx, ball, fixdt);
+            GameBallDomain.MoveAndCheckHit(ctx, ball, fixdt);
 
         }
 

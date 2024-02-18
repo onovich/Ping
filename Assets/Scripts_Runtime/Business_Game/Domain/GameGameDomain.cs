@@ -29,8 +29,6 @@ namespace Ping.Business.Game {
             // UI
             UIApp.Score_Open(ctx.uiAppContext);
 
-            PLog.Log("New Game");
-
             // Cursor
 
         }
@@ -39,6 +37,8 @@ namespace Ping.Business.Game {
 
             // Game
             var game = ctx.gameEntity;
+            if (game.FSM_GetStatus() == GameFSMStatus.NotInGame) return;
+
             game.FSM_EnterNotInGame();
 
             // Field

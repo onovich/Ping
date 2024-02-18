@@ -7,6 +7,7 @@ namespace Ping {
 
         public GameEntity() {
             fsmComponent = new GameFSMComponent();
+            FSM_EnterNotInGame();
         }
 
         public GameFSMStatus GetStatus() {

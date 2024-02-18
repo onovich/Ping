@@ -22,6 +22,10 @@ namespace Ping.UI {
         }
 
         public static void Close(UIAppContext ctx) {
+            var panel = ctx.UniquePanel_Get<Panel_Login>();
+            if (panel == null) {
+                return;
+            }
             UIFactory.UniquePanel_Close<Panel_Login>(ctx);
         }
 
