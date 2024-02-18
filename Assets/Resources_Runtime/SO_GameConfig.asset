@@ -19,6 +19,7 @@ MonoBehaviour:
   ballMoveSpeed: 4
   ballMoveSpeedMax: 10
   ballRadius: 0.07
+  ballSpawnAngleRange: 60
   paddleMoveSpeed: 3
   paddleMoveSpeedMax: 10
   paddleSize: {x: 0.6, y: 0.06}

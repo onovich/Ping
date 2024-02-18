@@ -35,7 +35,8 @@ namespace Ping.Business.Game {
             var side = turn % 2;
             var dir = side == 0 ? Vector2.down : Vector2.up;
             var game = ctx.gameEntity;
-            dir = game.random.GetRandomDirection(dir, 90);
+            var config = ctx.templateInfraContext.Config_Get();
+            dir = game.random.GetRandomDirection(dir, config.ballSpawnAngleRange);
 
             fsm.EnterMoving(dir);
         }
