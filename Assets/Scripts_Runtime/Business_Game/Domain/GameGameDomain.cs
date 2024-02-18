@@ -16,7 +16,7 @@ namespace Ping.Business.Game {
             GameFieldDomain.Spawn(ctx);
 
             // Ball
-            GameBallDomain.Spawn(ctx, new Vector2(0, 0));
+            GameBallDomain.SpawnAtOriginPos(ctx, new Vector2(0, 0));
 
             // Paddle 1
             GamePaddleDomain.Spawn(ctx, 1, config.player1PaddleSpawnPos);
@@ -63,4 +63,5 @@ namespace Ping.Business.Game {
         }
 
     }
+
 }

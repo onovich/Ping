@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace Ping.Business.Game {
 
     public static class GameBallDomain {
 
-        public static BallEntity Spawn(GameBusinessContext ctx, Vector2 pos) {
+        public static BallEntity SpawnAtOriginPos(GameBusinessContext ctx, Vector2 pos) {
             var Ball = GameFactory.Ball_Spawn(ctx.templateInfraContext, ctx.assetsInfraContext, pos);
             ctx.Ball_Set(Ball);
             return Ball;
@@ -15,25 +16,26 @@ namespace Ping.Business.Game {
             ball.TearDown();
         }
 
-        public static void MoveAndCheckHit(GameBusinessContext ctx, BallEntity ball, float fixdt) {
+        public static void MoveAndApplyHit(GameBusinessContext ctx, BallEntity ball, float fixdt, Action hitGate) {
             BallFSMComponent fsm = ball.FSM_GetComponent();
             var dir = fsm.movingDir;
-            if (PredictHit(ctx, ball, fixdt)) {
+            if (PredictHit(ctx, ball, fixdt, hitGate)) {
                 return;
             }
             ball.Move_ByDir(dir, fixdt);
-            TryHit(ctx, ball, 0.02f);
+            CheckHit(ctx, ball, 0.02f, hitGate);
         }
 
-        static bool PredictHit(GameBusinessContext ctx, BallEntity ball, float dis) {
-            var succ = TryHit(ctx, ball, dis);
+        static bool PredictHit(GameBusinessContext ctx, BallEntity ball, float dis, Action hitGate) {
+            var succ = CheckHit(ctx, ball, dis, hitGate);
             return succ;
         }
 
-        static bool TryHit(GameBusinessContext ctx, BallEntity ball, float dis) {
+        static bool CheckHit(GameBusinessContext ctx, BallEntity ball, float dis, Action hitGate) {
             var succ = false;
             int targetLayerMask = 1 << LayerConst.WALL;
             targetLayerMask |= 1 << LayerConst.PADDLE;
+            targetLayerMask |= 1 << LayerConst.GATE;
             var hits = ctx.raycastTemp;
             var dir = ball.Pos_GetDirection();
             int count = Physics2D.CircleCastNonAlloc(ball.Pos_GetPos(), ball.Attr_GetRadius(), dir, hits, dis, targetLayerMask);
@@ -43,6 +45,7 @@ namespace Ping.Business.Game {
             var hit = hits[0];
             succ |= TryHitWall(ctx, ball, hit);
             succ |= TryHitPaddle(ctx, ball, hit);
+            succ |= TryHitGate(ctx, ball, hit, hitGate);
             return succ;
         }
 
@@ -67,9 +70,20 @@ namespace Ping.Business.Game {
             if (wall == null) {
                 return false;
             }
-            PLog.Log($"GameBallDomain.TryHitWall: hit: {hit}");
             var normal = hit.normal;
             Reflect(ctx, ball, normal);
+            return true;
+        }
+
+        static bool TryHitGate(GameBusinessContext ctx, BallEntity ball, RaycastHit2D hit, Action hitGate) {
+            if (hit.collider == null) {
+                return false;
+            }
+            var gate = hit.transform.GetComponent<GateEntity>();
+            if (gate == null) {
+                return false;
+            }
+            hitGate.Invoke();
             return true;
         }
 
@@ -78,7 +92,6 @@ namespace Ping.Business.Game {
             // R: 反射向量; I: 入射向量; N: 法线单位向量
             var dir = ball.Pos_GetDirection() - 2 * (Vector2.Dot(ball.Pos_GetDirection(), normal)) * normal;
             ball.FSM_SetMovingDir(dir);
-            PLog.Log($"GameBallDomain.Reflect: dir: {dir}");
         }
 
     }

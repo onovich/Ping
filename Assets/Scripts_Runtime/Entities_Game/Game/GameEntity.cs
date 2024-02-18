@@ -5,6 +5,8 @@ namespace Ping {
         public RandomService random;
         GameFSMComponent fsmComponent;
 
+        int turn;
+
         public GameEntity() {
             fsmComponent = new GameFSMComponent();
             FSM_EnterNotInGame();
@@ -24,6 +26,18 @@ namespace Ping {
 
         public GameFSMStatus FSM_GetStatus() {
             return fsmComponent.status;
+        }
+
+        public int GetTurn() {
+            return turn;
+        }
+
+        public void IncTurn() {
+            turn++;
+        }
+
+        public void ResetTurn() {
+            turn = 0;
         }
 
     }

@@ -6,8 +6,6 @@ namespace Ping {
 
         public BallFSMStatus status;
 
-        public int turn;
-
         public bool idle_isEntering;
         public bool moving_isEntering;
         public bool dead_isEntering;
@@ -19,7 +17,6 @@ namespace Ping {
         public void EnterIdle() {
             status = BallFSMStatus.Idle;
             idle_isEntering = true;
-            turn++;
         }
 
         public void EnterMoving(Vector2 movingDir) {

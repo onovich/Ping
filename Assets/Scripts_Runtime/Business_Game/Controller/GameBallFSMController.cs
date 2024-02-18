@@ -31,9 +31,9 @@ namespace Ping.Business.Game {
                 fsm.idle_isEntering = false;
             }
 
-            var turn = fsm.turn;
+            var turn = ctx.gameEntity.GetTurn();
             var side = turn % 2;
-            var dir = side == 0 ? Vector2.up : Vector2.down;
+            var dir = side == 0 ? Vector2.down : Vector2.up;
             var game = ctx.gameEntity;
             dir = game.random.GetRandomDirection(dir, 90);
 
@@ -46,7 +46,9 @@ namespace Ping.Business.Game {
                 fsm.moving_isEntering = false;
             }
 
-            GameBallDomain.MoveAndCheckHit(ctx, ball, fixdt);
+            GameBallDomain.MoveAndApplyHit(ctx, ball, fixdt, () => {
+                fsm.EnterDead();
+            });
 
         }
 
@@ -55,7 +57,11 @@ namespace Ping.Business.Game {
             if (fsm.dead_isEntering) {
                 fsm.dead_isEntering = false;
                 ball.Move_Stop();
+                ball.Pos_SetPos(Vector2.zero);
+                var game = ctx.gameEntity;
+                game.IncTurn();
             }
+            fsm.EnterIdle();
         }
 
     }
