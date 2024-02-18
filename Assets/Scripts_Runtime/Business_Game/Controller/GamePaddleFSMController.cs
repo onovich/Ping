@@ -21,8 +21,8 @@ namespace Ping.Business.Game {
 
         }
 
-        static void FixedTickFSM_Moving(GameBusinessContext ctx, PaddleEntity Paddle, float fixdt) {
-            PaddleFSMComponent fsm = Paddle.FSM_GetComponent();
+        static void FixedTickFSM_Moving(GameBusinessContext ctx, PaddleEntity paddle, float fixdt) {
+            PaddleFSMComponent fsm = paddle.FSM_GetComponent();
             if (fsm.moving_isEntering) {
                 // Anim
                 fsm.moving_isEntering = false;
@@ -30,8 +30,8 @@ namespace Ping.Business.Game {
 
             // Move
             var player = ctx.playerEntity;
-            if (Paddle.GetPlayerID() == player.GetOwnerPlayerID()) {
-                Paddle.Move_Move(fixdt);
+            if (paddle.GetPlayerID() == player.GetOwnerPlayerID()) {
+                GamePaddleDomain.ApplyMove(ctx, paddle, fixdt);
             }
 
         }

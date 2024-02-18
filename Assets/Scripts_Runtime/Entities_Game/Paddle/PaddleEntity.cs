@@ -11,6 +11,7 @@ namespace Ping {
         // Attr
         float moveSpeed;
         float moveSpeedMax;
+        Vector2 size;
 
         // FSM
         PaddleFSMComponent fsmCom;
@@ -68,9 +69,20 @@ namespace Ping {
             moveSpeedMax = speed;
         }
 
+        public void Attr_SetSize(Vector2 size) {
+            this.size = size;
+        }
+
         // Move
-        public void Move_Move(float dt) {
+        public void Move_Move(float dt, AABB constrain) {
             Move_Apply(inputCom.moveAxis.normalized, Attr_GetMoveSpeed(), dt);
+            var pos = Pos_GetPos();
+            var constrainMin = constrain.GetMin();
+            var constrainMax = constrain.GetMax();
+            var constrainCenter = constrain.GetCenter();
+            pos.x = Mathf.Clamp(pos.x, constrainMin.x + size.x / 2, constrainMax.x - size.x / 2);
+            pos.y = Mathf.Clamp(pos.y, constrainMin.y + size.y / 2, constrainCenter.y - size.y / 2);
+            Pos_SetPos(pos);
         }
 
         public Vector2 Move_GetVelocity() {

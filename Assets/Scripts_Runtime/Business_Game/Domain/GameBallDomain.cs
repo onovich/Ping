@@ -88,10 +88,9 @@ namespace Ping.Business.Game {
         }
 
         static void Reflect(GameBusinessContext ctx, BallEntity ball, Vector2 normal) {
-            // R = I - 2 * (I · N) * N
-            // R: 反射向量; I: 入射向量; N: 法线单位向量
-            var dir = ball.Pos_GetDirection() - 2 * (Vector2.Dot(ball.Pos_GetDirection(), normal)) * normal;
-            ball.FSM_SetMovingDir(dir);
+            var srcDir = ball.Pos_GetDirection();
+            var dctDir = MathFP.GetReflectDir(srcDir, normal);
+            ball.FSM_SetMovingDir(dctDir);
         }
 
     }

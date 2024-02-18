@@ -15,6 +15,12 @@ namespace Ping.Business.Game {
             paddle.TearDown();
         }
 
+        public static void ApplyMove(GameBusinessContext ctx, PaddleEntity paddle, float fixdt) {
+            var field = ctx.fieldEntity;
+            var constrain = field.GetBound();
+            paddle.Move_Move(fixdt, constrain);
+        }
+
     }
 
 }

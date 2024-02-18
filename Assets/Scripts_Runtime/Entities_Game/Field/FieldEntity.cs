@@ -12,7 +12,7 @@ namespace Ping {
 
         }
 
-        public void SetBound(Vector2Int min, Vector2Int max) {
+        public void SetBound(Vector2 min, Vector2 max) {
             bound = new AABB(min, max);
         }
 
