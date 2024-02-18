@@ -1,5 +1,7 @@
 ## BUG
 
+- [ ] 体验问题: Paddle 角落和球的碰撞导致球的轨迹不符合预期
+
 ## Hello World
 
 - [x]  重装服务器系统, 安装 Nginx
