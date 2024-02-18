@@ -19,7 +19,7 @@ namespace Ping.Business.Game {
         public static void MoveAndApplyHit(GameBusinessContext ctx, BallEntity ball, float fixdt, Action hitGate) {
             BallFSMComponent fsm = ball.FSM_GetComponent();
             var dir = fsm.movingDir;
-            if (PredictHit(ctx, ball, fixdt, hitGate)) {
+            if (PredictHit(ctx, ball, ball.Attr_GetRadius(), hitGate)) {
                 return;
             }
             ball.Move_ByDir(dir, fixdt);
