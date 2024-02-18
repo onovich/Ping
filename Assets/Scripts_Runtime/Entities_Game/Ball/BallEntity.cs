@@ -16,8 +16,16 @@ namespace Ping {
         // Physics
         [SerializeField] Rigidbody2D rb;
 
+        // Trail
+        [SerializeField] TrailRenderer trail;
+
         public void Ctor() {
             fsmCom = new BallFSMComponent();
+        }
+
+        // Trail
+        public void Trail_Clear() {
+            trail.Clear();
         }
 
         // Pos

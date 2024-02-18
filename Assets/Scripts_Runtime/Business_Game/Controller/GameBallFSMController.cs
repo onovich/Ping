@@ -58,6 +58,7 @@ namespace Ping.Business.Game {
                 fsm.dead_isEntering = false;
                 ball.Move_Stop();
                 ball.Pos_SetPos(Vector2.zero);
+                ball.Trail_Clear();
                 var game = ctx.gameEntity;
                 game.IncTurn();
             }
