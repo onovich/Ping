@@ -1,6 +1,6 @@
 ## BUG
 
-- [ ] 碰撞反射有时会失效, 造成球只停止
+- [ ] 有时候 Hit Wall Reflect 逻辑失效
 
 ## Hello World
 
