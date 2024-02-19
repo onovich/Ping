@@ -2,6 +2,7 @@
   "dependencies": {
     "com.codewriter.triinspector": "git@github.com:codewriter-packages/Tri-Inspector.git",
     "com.gamearki.gamefunctions": "ssh://git@github.com/GameArki/GameFunctions.git?path=Assets",
+    "com.mortise.litio": "ssh://git@github.com/onovich/LitIO.git?path=/Assets/com.mortise.litio#main",
     "com.unity.addressables": "1.21.19",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.feature.2d": "2.0.0",

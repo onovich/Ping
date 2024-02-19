@@ -1,0 +1,21 @@
+{
+    "name": "Ping.Modifier",
+    "rootNamespace": "",
+    "references": [
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:324caed91501a9c47a04ebfd87b68794",
+        "GUID:c0f9232640cc54bd398549d008dadf49",
+        "GUID:90cfef6a94f6f8547bb58432bf50c985",
+        "GUID:a8aba323c66df134fb876c9dc58a7c69"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
