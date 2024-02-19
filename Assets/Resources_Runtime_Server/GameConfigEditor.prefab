@@ -45,4 +45,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clientTM: {fileID: 11400000, guid: 3c8672fb1662e794abbbf3e7af3a44b5, type: 2}
-  serverTMBytes: {fileID: 0}
