@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 5391664664218721978}
   - component: {fileID: 9112361505861480262}
   m_Layer: 9
-  m_Name: gate_up
+  m_Name: gate_up_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -468,6 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316962a48b5e1134798f7be3d9fe7118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 2
 --- !u!61 &9112361505861480262
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -526,7 +527,7 @@ GameObject:
   - component: {fileID: 6377799265916515622}
   - component: {fileID: 8349547747837064630}
   m_Layer: 9
-  m_Name: gate_down
+  m_Name: gate_down_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -611,6 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316962a48b5e1134798f7be3d9fe7118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 1
 --- !u!61 &8349547747837064630
 BoxCollider2D:
   m_ObjectHideFlags: 0

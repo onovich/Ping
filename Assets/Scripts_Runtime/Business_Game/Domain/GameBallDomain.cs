@@ -16,7 +16,7 @@ namespace Ping.Business.Game {
             ball.TearDown();
         }
 
-        public static void MoveAndApplyHit(GameBusinessContext ctx, BallEntity ball, float fixdt, Action hitGate) {
+        public static void MoveAndApplyHit(GameBusinessContext ctx, BallEntity ball, float fixdt, Action<int> hitGate) {
             BallFSMComponent fsm = ball.FSM_GetComponent();
             var dir = fsm.movingDir;
             if (PredictHit(ctx, ball, ball.Attr_GetRadius(), hitGate)) {
@@ -26,12 +26,12 @@ namespace Ping.Business.Game {
             CheckHit(ctx, ball, 0.02f, hitGate);
         }
 
-        static bool PredictHit(GameBusinessContext ctx, BallEntity ball, float dis, Action hitGate) {
+        static bool PredictHit(GameBusinessContext ctx, BallEntity ball, float dis, Action<int> hitGate) {
             var succ = CheckHit(ctx, ball, dis, hitGate);
             return succ;
         }
 
-        static bool CheckHit(GameBusinessContext ctx, BallEntity ball, float dis, Action hitGate) {
+        static bool CheckHit(GameBusinessContext ctx, BallEntity ball, float dis, Action<int> hitGate) {
             var succ = false;
             int targetLayerMask = 1 << LayerConst.WALL;
             targetLayerMask |= 1 << LayerConst.PADDLE;
@@ -75,7 +75,7 @@ namespace Ping.Business.Game {
             return true;
         }
 
-        static bool TryHitGate(GameBusinessContext ctx, BallEntity ball, RaycastHit2D hit, Action hitGate) {
+        static bool TryHitGate(GameBusinessContext ctx, BallEntity ball, RaycastHit2D hit, Action<int> hitGate) {
             if (hit.collider == null) {
                 return false;
             }
@@ -83,7 +83,7 @@ namespace Ping.Business.Game {
             if (gate == null) {
                 return false;
             }
-            hitGate.Invoke();
+            hitGate.Invoke(gate.playerID);
             return true;
         }
 

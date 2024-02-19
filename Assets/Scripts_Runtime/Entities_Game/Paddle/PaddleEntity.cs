@@ -16,9 +16,6 @@ namespace Ping {
         // FSM
         PaddleFSMComponent fsmCom;
 
-        // Score
-        int score;
-
         // Input
         PaddleInputComponent inputCom;
 

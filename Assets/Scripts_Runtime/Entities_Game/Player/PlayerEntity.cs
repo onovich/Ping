@@ -2,14 +2,26 @@ namespace Ping {
 
     public class PlayerEntity {
 
-        int owenerPlayerID;
+        int playerID;
 
-        public void SetOwnerPlayerID(int id) {
-            owenerPlayerID = id;
+        // Score
+        int score;
+
+        public void SetPlayerID(int id) {
+            playerID = id;
         }
 
-        public int GetOwnerPlayerID() {
-            return owenerPlayerID;
+        public int GetPlayerID() {
+            return playerID;
+        }
+
+        // Score
+        public void Score_Inc() {
+            score++;
+        }
+
+        public int Score_Get() {
+            return score;
         }
 
     }

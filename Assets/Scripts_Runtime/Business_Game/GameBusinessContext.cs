@@ -6,7 +6,8 @@ namespace Ping.Business.Game {
 
         // Entity
         public GameEntity gameEntity;
-        public PlayerEntity playerEntity;
+        public PlayerEntity player1Entity;
+        public PlayerEntity player2Entity;
         public InputEntity inputEntity;
 
         public FieldEntity fieldEntity;
@@ -30,7 +31,6 @@ namespace Ping.Business.Game {
 
         public GameBusinessContext() {
             gameEntity = new GameEntity();
-            playerEntity = new PlayerEntity();
             overlapTemp = new Collider2D[1000];
             raycastTemp = new RaycastHit2D[1000];
         }
@@ -40,6 +40,36 @@ namespace Ping.Business.Game {
             ballEntity = null;
             player1PaddleEntity = null;
             player2PaddleEntity = null;
+        }
+
+        // Player
+        public void Player_Set(int playerID, PlayerEntity playerEntity) {
+            if (playerID == 1) {
+                player1Entity = playerEntity;
+            } else {
+                player2Entity = playerEntity;
+            }
+        }
+
+        public PlayerEntity Player_Get(int playerID) {
+            if (playerID == 1) {
+                return player1Entity;
+            } else {
+                return player2Entity;
+            }
+        }
+
+        public PlayerEntity Player_GetLocalOwner() {
+            var ownerID = gameEntity.GetLocalOwnerPlayerID();
+            return Player_Get(ownerID);
+        }
+
+        public void Player_Clear(int playerID) {
+            if (playerID == 1) {
+                player1Entity = null;
+            } else {
+                player2Entity = null;
+            }
         }
 
         // Ball
@@ -76,8 +106,8 @@ namespace Ping.Business.Game {
             }
         }
 
-        public PaddleEntity Paddle_GetOwner() {
-            var ownerID = playerEntity.GetOwnerPlayerID();
+        public PaddleEntity Paddle_GetLocalOwner() {
+            var ownerID = gameEntity.GetLocalOwnerPlayerID();
             return Paddle_Get(ownerID);
         }
 

@@ -6,6 +6,8 @@ namespace Ping {
 
     public class GateEntity : MonoBehaviour {
 
+        public int playerID;
+
         public void TearDown() {
             Destroy(gameObject);
         }

@@ -5,7 +5,10 @@ namespace Ping {
         public RandomService random;
         GameFSMComponent fsmComponent;
 
+        int localOwnerPlayerID;
+
         int turn;
+        float time;
 
         public GameEntity() {
             fsmComponent = new GameFSMComponent();
@@ -38,6 +41,22 @@ namespace Ping {
 
         public void ResetTurn() {
             turn = 0;
+        }
+
+        public void SetLocalOwnerPlayerID(int id) {
+            localOwnerPlayerID = id;
+        }
+
+        public int GetLocalOwnerPlayerID() {
+            return localOwnerPlayerID;
+        }
+
+        public void SetTime(float t) {
+            time = t;
+        }
+
+        public float GetTime() {
+            return time;
         }
 
     }

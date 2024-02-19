@@ -4,6 +4,13 @@ namespace Ping.Business.Game {
 
     public static class GameFactory {
 
+        // Player
+        public static PlayerEntity Player_Spawn(int id){
+            var player = new PlayerEntity();
+            player.SetPlayerID(id);
+            return player;
+        }
+
         // Field
         public static FieldEntity Field_Spawn(TemplateInfraContext templateInfraContext,
                                               AssetsInfraContext assetsInfraContext) {

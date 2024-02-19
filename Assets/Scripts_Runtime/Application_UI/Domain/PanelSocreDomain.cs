@@ -19,20 +19,17 @@ namespace Ping.UI {
             UIFactory.UniquePanel_Close<Panel_Score>(ctx);
         }
 
-        public static void SetPlayer1Score(UIAppContext ctx, int score) {
+        public static void SetPlayerScore(UIAppContext ctx, int score, int playerID) {
             Panel_Score panel = ctx.UniquePanel_Get<Panel_Score>();
             if (panel == null) {
                 PLog.LogError("Panel_Score not found");
             }
-            panel.SetPlayer1Score(score);
-        }
-
-        public static void SetPlayer2Score(UIAppContext ctx, int score) {
-            Panel_Score panel = ctx.UniquePanel_Get<Panel_Score>();
-            if (panel == null) {
-                PLog.LogError("Panel_Score not found");
+            if (playerID == 1) {
+                panel.SetPlayer1Score(score);
             }
-            panel.SetPlayer2Score(score);
+            if (playerID == 2) {
+                panel.SetPlayer2Score(score);
+            }
         }
 
         public static void SetGameTime(UIAppContext ctx, float time) {

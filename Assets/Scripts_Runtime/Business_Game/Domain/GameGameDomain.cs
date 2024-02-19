@@ -23,8 +23,9 @@ namespace Ping.Business.Game {
             GamePaddleDomain.Spawn(ctx, 2, config.player2PaddleSpawnPos);
 
             // Player
-            var player = ctx.playerEntity;
-            player.SetOwnerPlayerID(1);
+            GamePlayerDomain.Spawn(ctx, 1);
+            GamePlayerDomain.Spawn(ctx, 2);
+            game.SetLocalOwnerPlayerID(1);
 
             // UI
             UIApp.Score_Open(ctx.uiAppContext);
@@ -60,6 +61,14 @@ namespace Ping.Business.Game {
             // UI
             UIApp.Score_Close(ctx.uiAppContext);
 
+        }
+
+        public static void Win(GameBusinessContext ctx, int playerID) {
+            var game = ctx.gameEntity;
+            game.IncTurn();
+            var player = ctx.Player_Get(playerID);
+            player.Score_Inc();
+            UIApp.Score_SetPlayerScore(ctx.uiAppContext, player.Score_Get(), playerID);
         }
 
     }

@@ -51,7 +51,7 @@ namespace Ping.Business.Game {
             var game = ctx.gameEntity;
             var status = game.FSM_GetStatus();
             if (status == GameFSMStatus.Gaming) {
-                GameInputDomain.Owner_BakeInput(ctx, ctx.Paddle_GetOwner());
+                GameInputDomain.Owner_BakeInput(ctx, ctx.Paddle_GetLocalOwner());
             }
 
         }
@@ -85,7 +85,12 @@ namespace Ping.Business.Game {
         }
 
         static void LateTick(GameBusinessContext ctx, float dt) {
+            var game = ctx.gameEntity;
+            var status = game.GetStatus();
+            if (status != GameFSMStatus.Gaming) { return; }
 
+            // Time
+            GameTimeDomain.ApplyGameTime(ctx, dt);
         }
 
         public static void TearDown(GameBusinessContext ctx) {

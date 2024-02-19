@@ -39,12 +39,8 @@ namespace Ping {
             PanelScoreDomain.Close(ctx);
         }
 
-        public static void Score_SetPlayer1Score(UIAppContext ctx, int score) {
-            PanelScoreDomain.SetPlayer1Score(ctx, score);
-        }
-
-        public static void Score_SetPlayer2Score(UIAppContext ctx, int score) {
-            PanelScoreDomain.SetPlayer2Score(ctx, score);
+        public static void Score_SetPlayerScore(UIAppContext ctx, int score, int playerID) {
+            PanelScoreDomain.SetPlayerScore(ctx, score, playerID);
         }
 
         public static void Score_SetGameTime(UIAppContext ctx, float time) {
