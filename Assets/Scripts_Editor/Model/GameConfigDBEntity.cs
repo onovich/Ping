@@ -1,6 +1,6 @@
 using MortiseFrame.LitIO;
 
-namespace Ping.Server {
+namespace Ping.Editor {
 
     public struct GameConfigDBEntity {
 

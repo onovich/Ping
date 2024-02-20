@@ -1,4 +1,4 @@
-namespace Ping.Server {
+namespace Ping.Editor {
 
     public struct Vector2 {
 
