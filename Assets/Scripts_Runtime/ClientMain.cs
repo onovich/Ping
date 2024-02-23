@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ping.Business.Game;
 using Ping.Business.Login;
+using Ping.Requests;
 using UnityEngine;
 
 namespace Ping {
@@ -17,6 +18,7 @@ namespace Ping {
 
         LoginBusinessContext loginBusinessContext;
         GameBusinessContext gameBusinessContext;
+        RequestInfraContext requestInfraContext;
 
         UIAppContext uiAppContext;
 
@@ -41,6 +43,12 @@ namespace Ping {
 
             assetsInfraContext = new AssetsInfraContext();
             templateInfraContext = new TemplateInfraContext();
+            requestInfraContext = new RequestInfraContext();
+
+            // Player
+            var playerEntity = new PlayerEntity();
+            loginBusinessContext.Player_Set(playerEntity);
+            gameBusinessContext.Player_Set(playerEntity);
 
             // Inject
             uiAppContext.canvas = mainCanvas;
@@ -48,6 +56,7 @@ namespace Ping {
             uiAppContext.templateInfraContext = templateInfraContext;
 
             loginBusinessContext.uiAppContext = uiAppContext;
+            loginBusinessContext.reqContext = requestInfraContext;
 
             gameBusinessContext.inputEntity = inputEntity;
             gameBusinessContext.assetsInfraContext = assetsInfraContext;
@@ -55,7 +64,8 @@ namespace Ping {
             gameBusinessContext.uiAppContext = uiAppContext;
             gameBusinessContext.mainCamera = mainCamera;
 
-            Binding();
+            BindingRemoteEvent();
+            BindingLocalEvent();
 
             Action action = async () => {
                 try {
@@ -103,17 +113,36 @@ namespace Ping {
 
         }
 
-        void Binding() {
+        void BindingRemoteEvent() {
+            var requestEvt = requestInfraContext.EventCenter;
+            // Login
+            requestEvt.JoinRoom_OnResHandle += (msg) => {
+                LoginBusiness.OnResLogin(loginBusinessContext, msg);
+            };
+        }
+
+        void BindingLocalEvent() {
             var uiEventCenter = uiAppContext.eventCenter;
             // UI
             // - Login
-            uiEventCenter.Login_OnStartGameClickHandle += () => {
-                LoginBusiness.Exit(loginBusinessContext);
-                GameBusiness.StartGame(gameBusinessContext);
+            uiEventCenter.Login_OnStartGameClickHandle += (userName) => {
+                LoginBusiness.OnUILoginClick(loginBusinessContext, userName);
             };
 
             uiEventCenter.Login_OnExitGameClickHandle += () => {
                 LoginBusiness.ExitLogin(loginBusinessContext);
+            };
+
+            uiEventCenter.Login_OnCancleWaitingClickHandle += () => {
+                LoginBusiness.OnUICancleWaitingClick(loginBusinessContext);
+            };
+
+            // Login
+            var loginEvt = loginBusinessContext.evt;
+            loginEvt.OnLoginHandle += (userName) => {
+                // 监听网络请求
+                LoginBusiness.Exit(loginBusinessContext);
+                GameBusiness.StartGame(gameBusinessContext);
             };
         }
 

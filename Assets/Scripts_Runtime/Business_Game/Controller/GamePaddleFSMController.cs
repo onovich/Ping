@@ -29,7 +29,7 @@ namespace Ping.Business.Game {
             }
 
             // Move
-            var player = ctx.Player_GetLocalOwner();
+            var player = ctx.Player_Get();
             if (paddle.GetPlayerID() == player.GetPlayerID()) {
                 GamePaddleDomain.ApplyMove(ctx, paddle, fixdt);
             }

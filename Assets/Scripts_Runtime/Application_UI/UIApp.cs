@@ -30,6 +30,14 @@ namespace Ping {
             PanelLoginDomain.Close(ctx);
         }
 
+        public static void Login_ShowWaitingPanel(UIAppContext ctx, bool isShow) {
+            PanelLoginDomain.ShowWaitingPanel(ctx, isShow);
+        }
+
+        public static void Login_ShowRoomInfo(UIAppContext ctx, string info) {
+            PanelLoginDomain.ShowRoomInfo(ctx, info);
+        }
+
         // Panel - Score
         public static void Score_Open(UIAppContext ctx) {
             PanelScoreDomain.Open(ctx);

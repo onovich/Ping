@@ -2,10 +2,16 @@ namespace Ping {
 
     public class PlayerEntity {
 
+        // Base Info
         int playerID;
 
         // Score
         int score;
+
+        // Net
+        public string ethernetIP;
+        public string publicIP;
+        public string token;
 
         public void SetPlayerID(int id) {
             playerID = id;

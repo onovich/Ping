@@ -1,3 +1,5 @@
+using Ping.Protocol;
+using Ping.Requests;
 using UnityEngine;
 
 namespace Ping.Business.Login {
@@ -19,8 +21,17 @@ namespace Ping.Business.Login {
             Exit(ctx);
         }
 
-        public static void OnUILoginClick(LoginBusinessContext ctx) {
-            ctx.evt.Login();
+        public static void OnUICancleWaitingClick(LoginBusinessContext ctx) {
+            UIApp.Login_ShowWaitingPanel(ctx.uiAppContext, false);
+            ctx.evt.CancleWaiting();
+        }
+
+        public static void OnUILoginClick(LoginBusinessContext ctx, string userName) {
+            UIApp.Login_ShowWaitingPanel(ctx.uiAppContext, true);
+            RequestInfra.JoinRoom_SendReq(ctx.reqContext, userName);
+        }
+
+        public static void OnResLogin(LoginBusinessContext ctx, JoinRoomResMessage msg) {
         }
 
         public static void TearDown(LoginBusinessContext ctx) {
