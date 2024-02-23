@@ -9,10 +9,6 @@ namespace Ping.Requests {
             RequestJoinRoomDomain.SendJoinRoomReq(ctx, token);
         }
 
-        public static void RoomStartGame_SendReq(RequestInfraContext ctx, string token) {
-            RequestRoomStartGameDomain.SendRoomStartGameReq(ctx, token);
-        }
-
     }
 
 }

@@ -8,33 +8,27 @@ namespace Ping.UI {
 
         [SerializeField] Button startGameBtn;
         [SerializeField] Button exitGameBtn;
-        [SerializeField] Text userNameText;
         [SerializeField] Transform waitingPanel;
-        [SerializeField] Button cancleWaitingBtn;
-        [SerializeField] Button roomStartGameBtn;
+        [SerializeField] Button cancleJoinRoomBtn;
         [SerializeField] Text roomInfoText;
 
-        public Action<string> OnClickStartGameHandle;
+        public Action OnClickStartGameHandle;
         public Action OnClickExitGameHandle;
-        public Action OnClickCancleWaitingHandle;
-        public Action OnClickRoomStartGameHandle;
+        public Action OnClickCancleJoinRoomHandle;
 
         public void Ctor() {
             startGameBtn.onClick.AddListener(() => {
-                OnClickStartGameHandle?.Invoke(userNameText.text);
+                OnClickStartGameHandle?.Invoke();
             });
 
             exitGameBtn.onClick.AddListener(() => {
                 OnClickExitGameHandle?.Invoke();
             });
 
-            cancleWaitingBtn.onClick.AddListener(() => {
-                OnClickCancleWaitingHandle?.Invoke();
+            cancleJoinRoomBtn.onClick.AddListener(() => {
+                OnClickCancleJoinRoomHandle?.Invoke();
             });
 
-            roomStartGameBtn.onClick.AddListener(() => {
-                OnClickRoomStartGameHandle?.Invoke();
-            });
         }
 
         public void ShowWaitingPanel(bool isShow) {
@@ -48,12 +42,10 @@ namespace Ping.UI {
         void OnDestroy() {
             startGameBtn.onClick.RemoveAllListeners();
             exitGameBtn.onClick.RemoveAllListeners();
-            cancleWaitingBtn.onClick.RemoveAllListeners();
-            roomStartGameBtn.onClick.RemoveAllListeners();
+            cancleJoinRoomBtn.onClick.RemoveAllListeners();
             OnClickStartGameHandle = null;
             OnClickExitGameHandle = null;
-            OnClickCancleWaitingHandle = null;
-            OnClickRoomStartGameHandle = null;
+            OnClickCancleJoinRoomHandle = null;
         }
 
     }

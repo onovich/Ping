@@ -26,9 +26,9 @@ namespace Ping.Business.Login {
             ctx.evt.CancleWaiting();
         }
 
-        public static void OnUILoginClick(LoginBusinessContext ctx, string userName) {
+        public static void OnUILoginClick(LoginBusinessContext ctx) {
             UIApp.Login_ShowWaitingPanel(ctx.uiAppContext, true);
-            RequestInfra.JoinRoom_SendReq(ctx.reqContext, userName);
+            LoginLoginDomain.UI_OnClickJoinRoom(ctx);
         }
 
         public static void OnResLogin(LoginBusinessContext ctx, JoinRoomResMessage msg) {

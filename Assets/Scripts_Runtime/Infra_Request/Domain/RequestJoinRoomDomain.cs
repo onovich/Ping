@@ -40,7 +40,7 @@ namespace Ping.Requests {
             offset += 1;
             Buffer.BlockCopy(data, 0, dst, offset, data.Length);
             var client = ctx.TCPClient;
-            client.Send(dst);
+            // client.Send(dst);
 
         }
 

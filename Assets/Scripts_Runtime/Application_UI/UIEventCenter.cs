@@ -5,9 +5,9 @@ namespace Ping.UI {
     public class UIEventCenter {
 
         // Login
-        public Action<string> Login_OnStartGameClickHandle;
-        public void Login_OnStartGameClick(string userName) {
-            Login_OnStartGameClickHandle?.Invoke(userName);
+        public Action Login_OnStartGameClickHandle;
+        public void Login_OnStartGameClick() {
+            Login_OnStartGameClickHandle?.Invoke();
         }
 
         public Action Login_OnExitGameClickHandle;
@@ -15,15 +15,15 @@ namespace Ping.UI {
             Login_OnExitGameClickHandle?.Invoke();
         }
 
-        public Action Login_OnCancleWaitingClickHandle;
-        public void Login_OnCancleWaitingClick() {
-            Login_OnCancleWaitingClickHandle?.Invoke();
+        public Action Login_OnCancleJoinRoomClickHandle;
+        public void Login_OnCancleJoinRoomClick() {
+            Login_OnCancleJoinRoomClickHandle?.Invoke();
         }
 
         public void Clear() {
             Login_OnStartGameClickHandle = null;
             Login_OnExitGameClickHandle = null;
-            Login_OnCancleWaitingClickHandle = null;
+            Login_OnCancleJoinRoomClickHandle = null;
         }
 
 

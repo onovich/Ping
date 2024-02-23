@@ -9,49 +9,35 @@ namespace Ping.Business.Login {
 
     public static class LoginRoomDomain {
 
-        public static void Net_StartConnect(LoginBusinessContext ctx) {
+        public static async Task Net_StartConnect(LoginBusinessContext ctx) {
 
-            Action connAction = null;
-            if (connAction != null) {
-                return;
-            }
-
-            const int DEFAULT_PORT = 5211;
+            const int DEFAULT_PORT = 8080;
             // const string LOCAL_IP = "localhost";
-            const string REMOTE_IP = "localhost";
+            const string REMOTE_IP = "127.0.0.1";
 
             InitToken(ctx);
 
-            connAction = async () => {
+            // - Room
+            await Net_GetAndRecordPublicIP(ctx);
 
-                // - Room
-                await Net_GetAndRecordPublicIP(ctx);
-
-                // 连远程
-                var client = ctx.reqContext.TCPClient;
-                client.Connect(REMOTE_IP, DEFAULT_PORT);
-
-                connAction = null;
-
-            };
-            connAction.Invoke();
+            // 连远程
+            var client = ctx.reqContext.TCPClient;
+            client.Connect(REMOTE_IP, DEFAULT_PORT);
 
         }
 
-        public static void InitToken(LoginBusinessContext ctx) {
+        static void InitToken(LoginBusinessContext ctx) {
 
             const string TOKEN_PATH = "tk.txt";
 
             string dir = FileHelper.GetPersistentDir();
 
-            // Create If Not Exists
             FileHelper.CreateDirIfNotExist(dir);
             string contactPath = Path.Combine(dir, TOKEN_PATH);
             if (!File.Exists(contactPath)) {
                 using (File.CreateText(contactPath)) { }
             }
 
-            // Get Or Gen Token
             byte[] data = FileHelper.ReadFileFromPersistent(TOKEN_PATH);
             string token = Encoding.UTF8.GetString(data);
             if (string.IsNullOrEmpty(token)) {
@@ -71,7 +57,7 @@ namespace Ping.Business.Login {
 
         }
 
-        public static async Task Net_GetAndRecordPublicIP(LoginBusinessContext ctx) {
+        static async Task Net_GetAndRecordPublicIP(LoginBusinessContext ctx) {
             HttpClient httpClient = new HttpClient();
             var res = await httpClient.GetAsync("http://ip.utea.fun/");
             var ip = await res.Content.ReadAsStringAsync();
@@ -80,18 +66,10 @@ namespace Ping.Business.Login {
             playerEntity.ethernetIP = IPHelper.GetLocalIpAddress();
         }
 
-        // - Net Send: Join
-        public static void Net_SendJoinRoom(LoginBusinessContext ctx) {
+        public static void Net_SendJoinRoomReq(LoginBusinessContext ctx) {
             var player = ctx.playerEntity;
             var client = ctx.reqContext.TCPClient;
             RequestInfra.JoinRoom_SendReq(ctx.reqContext, player.token);
-        }
-
-        // - Net Send: Start Game
-        static void Net_SendRoomStart(LoginBusinessContext ctx) {
-            var player = ctx.playerEntity;
-            var client = ctx.reqContext.TCPClient;
-            RequestInfra.RoomStartGame_SendReq(ctx.reqContext, player.token);
         }
 
     }
