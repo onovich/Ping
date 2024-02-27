@@ -1,4 +1,5 @@
 using MortiseFrame.LitIO;
+using Ping.Protocol;
 
 namespace Ping.Editor {
 

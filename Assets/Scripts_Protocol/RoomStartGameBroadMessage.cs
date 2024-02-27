@@ -16,10 +16,6 @@ namespace Ping.Protocol {
             idArray = ByteReader.ReadArray<int>(src, ref offset);
         }
 
-        public byte GetID() {
-            return 3;
-        }
-
         public int GetEvaluatedSize(out bool isCertain) {
             int count = 4;
             isCertain = false;

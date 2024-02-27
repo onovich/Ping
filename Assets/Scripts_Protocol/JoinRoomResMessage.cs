@@ -7,6 +7,7 @@ namespace Ping.Protocol {
 
         public sbyte status; // 1 为成功, -1 为失败
         public string userToken;
+
         public void WriteTo(byte[] dst, ref int offset) {
             ByteWritter.Write<sbyte>(dst, status, ref offset);
             ByteWritter.WriteString(dst, userToken, ref offset);
@@ -17,18 +18,12 @@ namespace Ping.Protocol {
             userToken = ByteReader.ReadString(src, ref offset);
         }
 
-        public byte GetID() {
-            return 2;
-        }
-
         public int GetEvaluatedSize(out bool isCertain) {
-            int count = 3;
+            int count = 5;
             isCertain = false;
-
             if (userToken != null) {
                 count += userToken.Length * 4;
             }
-
             return count;
         }
 

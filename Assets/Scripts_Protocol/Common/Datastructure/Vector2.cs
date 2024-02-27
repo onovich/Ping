@@ -1,4 +1,4 @@
-namespace Ping.Editor {
+namespace Ping.Protocol {
 
     public struct Vector2 {
 

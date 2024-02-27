@@ -3,24 +3,17 @@ using MortiseFrame.LitIO;
 
 namespace Ping.Protocol {
 
-    public struct JoinRoomReqMessage : IMessage<JoinRoomReqMessage> {
-
-        public string userToken;
+    public struct GameStartBroadMessage : IMessage<GameStartBroadMessage> {
 
         public void WriteTo(byte[] dst, ref int offset) {
-            ByteWritter.WriteString(dst, userToken, ref offset);
         }
 
         public void FromBytes(byte[] src, ref int offset) {
-            userToken = ByteReader.ReadString(src, ref offset);
         }
 
         public int GetEvaluatedSize(out bool isCertain) {
-            int count = 4;
-            isCertain = false;
-            if (userToken != null) {
-                count += userToken.Length * 4;
-            }
+            int count = 0;
+            isCertain = true;
             return count;
         }
 
@@ -37,5 +30,7 @@ namespace Ping.Protocol {
                 return dst;
             }
         }
+
     }
+
 }

@@ -4,10 +4,15 @@ using Ping.Protocol;
 
 namespace Ping.Requests {
 
-    public static class RequestRoomStartGameDomain {
+    public static class RequestStartGameDomain {
 
         // On
-        public static void OnRoomStartGameBroadRes(RequestInfraContext ctx, byte[] data) {
+        public static void OnStartGameBroadRes(RequestInfraContext ctx, byte[] data) {
+
+            var msgID = data[0];
+            if (msgID != ProtocolIDConst.BROADID_STARTGAME) {
+                return;
+            }
 
             var msg = new RoomStartGameBroadMessage();
             int offset = 0;
@@ -17,7 +22,6 @@ namespace Ping.Requests {
             }
 
             msg.FromBytes(data, ref offset);
-
             var evt = ctx.EventCenter;
             evt.RoomStartGame_OnBroad(msg);
 

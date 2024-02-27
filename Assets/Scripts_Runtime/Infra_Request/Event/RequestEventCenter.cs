@@ -5,6 +5,12 @@ namespace Ping.Requests {
 
     public class RequestEventCenter {
 
+        // Connect To Server Res
+        public Action<ConnectResMessage> ConnectRes_OnResHandle;
+        public void ConnectRes_OnRes(ConnectResMessage msg) {
+            ConnectRes_OnResHandle?.Invoke(msg);
+        }
+
         // Join Room Res
         public Action<JoinRoomResMessage> JoinRoom_OnResHandle;
         public void JoinRoom_OnRes(JoinRoomResMessage msg) {
@@ -18,6 +24,7 @@ namespace Ping.Requests {
         }
 
         public void Clear() {
+            ConnectRes_OnResHandle = null;
             JoinRoom_OnResHandle = null;
             RoomStartGame_OnBroadHandle = null;
         }

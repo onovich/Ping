@@ -3,24 +3,21 @@ using MortiseFrame.LitIO;
 
 namespace Ping.Protocol {
 
-    public struct JoinRoomReqMessage : IMessage<JoinRoomReqMessage> {
+    public struct PaddleMoveReqMessage : IMessage<PaddleMoveReqMessage> {
 
-        public string userToken;
+        public Vector2 moveAxis;
 
         public void WriteTo(byte[] dst, ref int offset) {
-            ByteWritter.WriteString(dst, userToken, ref offset);
+            ByteWritter.Write<Vector2>(dst, moveAxis, ref offset);
         }
 
         public void FromBytes(byte[] src, ref int offset) {
-            userToken = ByteReader.ReadString(src, ref offset);
+            moveAxis = ByteReader.Read<Vector2>(src, ref offset);
         }
 
         public int GetEvaluatedSize(out bool isCertain) {
-            int count = 4;
-            isCertain = false;
-            if (userToken != null) {
-                count += userToken.Length * 4;
-            }
+            int count = 8;
+            isCertain = true;
             return count;
         }
 
@@ -37,5 +34,7 @@ namespace Ping.Protocol {
                 return dst;
             }
         }
+
     }
+
 }

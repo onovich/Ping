@@ -69,7 +69,7 @@ namespace Ping.Business.Login {
         public static void Net_SendJoinRoomReq(LoginBusinessContext ctx) {
             var player = ctx.playerEntity;
             var client = ctx.reqContext.TCPClient;
-            RequestInfra.JoinRoom_SendReq(ctx.reqContext, player.token);
+            RequestInfra.Send_JoinRoomReq(ctx.reqContext, player.token);
         }
 
     }
