@@ -21,8 +21,9 @@ namespace Ping.Business.Game {
         public static void Tick(GameBusinessContext ctx, float dt) {
 
             ResetInput(ctx);
-            ProcessInput(ctx, dt);
-            PreTick(ctx, dt);
+            LocalInput(ctx, dt);
+            OnNetEvent(ctx, dt);
+            LogicTick(ctx, dt);
 
             restTime += dt;
             const float intervalTime = 0.01f;
@@ -36,7 +37,7 @@ namespace Ping.Business.Game {
                 }
             }
 
-            LateTick(ctx, dt);
+            RenderTick(ctx, dt);
 
         }
 
@@ -45,7 +46,7 @@ namespace Ping.Business.Game {
             inputEntity.Reset();
         }
 
-        static void ProcessInput(GameBusinessContext ctx, float dt) {
+        static void LocalInput(GameBusinessContext ctx, float dt) {
             GameInputDomain.Player_BakeInput(ctx, dt);
 
             var game = ctx.gameEntity;
@@ -53,10 +54,16 @@ namespace Ping.Business.Game {
             if (status == GameFSMStatus.Gaming) {
                 GameInputDomain.Owner_BakeInput(ctx, ctx.Paddle_GetLocalOwner());
             }
+        }
+
+        static void OnNetEvent(GameBusinessContext ctx, float dt) {
+            // Receive
+
+            // On
 
         }
 
-        static void PreTick(GameBusinessContext ctx, float dt) {
+        static void LogicTick(GameBusinessContext ctx, float dt) {
 
         }
 
@@ -84,13 +91,14 @@ namespace Ping.Business.Game {
 
         }
 
-        static void LateTick(GameBusinessContext ctx, float dt) {
+        static void RenderTick(GameBusinessContext ctx, float dt) {
             var game = ctx.gameEntity;
             var status = game.GetStatus();
             if (status != GameFSMStatus.Gaming) { return; }
 
             // Time
             GameTimeDomain.ApplyGameTime(ctx, dt);
+
         }
 
         public static void TearDown(GameBusinessContext ctx) {

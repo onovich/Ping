@@ -11,7 +11,7 @@ namespace Ping.UI {
             Panel_Login panel = UIFactory.UniquePanel_Open<Panel_Login>(ctx);
             panel.Ctor();
 
-            panel.OnClickStartGameHandle += () => {
+            panel.OnClickNewGameHandle += () => {
                 ctx.eventCenter.Login_OnStartGameClick();
             };
 
@@ -25,15 +25,39 @@ namespace Ping.UI {
 
         }
 
-        public static void ShowWaitingPanel(UIAppContext ctx, bool isShow) {
+        public static void ShowWaitingPanel(UIAppContext ctx) {
             var panel = ctx.UniquePanel_Get<Panel_Login>();
             if (panel == null) {
                 return;
             }
-            panel.ShowWaitingPanel(isShow);
+            panel.ShowWaitingPanel();
         }
 
-        public static void ShowRoomInfo(UIAppContext ctx, string info) {
+        public static void HideWaitingPanel(UIAppContext ctx) {
+            var panel = ctx.UniquePanel_Get<Panel_Login>();
+            if (panel == null) {
+                return;
+            }
+            panel.HideWaitingPanel();
+        }
+
+        public static void ShowStartGameBtn(UIAppContext ctx) {
+            var panel = ctx.UniquePanel_Get<Panel_Login>();
+            if (panel == null) {
+                return;
+            }
+            panel.ShowStartGameBtn();
+        }
+
+        public static void HideStartGameBtn(UIAppContext ctx) {
+            var panel = ctx.UniquePanel_Get<Panel_Login>();
+            if (panel == null) {
+                return;
+            }
+            panel.HideStartGameBtn();
+        }
+
+        public static void SetRoomInfo(UIAppContext ctx, string info) {
             var panel = ctx.UniquePanel_Get<Panel_Login>();
             if (panel == null) {
                 return;

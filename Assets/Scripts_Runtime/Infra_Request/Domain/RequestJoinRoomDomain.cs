@@ -24,7 +24,7 @@ namespace Ping.Requests {
 
             msg.FromBytes(data, ref offset);
             var evt = ctx.EventCenter;
-            evt.JoinRoom_OnRes(msg);
+            evt.JoinRoom_On(msg);
 
         }
 
@@ -45,7 +45,7 @@ namespace Ping.Requests {
             dst[offset] = msgID;
             offset += 1;
             Buffer.BlockCopy(data, 0, dst, offset, data.Length);
-            var client = ctx.TCPClient;
+            var client = ctx.Client;
             client.Send(dst);
 
         }

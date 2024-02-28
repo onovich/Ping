@@ -5,8 +5,8 @@ namespace Ping.Requests {
 
     public class RequestInfraContext {
 
-        Socket tcpClient;
-        public Socket TCPClient => tcpClient;
+        Socket client;
+        public Socket Client => client;
 
         RequestEventCenter eventCenter;
         public RequestEventCenter EventCenter => eventCenter;
@@ -16,7 +16,7 @@ namespace Ping.Requests {
         }
 
         public void Client_Set(Socket socket) {
-            this.tcpClient = socket;
+            this.client = socket;
         }
 
     }

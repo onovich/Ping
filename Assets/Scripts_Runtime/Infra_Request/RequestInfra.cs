@@ -5,8 +5,8 @@ namespace Ping.Requests {
 
     public static class RequestInfra {
 
-        public static void Tick(RequestInfraContext ctx, float dt) {
-            var client = ctx.TCPClient;
+        public static void Tick_Login(RequestInfraContext ctx, float dt) {
+            var client = ctx.Client;
             if (client == null) {
                 return;
             }
@@ -25,9 +25,13 @@ namespace Ping.Requests {
 
         }
 
+        public static void Tick_Game(RequestInfraContext ctx, float dt) {
+            return;
+        }
+
         // Connect
-        public static void Connect_ToServer(RequestInfraContext ctx) {
-            RequestConnectDomain.ConnectToServer(ctx);
+        public static async Task Connect_ToServer(RequestInfraContext ctx) {
+            await RequestConnectDomain.ConnectToServerAsync(ctx);
         }
 
         // Send Req

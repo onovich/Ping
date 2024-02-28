@@ -11,6 +11,11 @@ namespace Ping.Business.Login {
         }
 
         public static void Tick(LoginBusinessContext ctx, float dt) {
+            OnNetEvent(ctx);
+        }
+
+        static void OnNetEvent(LoginBusinessContext ctx) {
+            RequestInfra.Tick_Login(ctx.reqContext, Time.deltaTime);
         }
 
         public static void Exit(LoginBusinessContext ctx) {
@@ -21,17 +26,29 @@ namespace Ping.Business.Login {
             Exit(ctx);
         }
 
+        // On UI Event
         public static void OnUICancleWaitingClick(LoginBusinessContext ctx) {
-            UIApp.Login_ShowWaitingPanel(ctx.uiAppContext, false);
+            UIApp.Login_HideWaitingPanel(ctx.uiAppContext);
             ctx.evt.CancleWaiting();
         }
 
-        public static void OnUILoginClick(LoginBusinessContext ctx) {
-            UIApp.Login_ShowWaitingPanel(ctx.uiAppContext, true);
-            LoginLoginDomain.UI_OnClickJoinRoom(ctx);
+        public static async void OnUILoginClick(LoginBusinessContext ctx) {
+            UIApp.Login_ShowWaitingPanel(ctx.uiAppContext);
+            UIApp.Login_SetRoomInfo(ctx.uiAppContext, "Connecting To Server...");
+            await RequestInfra.Connect_ToServer(ctx.reqContext);
         }
 
-        public static void OnResLogin(LoginBusinessContext ctx, JoinRoomResMessage msg) {
+        // On Net Res
+        public static void OnNetResConnect(LoginBusinessContext ctx, ConnectResMessage msg) {
+            UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Server Connect Status: {msg.status} ");
+        }
+
+        public static void OnNetResConnectError(LoginBusinessContext ctx, string msg) {
+            UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Server Connect Error: {msg} ");
+        }
+
+        public static void OnNetResLogin(LoginBusinessContext ctx, JoinRoomResMessage msg) {
+            UIApp.Login_Close(ctx.uiAppContext);
         }
 
         public static void TearDown(LoginBusinessContext ctx) {

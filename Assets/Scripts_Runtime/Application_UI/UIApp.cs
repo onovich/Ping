@@ -30,12 +30,24 @@ namespace Ping {
             PanelLoginDomain.Close(ctx);
         }
 
-        public static void Login_ShowWaitingPanel(UIAppContext ctx, bool isShow) {
-            PanelLoginDomain.ShowWaitingPanel(ctx, isShow);
+        public static void Login_ShowWaitingPanel(UIAppContext ctx) {
+            PanelLoginDomain.ShowWaitingPanel(ctx);
         }
 
-        public static void Login_ShowRoomInfo(UIAppContext ctx, string info) {
-            PanelLoginDomain.ShowRoomInfo(ctx, info);
+        public static void Login_HideWaitingPanel(UIAppContext ctx) {
+            PanelLoginDomain.HideWaitingPanel(ctx);
+        }
+
+        public static void Login_ShowStartGameBtn(UIAppContext ctx) {
+            PanelLoginDomain.ShowStartGameBtn(ctx);
+        }
+
+        public static void Login_HideStartGameBtn(UIAppContext ctx) {
+            PanelLoginDomain.HideStartGameBtn(ctx);
+        }
+
+        public static void Login_SetRoomInfo(UIAppContext ctx, string info) {
+            PanelLoginDomain.SetRoomInfo(ctx, info);
         }
 
         // Panel - Score

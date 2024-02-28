@@ -116,8 +116,16 @@ namespace Ping {
         void BindingRemoteEvent() {
             var requestEvt = requestInfraContext.EventCenter;
             // Login
-            requestEvt.JoinRoom_OnResHandle += (msg) => {
-                LoginBusiness.OnResLogin(loginBusinessContext, msg);
+            requestEvt.ConnectRes_OnHandle += (msg) => {
+                LoginBusiness.OnNetResConnect(loginBusinessContext, msg);
+            };
+
+            requestEvt.ConnectRes_OnErrorHandle += (msg) => {
+                LoginBusiness.OnNetResConnectError(loginBusinessContext, msg);
+            };
+
+            requestEvt.JoinRoom_OnHandle += (msg) => {
+                LoginBusiness.OnNetResLogin(loginBusinessContext, msg);
             };
         }
 
