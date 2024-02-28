@@ -12,6 +12,11 @@ namespace Ping.Requests {
         // On
         public static void OnConnectRes(RequestInfraContext ctx, byte[] data) {
 
+            var msgID = data[0];
+            if (msgID != ProtocolIDConst.RESID_CONNECT) {
+                return;
+            }
+
             int offset = 0;
             ConnectResMessage msg = new ConnectResMessage();
 

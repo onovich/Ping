@@ -11,11 +11,11 @@ namespace Ping.Business.Login {
         }
 
         public static void Tick(LoginBusinessContext ctx, float dt) {
-            OnNetEvent(ctx);
+            OnNetEvent(ctx, dt);
         }
 
-        static void OnNetEvent(LoginBusinessContext ctx) {
-            RequestInfra.Tick_Login(ctx.reqContext, Time.deltaTime);
+        static void OnNetEvent(LoginBusinessContext ctx, float dt) {
+            RequestInfra.Tick_Login(ctx.reqContext, dt);
         }
 
         public static void Exit(LoginBusinessContext ctx) {
