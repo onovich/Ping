@@ -1,26 +1,19 @@
-using MortiseFrame.LitIO;
-using MortiseFrame.Abacus;
 using System;
+using MortiseFrame.LitIO;
 
 namespace Ping.Protocol {
 
-    public struct PaddleMoveReqMessage : IMessage<PaddleMoveReqMessage> {
+    public struct LeaveRoomBroadMessage : IMessage<LeaveRoomBroadMessage> {
 
-        public int paddleId;
-        public Vector2 moveAxis;
 
         public void WriteTo(byte[] dst, ref int offset) {
-            ByteWritter.Write<int>(dst, paddleId, ref offset);
-            ByteWritter.Write<Vector2>(dst, moveAxis, ref offset);
         }
 
         public void FromBytes(byte[] src, ref int offset) {
-            paddleId = ByteReader.Read<int>(src, ref offset);
-            moveAxis = ByteReader.Read<Vector2>(src, ref offset);
         }
 
         public int GetEvaluatedSize(out bool isCertain) {
-            int count = 12;
+            int count = 0;
             isCertain = true;
             return count;
         }

@@ -9,8 +9,8 @@ namespace Ping {
 
             {
                 var handle = Addressables.LoadAssetAsync<GameConfig>("TM_Config");
-                var cotmfig = await handle.Task;
-                ctx.Config_Set(cotmfig);
+                var config = await handle.Task;
+                ctx.Config_Set(config);
                 ctx.configHandle = handle;
             }
 

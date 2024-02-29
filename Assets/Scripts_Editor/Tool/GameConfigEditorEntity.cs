@@ -23,17 +23,17 @@ namespace Ping.Modifier {
         public void SaveDB() {
 
             var dbEntity = new GameConfigDBEntity();
-            dbEntity.fieldBoundMax = new Protocol.Vector2(clientTM.fieldBoundMax.x, clientTM.fieldBoundMax.y);
-            dbEntity.fieldBoundMin = new Protocol.Vector2(clientTM.fieldBoundMin.x, clientTM.fieldBoundMin.y);
-            dbEntity.player1PaddleSpawnPos = new Protocol.Vector2(clientTM.player1PaddleSpawnPos.x, clientTM.player1PaddleSpawnPos.y);
-            dbEntity.player2PaddleSpawnPos = new Protocol.Vector2(clientTM.player2PaddleSpawnPos.x, clientTM.player2PaddleSpawnPos.y);
+            dbEntity.fieldBoundMax = new MortiseFrame.Abacus.Vector2(clientTM.fieldBoundMax.x, clientTM.fieldBoundMax.y);
+            dbEntity.fieldBoundMin = new MortiseFrame.Abacus.Vector2(clientTM.fieldBoundMin.x, clientTM.fieldBoundMin.y);
+            dbEntity.player1PaddleSpawnPos = new MortiseFrame.Abacus.Vector2(clientTM.player1PaddleSpawnPos.x, clientTM.player1PaddleSpawnPos.y);
+            dbEntity.player2PaddleSpawnPos = new MortiseFrame.Abacus.Vector2(clientTM.player2PaddleSpawnPos.x, clientTM.player2PaddleSpawnPos.y);
             dbEntity.ballMoveSpeed = clientTM.ballMoveSpeed;
             dbEntity.ballMoveSpeedMax = clientTM.ballMoveSpeedMax;
             dbEntity.ballRadius = clientTM.ballRadius;
             dbEntity.ballSpawnAngleRange = clientTM.ballSpawnAngleRange;
             dbEntity.paddleMoveSpeed = clientTM.paddleMoveSpeed;
             dbEntity.paddleMoveSpeedMax = clientTM.paddleMoveSpeedMax;
-            dbEntity.paddleSize = new Protocol.Vector2(clientTM.paddleSize.x, clientTM.paddleSize.y);
+            dbEntity.paddleSize = new MortiseFrame.Abacus.Vector2(clientTM.paddleSize.x, clientTM.paddleSize.y);
 
             int offset = 0;
             dbEntity.WriteTo(buffer, ref offset);

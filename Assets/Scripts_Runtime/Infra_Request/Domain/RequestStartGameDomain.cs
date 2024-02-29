@@ -14,7 +14,7 @@ namespace Ping.Requests {
                 return;
             }
 
-            var msg = new RoomStartGameBroadMessage();
+            var msg = new StartGameBroadMessage();
             int offset = 0;
             ushort count = ByteReader.Read<ushort>(data, ref offset);
             if (count <= 0) {
