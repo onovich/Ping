@@ -28,14 +28,9 @@ namespace Ping.Protocol {
         }
 
         public int GetEvaluatedSize(out bool isCertain) {
-            int count = 8;
             isCertain = false;
-            if (paddleIds != null) {
-                count += paddleIds.Length * 4;
-            }
-            if (paddlePos != null) {
-                count += paddlePos.Length * 8;
-            }
+            int count = ByteCounter.CountArray<int>(paddleIds)
+            + ByteCounter.CountArray<Vector2>(paddlePos);
             return count;
         }
 

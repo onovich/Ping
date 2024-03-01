@@ -22,11 +22,10 @@ namespace Ping.Protocol {
         }
 
         public int GetEvaluatedSize(out bool isCertain) {
-            int count = 12;
             isCertain = false;
-            if (scores != null) {
-                count += scores.Length * 4;
-            }
+            int count = ByteCounter.Count<int>()
+            + ByteCounter.Count<int>()
+            + ByteCounter.CountArray<int>(scores);
             return count;
         }
 

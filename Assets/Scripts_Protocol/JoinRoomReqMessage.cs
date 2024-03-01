@@ -16,11 +16,8 @@ namespace Ping.Protocol {
         }
 
         public int GetEvaluatedSize(out bool isCertain) {
-            int count = 4;
             isCertain = false;
-            if (userName != null) {
-                count += userName.Length * 4;
-            }
+            int count = ByteCounter.CountUTF8String(userName);
             return count;
         }
 

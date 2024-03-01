@@ -20,8 +20,9 @@ namespace Ping.Protocol {
         }
 
         public int GetEvaluatedSize(out bool isCertain) {
-            int count = 12;
             isCertain = true;
+            int count = ByteCounter.Count<int>()
+            + ByteCounter.Count<Vector2>();
             return count;
         }
 
