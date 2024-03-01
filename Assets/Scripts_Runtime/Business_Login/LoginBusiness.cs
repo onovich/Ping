@@ -48,7 +48,10 @@ namespace Ping.Business.Login {
         }
 
         public static void OnNetResJoinRoom(LoginBusinessContext ctx, JoinRoomBroadMessage msg) {
-            UIApp.Login_Close(ctx.uiAppContext);
+            var userNames = msg.userNames;
+            var ownerIndex = msg.ownerIndex;
+            var status = msg.status;
+            UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Join Status: {status}; OwnerID: {ownerIndex}; Player1 Name: {userNames[0]}; Player2 Name: {userNames[1]}");
         }
 
         public static void TearDown(LoginBusinessContext ctx) {
