@@ -6,7 +6,7 @@ namespace Ping {
     public class PaddleEntity : MonoBehaviour {
 
         // Base Info
-        int playerID;
+        int playerIndex;
 
         // Attr
         float moveSpeed;
@@ -28,12 +28,12 @@ namespace Ping {
         }
 
         // Base Info
-        public void SetPlayerID(int id) {
-            playerID = id;
+        public void SetPlayerIndex(int id) {
+            playerIndex = id;
         }
 
-        public int GetPlayerID() {
-            return playerID;
+        public int GetPlayerIndex() {
+            return playerIndex;
         }
 
         // Pos

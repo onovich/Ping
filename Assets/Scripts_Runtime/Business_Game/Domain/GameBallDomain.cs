@@ -83,7 +83,7 @@ namespace Ping.Business.Game {
             if (gate == null) {
                 return false;
             }
-            hitGate.Invoke(gate.playerID);
+            hitGate.Invoke(gate.playerIndex);
             return true;
         }
 

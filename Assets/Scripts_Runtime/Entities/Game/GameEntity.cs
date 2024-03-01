@@ -5,7 +5,7 @@ namespace Ping {
         public RandomService random;
         GameFSMComponent fsmComponent;
 
-        int localOwnerPlayerID;
+        int localOwnerPlayerIndex;
 
         int turn;
         float time;
@@ -43,12 +43,12 @@ namespace Ping {
             turn = 0;
         }
 
-        public void SetLocalOwnerPlayerID(int id) {
-            localOwnerPlayerID = id;
+        public void SetLocalOwnerPlayerIndex(int id) {
+            localOwnerPlayerIndex = id;
         }
 
-        public int GetLocalOwnerPlayerID() {
-            return localOwnerPlayerID;
+        public int GetLocalOwnerPlayerIndex() {
+            return localOwnerPlayerIndex;
         }
 
         public void SetTime(float t) {

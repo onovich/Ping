@@ -58,12 +58,12 @@ namespace Ping.Business.Game {
 
         }
 
-        public static void Win(GameBusinessContext ctx, int playerID) {
+        public static void Win(GameBusinessContext ctx, int playerIndex) {
             var game = ctx.gameEntity;
             game.IncTurn();
             var player = ctx.Player_Get();
             player.Score_Inc();
-            UIApp.Score_SetPlayerScore(ctx.uiAppContext, player.Score_Get(), playerID);
+            UIApp.Score_SetPlayerScore(ctx.uiAppContext, player.Score_Get(), playerIndex);
         }
 
     }

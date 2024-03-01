@@ -30,7 +30,7 @@ namespace Ping.Business.Game {
 
             // Move
             var player = ctx.Player_Get();
-            if (paddle.GetPlayerID() == player.GetPlayerID()) {
+            if (paddle.GetPlayerIndex() == player.GetPlayerIndex()) {
                 GamePaddleDomain.ApplyMove(ctx, paddle, fixdt);
             }
 

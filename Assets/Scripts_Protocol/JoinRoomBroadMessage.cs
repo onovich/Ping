@@ -6,20 +6,20 @@ namespace Ping.Protocol {
     public struct JoinRoomBroadMessage : IMessage<JoinRoomBroadMessage> {
 
         public sbyte status; // 1 为成功, -1 为失败
-        public byte[] playerIDs;
+        public byte[] playerIndexs;
         public string[] userNames;
         public byte ownerID;
 
         public void WriteTo(byte[] dst, ref int offset) {
             ByteWriter.Write<sbyte>(dst, status, ref offset);
-            ByteWriter.WriteArray<byte>(dst, playerIDs, ref offset);
+            ByteWriter.WriteArray<byte>(dst, playerIndexs, ref offset);
             ByteWriter.WriteUTF8StringArray(dst, userNames, ref offset);
             ByteWriter.Write<byte>(dst, ownerID, ref offset);
         }
 
         public void FromBytes(byte[] src, ref int offset) {
             status = ByteReader.Read<sbyte>(src, ref offset);
-            playerIDs = ByteReader.ReadArray<byte>(src, ref offset);
+            playerIndexs = ByteReader.ReadArray<byte>(src, ref offset);
             userNames = ByteReader.ReadUTF8StringArray(src, ref offset);
             ownerID = ByteReader.Read<byte>(src, ref offset);
         }
@@ -27,7 +27,7 @@ namespace Ping.Protocol {
         public int GetEvaluatedSize(out bool isCertain) {
             isCertain = false;
             int count = ByteCounter.Count<sbyte>()
-            + ByteCounter.CountArray<byte>(playerIDs)
+            + ByteCounter.CountArray<byte>(playerIndexs)
             + ByteCounter.CountUTF8StringArray(userNames)
             + ByteCounter.Count<byte>();
             return count;

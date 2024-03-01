@@ -60,7 +60,7 @@ namespace Ping.Business.Game {
             paddle.Ctor();
 
             // Base Info
-            paddle.SetPlayerID(id);
+            paddle.SetPlayerIndex(id);
 
             // Set Attr
             paddle.Attr_SetMoveSpeed(config.paddleMoveSpeed);
