@@ -32,7 +32,8 @@ namespace Ping.Business.Login {
             ctx.evt.CancleWaiting();
         }
 
-        public static async void OnUILoginClick(LoginBusinessContext ctx) {
+        public static async void OnUILoginClick(LoginBusinessContext ctx, string userName) {
+            ctx.ownerName = userName;
             UIApp.Login_ShowWaitingPanel(ctx.uiAppContext);
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, "Connecting To Server...");
             await RequestInfra.Connect_ToServer(ctx.reqContext);
@@ -41,6 +42,8 @@ namespace Ping.Business.Login {
         // On Net Res
         public static void OnNetResConnect(LoginBusinessContext ctx, ConnectResMessage msg) {
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Server Connect Status: {msg.status} ");
+            RequestInfra.Send_JoinRoomReq(ctx.reqContext, ctx.ownerName);
+            PLog.Log("Send Join Room Req, Player Index = " + msg.playerIndex);
         }
 
         public static void OnNetResConnectError(LoginBusinessContext ctx, string msg) {
@@ -52,6 +55,11 @@ namespace Ping.Business.Login {
             var ownerIndex = msg.ownerIndex;
             var status = msg.status;
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Join Status: {status}; OwnerID: {ownerIndex}; Player1 Name: {userNames[0]}; Player2 Name: {userNames[1]}");
+        }
+
+        public static void OnNetResGameStart(LoginBusinessContext ctx, GameStartBroadMessage msg) {
+            UIApp.Login_Close(ctx.uiAppContext);
+            PLog.Log("Game Start");
         }
 
         public static void TearDown(LoginBusinessContext ctx) {

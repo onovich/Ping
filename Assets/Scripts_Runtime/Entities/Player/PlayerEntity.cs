@@ -9,16 +9,26 @@ namespace Ping {
         int score;
 
         // Net
-        public string ethernetIP;
-        public string publicIP;
-        public string token;
+        string userName;
 
-        public void SetPlayerIndex(int id) {
-            playerIndex = id;
+        public PlayerEntity(int index) {
+            playerIndex = index;
+            score = 0;
+            userName = "";
         }
 
+        // Player Index
         public int GetPlayerIndex() {
             return playerIndex;
+        }
+
+        // User Name
+        public void SetUserName(string name) {
+            userName = name;
+        }
+
+        public string GetUserName() {
+            return userName;
         }
 
         // Score

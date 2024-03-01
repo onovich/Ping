@@ -12,6 +12,7 @@ namespace Ping {
     public class ClientMain : MonoBehaviour {
 
         InputEntity inputEntity;
+        MainContext mainContext;
 
         AssetsInfraContext assetsInfraContext;
         TemplateInfraContext templateInfraContext;
@@ -35,6 +36,7 @@ namespace Ping {
             Camera mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
 
             inputEntity = new InputEntity();
+            mainContext = new MainContext();
 
             loginBusinessContext = new LoginBusinessContext();
             gameBusinessContext = new GameBusinessContext();
@@ -45,11 +47,6 @@ namespace Ping {
             templateInfraContext = new TemplateInfraContext();
             requestInfraContext = new RequestInfraContext();
 
-            // Player
-            var playerEntity = new PlayerEntity();
-            loginBusinessContext.Player_Set(playerEntity);
-            gameBusinessContext.Player_Set(playerEntity);
-
             // Inject
             uiAppContext.canvas = mainCanvas;
             uiAppContext.hudFakeCanvas = hudFakeCanvas;
@@ -57,12 +54,14 @@ namespace Ping {
 
             loginBusinessContext.uiAppContext = uiAppContext;
             loginBusinessContext.reqContext = requestInfraContext;
+            loginBusinessContext.mainContext = mainContext;
 
             gameBusinessContext.inputEntity = inputEntity;
             gameBusinessContext.assetsInfraContext = assetsInfraContext;
             gameBusinessContext.templateInfraContext = templateInfraContext;
             gameBusinessContext.uiAppContext = uiAppContext;
             gameBusinessContext.mainCamera = mainCamera;
+            gameBusinessContext.mainContext = mainContext;
 
             BindingRemoteEvent();
             BindingLocalEvent();
@@ -127,14 +126,18 @@ namespace Ping {
             requestEvt.JoinRoom_OnHandle += (msg) => {
                 LoginBusiness.OnNetResJoinRoom(loginBusinessContext, msg);
             };
+
+            requestEvt.GameStart_OnBroadHandle += (msg) => {
+                LoginBusiness.OnNetResGameStart(loginBusinessContext, msg);
+            };
         }
 
         void BindingLocalEvent() {
             var uiEventCenter = uiAppContext.eventCenter;
             // UI
             // - Login
-            uiEventCenter.Login_OnStartGameClickHandle += () => {
-                LoginBusiness.OnUILoginClick(loginBusinessContext);
+            uiEventCenter.Login_OnStartGameClickHandle += (userName) => {
+                LoginBusiness.OnUILoginClick(loginBusinessContext, userName);
             };
 
             uiEventCenter.Login_OnExitGameClickHandle += () => {

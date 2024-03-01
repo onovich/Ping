@@ -61,7 +61,7 @@ namespace Ping.Business.Game {
         public static void Win(GameBusinessContext ctx, int playerIndex) {
             var game = ctx.gameEntity;
             game.IncTurn();
-            var player = ctx.Player_Get();
+            var player = ctx.Player_GetOwner();
             player.Score_Inc();
             UIApp.Score_SetPlayerScore(ctx.uiAppContext, player.Score_Get(), playerIndex);
         }

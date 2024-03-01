@@ -11,8 +11,8 @@ namespace Ping.UI {
             Panel_Login panel = UIFactory.UniquePanel_Open<Panel_Login>(ctx);
             panel.Ctor();
 
-            panel.OnClickNewGameHandle += () => {
-                ctx.eventCenter.Login_OnStartGameClick();
+            panel.OnClickNewGameHandle += (userName) => {
+                ctx.eventCenter.Login_OnStartGameClick(userName);
             };
 
             panel.OnClickExitGameHandle += () => {

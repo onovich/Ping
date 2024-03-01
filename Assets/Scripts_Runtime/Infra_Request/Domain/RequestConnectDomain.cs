@@ -11,19 +11,14 @@ namespace Ping.Requests {
 
         // On
         public static void OnConnectRes(RequestInfraContext ctx, byte[] data) {
-
-            var msgID = data[0];
-            if (msgID != ProtocolIDConst.RESID_CONNECT) {
-                return;
-            }
-
             int offset = 0;
-            ConnectResMessage msg = new ConnectResMessage();
-
-            ushort count = ByteReader.Read<ushort>(data, ref offset);
-            if (count <= 0) {
+            var msgID = ByteReader.Read<byte>(data, ref offset);
+            if (msgID != ProtocolIDConst.RESID_CONNECT) {
+                PLog.Log($"OnConnectRes: msgID != ProtocolIDConst.RESID_CONNECT, msgID: {msgID}");
                 return;
             }
+
+            ConnectResMessage msg = new ConnectResMessage();
 
             msg.FromBytes(data, ref offset);
             var evt = ctx.EventCenter;

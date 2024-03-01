@@ -12,15 +12,16 @@ namespace Ping.UI {
         [SerializeField] Button cancleJoinRoomBtn;
         [SerializeField] Button startGameBtn;
         [SerializeField] Text roomInfoText;
+        [SerializeField] Text userNameText;
 
-        public Action OnClickNewGameHandle;
+        public Action<string> OnClickNewGameHandle;
         public Action OnClickExitGameHandle;
         public Action OnClickCancleJoinRoomHandle;
         public Action OnClickStartGameHandle;
 
         public void Ctor() {
             newGameBtn.onClick.AddListener(() => {
-                OnClickNewGameHandle?.Invoke();
+                OnClickNewGameHandle?.Invoke(userNameText.text);
             });
 
             exitGameBtn.onClick.AddListener(() => {

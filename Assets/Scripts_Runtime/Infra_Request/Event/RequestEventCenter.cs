@@ -24,16 +24,16 @@ namespace Ping.Requests {
         }
 
         // Room Start Game Broad
-        public Action<GameStartBroadMessage> RoomStartGame_OnBroadHandle;
-        public void RoomStartGame_OnBroad(GameStartBroadMessage msg) {
-            RoomStartGame_OnBroadHandle?.Invoke(msg);
+        public Action<GameStartBroadMessage> GameStart_OnBroadHandle;
+        public void GameStart_OnBroad(GameStartBroadMessage msg) {
+            GameStart_OnBroadHandle?.Invoke(msg);
         }
 
         public void Clear() {
             ConnectRes_OnHandle = null;
             ConnectRes_OnErrorHandle = null;
             JoinRoom_OnHandle = null;
-            RoomStartGame_OnBroadHandle = null;
+            GameStart_OnBroadHandle = null;
         }
 
     }

@@ -6,7 +6,6 @@ namespace Ping.Business.Game {
 
         // Entity
         public GameEntity gameEntity;
-        public PlayerEntity playerEntity;
         public InputEntity inputEntity;
 
         public FieldEntity fieldEntity;
@@ -28,6 +27,9 @@ namespace Ping.Business.Game {
         public TemplateInfraContext templateInfraContext;
         public AssetsInfraContext assetsInfraContext;
 
+        // Main
+        public MainContext mainContext;
+
         public GameBusinessContext() {
             gameEntity = new GameEntity();
             overlapTemp = new Collider2D[1000];
@@ -42,16 +44,12 @@ namespace Ping.Business.Game {
         }
 
         // Player
-        public void Player_Set(PlayerEntity playerEntity) {
-            this.playerEntity = playerEntity;
+        public PlayerEntity Player_Get(int index) {
+            return mainContext.Player_Get(index);
         }
 
-        public PlayerEntity Player_Get() {
-            return playerEntity;
-        }
-
-        public void Player_Clear() {
-            playerEntity = null;
+        public PlayerEntity Player_GetOwner() {
+            return mainContext.Player_Get(mainContext.ownerIndex);
         }
 
         // Ball

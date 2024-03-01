@@ -9,18 +9,13 @@ namespace Ping.Requests {
         // On
         public static void OnJoinRoomBroadRes(RequestInfraContext ctx, byte[] data) {
 
-            var msgID = data[0];
+            int offset = 0;
+            var msgID = ByteReader.Read<byte>(data, ref offset);
             if (msgID != ProtocolIDConst.BROADID_JOINROOM) {
                 return;
             }
 
-            int offset = 0;
             var msg = new JoinRoomBroadMessage();
-
-            ushort count = ByteReader.Read<ushort>(data, ref offset);
-            if (count <= 0) {
-                return;
-            }
 
             msg.FromBytes(data, ref offset);
             var evt = ctx.EventCenter;
