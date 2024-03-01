@@ -14,7 +14,6 @@ namespace Ping.Requests {
             int offset = 0;
             var msgID = ByteReader.Read<byte>(data, ref offset);
             if (msgID != ProtocolIDConst.RESID_CONNECT) {
-                PLog.Log($"OnConnectRes: msgID != ProtocolIDConst.RESID_CONNECT, msgID: {msgID}");
                 return;
             }
 
