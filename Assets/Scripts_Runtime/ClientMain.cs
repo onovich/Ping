@@ -125,7 +125,7 @@ namespace Ping {
             };
 
             requestEvt.JoinRoom_OnHandle += (msg) => {
-                LoginBusiness.OnNetResLogin(loginBusinessContext, msg);
+                LoginBusiness.OnNetResJoinRoom(loginBusinessContext, msg);
             };
         }
 

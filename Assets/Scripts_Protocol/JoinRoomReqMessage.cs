@@ -5,24 +5,21 @@ namespace Ping.Protocol {
 
     public struct JoinRoomReqMessage : IMessage<JoinRoomReqMessage> {
 
-        public string userToken;
-        public int playerId;
+        public string userName;
 
         public void WriteTo(byte[] dst, ref int offset) {
-            ByteWritter.WriteString(dst, userToken, ref offset);
-            ByteWritter.Write<int>(dst, playerId, ref offset);
+            ByteWritter.WriteString(dst, userName, ref offset);
         }
 
         public void FromBytes(byte[] src, ref int offset) {
-            userToken = ByteReader.ReadString(src, ref offset);
-            playerId = ByteReader.Read<int>(src, ref offset);
+            userName = ByteReader.ReadString(src, ref offset);
         }
 
         public int GetEvaluatedSize(out bool isCertain) {
-            int count = 8;
+            int count = 4;
             isCertain = false;
-            if (userToken != null) {
-                count += userToken.Length * 4;
+            if (userName != null) {
+                count += userName.Length * 4;
             }
             return count;
         }

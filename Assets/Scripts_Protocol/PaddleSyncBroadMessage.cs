@@ -1,6 +1,6 @@
+using System;
 using MortiseFrame.LitIO;
 using MortiseFrame.Abacus;
-using System;
 
 namespace Ping.Protocol {
 

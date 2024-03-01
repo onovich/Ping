@@ -47,7 +47,7 @@ namespace Ping.Business.Login {
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Server Connect Error: {msg} ");
         }
 
-        public static void OnNetResLogin(LoginBusinessContext ctx, JoinRoomResMessage msg) {
+        public static void OnNetResJoinRoom(LoginBusinessContext ctx, JoinRoomBroadMessage msg) {
             UIApp.Login_Close(ctx.uiAppContext);
         }
 

@@ -45,7 +45,7 @@ namespace Ping.Requests {
         }
 
         public static void On_JoinRoomRes(RequestInfraContext ctx, byte[] data) {
-            RequestJoinRoomDomain.OnJoinRoomRes(ctx, data);
+            RequestJoinRoomDomain.OnJoinRoomBroadRes(ctx, data);
         }
 
         public static void On_StartGameBroadRes(RequestInfraContext ctx, byte[] data) {

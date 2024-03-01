@@ -17,9 +17,9 @@ namespace Ping.Requests {
             ConnectRes_OnErrorHandle?.Invoke(msg);
         }
 
-        // Join Room Res
-        public Action<JoinRoomResMessage> JoinRoom_OnHandle;
-        public void JoinRoom_On(JoinRoomResMessage msg) {
+        // Join Room Broad
+        public Action<JoinRoomBroadMessage> JoinRoom_OnHandle;
+        public void JoinRoom_On(JoinRoomBroadMessage msg) {
             JoinRoom_OnHandle?.Invoke(msg);
         }
 

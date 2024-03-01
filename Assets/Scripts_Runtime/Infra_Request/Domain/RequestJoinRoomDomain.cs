@@ -7,15 +7,15 @@ namespace Ping.Requests {
     public static class RequestJoinRoomDomain {
 
         // On
-        public static void OnJoinRoomRes(RequestInfraContext ctx, byte[] data) {
+        public static void OnJoinRoomBroadRes(RequestInfraContext ctx, byte[] data) {
 
             var msgID = data[0];
-            if (msgID != ProtocolIDConst.RESID_JOINROOM) {
+            if (msgID != ProtocolIDConst.BROADID_JOINROOM) {
                 return;
             }
 
             int offset = 0;
-            var msg = new JoinRoomResMessage();
+            var msg = new JoinRoomBroadMessage();
 
             ushort count = ByteReader.Read<ushort>(data, ref offset);
             if (count <= 0) {
@@ -29,10 +29,10 @@ namespace Ping.Requests {
         }
 
         // Send
-        public static void SendJoinRoomReq(RequestInfraContext ctx, string token) {
+        public static void SendJoinRoomReq(RequestInfraContext ctx, string userName) {
 
             var msg = new JoinRoomReqMessage();
-            msg.userToken = token;
+            msg.userName = userName;
             byte msgID = ProtocolIDConst.REQID_JOINROOM;
 
             byte[] data = msg.ToBytes();
