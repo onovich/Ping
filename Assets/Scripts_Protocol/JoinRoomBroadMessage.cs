@@ -10,15 +10,15 @@ namespace Ping.Protocol {
         public string userName;
 
         public void WriteTo(byte[] dst, ref int offset) {
-            ByteWritter.Write<sbyte>(dst, status, ref offset);
-            ByteWritter.Write<byte>(dst, playerID, ref offset);
-            ByteWritter.WriteString(dst, userName, ref offset);
+            ByteWriter.Write<sbyte>(dst, status, ref offset);
+            ByteWriter.Write<byte>(dst, playerID, ref offset);
+            ByteWriter.WriteUTF8String(dst, userName, ref offset);
         }
 
         public void FromBytes(byte[] src, ref int offset) {
             status = ByteReader.Read<sbyte>(src, ref offset);
             playerID = ByteReader.Read<byte>(src, ref offset);
-            userName = ByteReader.ReadString(src, ref offset);
+            userName = ByteReader.ReadUTF8String(src, ref offset);
         }
 
         public int GetEvaluatedSize(out bool isCertain) {

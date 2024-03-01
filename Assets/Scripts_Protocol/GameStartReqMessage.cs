@@ -8,7 +8,7 @@ namespace Ping.Protocol {
         public int playerId;
 
         public void WriteTo(byte[] dst, ref int offset) {
-            ByteWritter.Write<int>(dst, playerId, ref offset);
+            ByteWriter.Write<int>(dst, playerId, ref offset);
         }
 
         public void FromBytes(byte[] src, ref int offset) {

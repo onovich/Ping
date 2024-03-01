@@ -10,8 +10,8 @@ namespace Ping.Protocol {
         public Vector2 moveAxis;
 
         public void WriteTo(byte[] dst, ref int offset) {
-            ByteWritter.Write<int>(dst, paddleId, ref offset);
-            ByteWritter.Write<Vector2>(dst, moveAxis, ref offset);
+            ByteWriter.Write<int>(dst, paddleId, ref offset);
+            ByteWriter.Write<Vector2>(dst, moveAxis, ref offset);
         }
 
         public void FromBytes(byte[] src, ref int offset) {
