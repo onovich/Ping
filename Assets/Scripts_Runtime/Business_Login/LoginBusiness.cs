@@ -66,7 +66,8 @@ namespace Ping.Business.Login {
 
         public static void OnNetResGameStart(LoginBusinessContext ctx, GameStartBroadMessage msg) {
             UIApp.Login_Close(ctx.uiAppContext);
-            PLog.Log("Game Start");
+            var evt = ctx.evt;
+            evt.LoginDone(ctx.ownerName);
         }
 
         public static void TearDown(LoginBusinessContext ctx) {

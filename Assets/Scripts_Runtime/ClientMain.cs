@@ -63,8 +63,9 @@ namespace Ping {
             gameBusinessContext.mainCamera = mainCamera;
             gameBusinessContext.mainContext = mainContext;
 
-            BindingRemoteEvent();
-            BindingLocalEvent();
+            Binding_Request_Login();
+            Binding_Login();
+            Binding_UI_Login();
 
             Action action = async () => {
                 try {
@@ -112,9 +113,9 @@ namespace Ping {
 
         }
 
-        void BindingRemoteEvent() {
+        void Binding_Request_Login() {
             var requestEvt = requestInfraContext.EventCenter;
-            // Login
+
             requestEvt.ConnectRes_OnHandle += (msg) => {
                 LoginBusiness.OnNetResConnect(loginBusinessContext, msg);
             };
@@ -132,10 +133,9 @@ namespace Ping {
             };
         }
 
-        void BindingLocalEvent() {
+        void Binding_UI_Login() {
             var uiEventCenter = uiAppContext.eventCenter;
-            // UI
-            // - Login
+
             uiEventCenter.Login_OnNewGameClickHandle += (userName) => {
                 LoginBusiness.OnUILoginClick(loginBusinessContext, userName);
             };
@@ -151,11 +151,12 @@ namespace Ping {
             uiEventCenter.Login_OnGameStartClickHandle += () => {
                 LoginBusiness.OnUIGameStartClick(loginBusinessContext);
             };
+        }
 
-            // Login
+        void Binding_Login() {
             var loginEvt = loginBusinessContext.evt;
-            loginEvt.OnLoginHandle += (userName) => {
-                // 监听网络请求
+
+            loginEvt.OnLoginDoneHandle += (userName) => {
                 LoginBusiness.Exit(loginBusinessContext);
                 GameBusiness.StartGame(gameBusinessContext);
             };

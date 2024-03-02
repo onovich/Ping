@@ -6,9 +6,9 @@ namespace Ping.Business.Login {
 
         public LoginEventCenter() { }
 
-        public Action<string> OnLoginHandle;
-        public void Login(string userName) {
-            OnLoginHandle?.Invoke(userName);
+        public Action<string> OnLoginDoneHandle;
+        public void LoginDone(string userName) {
+            OnLoginDoneHandle?.Invoke(userName);
         }
 
         public Action OnCancleWaitingHandle;
@@ -17,7 +17,7 @@ namespace Ping.Business.Login {
         }
 
         public void Clear() {
-            OnLoginHandle = null;
+            OnLoginDoneHandle = null;
             OnCancleWaitingHandle = null;
         }
 
