@@ -19,7 +19,7 @@ namespace Ping.Requests {
 
             msg.FromBytes(data, ref offset);
             var evt = ctx.EventCenter;
-            evt.GameStart_OnBroad(msg);
+            evt.OnLogin_GameStartBroad(msg);
 
         }
 

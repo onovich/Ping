@@ -19,7 +19,7 @@ namespace Ping.Requests {
 
             msg.FromBytes(data, ref offset);
             var evt = ctx.EventCenter;
-            evt.JoinRoom_On(msg);
+            evt.OnLogin_JoinRoomBroad(msg);
 
         }
 

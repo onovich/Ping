@@ -1,4 +1,5 @@
 using UnityEngine;
+using Ping.Requests;
 
 namespace Ping.Business.Game {
 
@@ -26,6 +27,7 @@ namespace Ping.Business.Game {
         // Infra
         public TemplateInfraContext templateInfraContext;
         public AssetsInfraContext assetsInfraContext;
+        public RequestInfraContext reqContext;
 
         // Main
         public MainContext mainContext;

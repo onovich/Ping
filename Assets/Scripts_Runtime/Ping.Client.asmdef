@@ -2,6 +2,7 @@
     "name": "Ping.Client",
     "rootNamespace": "",
     "references": [
+        "GUID:38c7f27180a7d0e4eb4e55a319850b03",
         "GUID:c0f9232640cc54bd398549d008dadf49",
         "GUID:86344a85e270924409007719bbd3d40b",
         "GUID:84651a3751eca9349aac36a66bba901b",

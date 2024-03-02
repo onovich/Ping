@@ -22,6 +22,9 @@ namespace Ping {
         // Physics
         [SerializeField] Rigidbody2D rb;
 
+        // Sync
+        Vector2 syncTargetPos;
+
         public void Ctor() {
             inputCom = new PaddleInputComponent();
             fsmCom = new PaddleFSMComponent();
@@ -71,15 +74,8 @@ namespace Ping {
         }
 
         // Move
-        public void Move_Move(float dt, AABB constrain) {
-            Move_Apply(inputCom.moveAxis.normalized, Attr_GetMoveSpeed(), dt);
-            var pos = Pos_GetPos();
-            var constrainMin = constrain.GetMin();
-            var constrainMax = constrain.GetMax();
-            var constrainCenter = constrain.GetCenter();
-            pos.x = Mathf.Clamp(pos.x, constrainMin.x + size.x / 2, constrainMax.x - size.x / 2);
-            pos.y = Mathf.Clamp(pos.y, constrainMin.y + size.y / 2, constrainCenter.y - size.y / 2);
-            Pos_SetPos(pos);
+        public void Move_Sync() {
+            Pos_SetPos(syncTargetPos);
         }
 
         public Vector2 Move_GetVelocity() {
@@ -110,6 +106,11 @@ namespace Ping {
         // Input
         public void Input_SetMoveAxis(Vector2 axis) {
             inputCom.moveAxis = axis;
+        }
+
+        // Sync
+        public void Sync_RecordSyncTargetPos(Vector2 pos) {
+            syncTargetPos = pos;
         }
 
     }

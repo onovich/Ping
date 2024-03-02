@@ -30,7 +30,7 @@ namespace Ping.Business.Login {
 
         public static void OnUIGameStartClick(LoginBusinessContext ctx) {
             UIApp.Login_SetStartGameBtnInterectable(ctx.uiAppContext, false);
-            RequestInfra.Send_GameStartReq(ctx.reqContext);
+            RequestInfra.SendLogin_GameStartReq(ctx.reqContext);
         }
 
         public static void OnUIExitGameClick(LoginBusinessContext ctx) {
@@ -47,7 +47,7 @@ namespace Ping.Business.Login {
         // On Net Res
         public static void OnNetResConnect(LoginBusinessContext ctx, ConnectResMessage msg) {
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Server Connect Status: {msg.status} ");
-            RequestInfra.Send_JoinRoomReq(ctx.reqContext, ctx.ownerName);
+            RequestInfra.SendLogin_JoinRoomReq(ctx.reqContext, ctx.ownerName);
             PLog.Log("Send Join Room Req, Player Index = " + msg.playerIndex);
         }
 

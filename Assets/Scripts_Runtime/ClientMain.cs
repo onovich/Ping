@@ -62,6 +62,7 @@ namespace Ping {
             gameBusinessContext.uiAppContext = uiAppContext;
             gameBusinessContext.mainCamera = mainCamera;
             gameBusinessContext.mainContext = mainContext;
+            gameBusinessContext.reqContext = requestInfraContext;
 
             Binding_Request_Login();
             Binding_Login();
@@ -114,52 +115,69 @@ namespace Ping {
         }
 
         void Binding_Request_Login() {
-            var requestEvt = requestInfraContext.EventCenter;
+            var evt = requestInfraContext.EventCenter;
 
-            requestEvt.ConnectRes_OnHandle += (msg) => {
+            evt.OnConnect_ResHandle += (msg) => {
                 LoginBusiness.OnNetResConnect(loginBusinessContext, msg);
             };
 
-            requestEvt.ConnectRes_OnErrorHandle += (msg) => {
+            evt.OnConnect_ResErrorHandle += (msg) => {
                 LoginBusiness.OnNetResConnectError(loginBusinessContext, msg);
             };
 
-            requestEvt.JoinRoom_OnHandle += (msg) => {
+            evt.OnLogin_JoinRoomBroadHandle += (msg) => {
                 LoginBusiness.OnNetResJoinRoom(loginBusinessContext, msg);
             };
 
-            requestEvt.GameStart_OnBroadHandle += (msg) => {
+            evt.OnLogin_GameStartBroadHandle += (msg) => {
                 LoginBusiness.OnNetResGameStart(loginBusinessContext, msg);
             };
         }
 
         void Binding_UI_Login() {
-            var uiEventCenter = uiAppContext.eventCenter;
+            var evt = uiAppContext.eventCenter;
 
-            uiEventCenter.Login_OnNewGameClickHandle += (userName) => {
+            evt.Login_OnNewGameClickHandle += (userName) => {
                 LoginBusiness.OnUILoginClick(loginBusinessContext, userName);
             };
 
-            uiEventCenter.Login_OnExitGameClickHandle += () => {
+            evt.Login_OnExitGameClickHandle += () => {
                 LoginBusiness.OnUIExitGameClick(loginBusinessContext);
             };
 
-            uiEventCenter.Login_OnCancleJoinRoomClickHandle += () => {
+            evt.Login_OnCancleJoinRoomClickHandle += () => {
                 LoginBusiness.OnUICancleWaitingClick(loginBusinessContext);
             };
 
-            uiEventCenter.Login_OnGameStartClickHandle += () => {
+            evt.Login_OnGameStartClickHandle += () => {
                 LoginBusiness.OnUIGameStartClick(loginBusinessContext);
             };
         }
 
         void Binding_Login() {
-            var loginEvt = loginBusinessContext.evt;
+            var evt = loginBusinessContext.evt;
 
-            loginEvt.OnLoginDoneHandle += (userName) => {
+            evt.OnLoginDoneHandle += (userName) => {
                 LoginBusiness.Exit(loginBusinessContext);
                 GameBusiness.StartGame(gameBusinessContext);
             };
+        }
+
+        void Binding_Request_Game() {
+            var evt = requestInfraContext.EventCenter;
+
+            evt.OnGame_EntitiesSyncBroadHandle += (msg) => {
+                GameBusiness.OnNetResEntitiesSync(gameBusinessContext, msg);
+            };
+
+        }
+
+        void Binding_UI_Game() {
+
+        }
+
+        void Binding_Game() {
+
         }
 
         async Task LoadAssets() {

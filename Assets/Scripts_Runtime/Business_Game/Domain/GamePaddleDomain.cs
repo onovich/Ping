@@ -15,10 +15,12 @@ namespace Ping.Business.Game {
             paddle.TearDown();
         }
 
-        public static void ApplyMove(GameBusinessContext ctx, PaddleEntity paddle, float fixdt) {
-            var field = ctx.fieldEntity;
-            var constrain = field.GetBound();
-            paddle.Move_Move(fixdt, constrain);
+        public static void RecordSyncTargetPos(GameBusinessContext ctx, PaddleEntity paddle, MortiseFrame.Abacus.Vector2 pos) {
+            paddle.Sync_RecordSyncTargetPos(new UnityEngine.Vector2(pos.x, pos.y));
+        }
+
+        public static void ApplySyncMove(GameBusinessContext ctx, PaddleEntity paddleEntity) {
+            paddleEntity.Move_Sync();
         }
 
     }

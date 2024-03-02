@@ -6,34 +6,40 @@ namespace Ping.Requests {
 
     public class RequestEventCenter {
 
-        // Connect To Server Res
-        public Action<ConnectResMessage> ConnectRes_OnHandle;
-        public void ConnectRes_On(ConnectResMessage msg) {
-            ConnectRes_OnHandle?.Invoke(msg);
+        // Connect
+        public Action<ConnectResMessage> OnConnect_ResHandle;
+        public void OnConnect_Res(ConnectResMessage msg) {
+            OnConnect_ResHandle?.Invoke(msg);
         }
 
-        public Action<string> ConnectRes_OnErrorHandle;
-        public void ConnectRes_OnError(string msg) {
-            ConnectRes_OnErrorHandle?.Invoke(msg);
+        public Action<string> OnConnect_ResErrorHandle;
+        public void OnConnect_ResError(string msg) {
+            OnConnect_ResErrorHandle?.Invoke(msg);
         }
 
-        // Join Room Broad
-        public Action<JoinRoomBroadMessage> JoinRoom_OnHandle;
-        public void JoinRoom_On(JoinRoomBroadMessage msg) {
-            JoinRoom_OnHandle?.Invoke(msg);
+        // Login
+        public Action<JoinRoomBroadMessage> OnLogin_JoinRoomBroadHandle;
+        public void OnLogin_JoinRoomBroad(JoinRoomBroadMessage msg) {
+            OnLogin_JoinRoomBroadHandle?.Invoke(msg);
         }
 
-        // Room Start Game Broad
-        public Action<GameStartBroadMessage> GameStart_OnBroadHandle;
-        public void GameStart_OnBroad(GameStartBroadMessage msg) {
-            GameStart_OnBroadHandle?.Invoke(msg);
+        public Action<GameStartBroadMessage> OnLogin_GameStartBroadHandle;
+        public void OnLogin_GameStartBroad(GameStartBroadMessage msg) {
+            OnLogin_GameStartBroadHandle?.Invoke(msg);
+        }
+
+        // Game
+        public Action<EntitiesSyncBroadMessage> OnGame_EntitiesSyncBroadHandle;
+        public void OnGame_EntitiesSyncBroad(EntitiesSyncBroadMessage msg) {
+            OnGame_EntitiesSyncBroadHandle?.Invoke(msg);
         }
 
         public void Clear() {
-            ConnectRes_OnHandle = null;
-            ConnectRes_OnErrorHandle = null;
-            JoinRoom_OnHandle = null;
-            GameStart_OnBroadHandle = null;
+            OnConnect_ResHandle = null;
+            OnConnect_ResErrorHandle = null;
+            OnLogin_JoinRoomBroadHandle = null;
+            OnLogin_GameStartBroadHandle = null;
+            OnGame_EntitiesSyncBroadHandle = null;
         }
 
     }

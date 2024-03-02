@@ -1,4 +1,6 @@
 using UnityEngine;
+using Ping.Requests;
+using Ping.Protocol;
 
 namespace Ping.Business.Game {
 
@@ -57,10 +59,7 @@ namespace Ping.Business.Game {
         }
 
         static void OnNetEvent(GameBusinessContext ctx, float dt) {
-            // Receive
-
-            // On
-
+            RequestInfra.Tick_Game(ctx.reqContext, dt);
         }
 
         static void LogicTick(GameBusinessContext ctx, float dt) {
@@ -99,6 +98,18 @@ namespace Ping.Business.Game {
             // Time
             GameTimeDomain.ApplyGameTime(ctx, dt);
 
+        }
+
+        public static void OnNetResEntitiesSync(GameBusinessContext ctx, EntitiesSyncBroadMessage msg) {
+            var paddle1Pos = msg.paddlePos[0];
+            var paddle2Pos = msg.paddlePos[1];
+            var ballPos = msg.ballPos;
+
+            var paddle1 = ctx.Paddle_Get(0);
+            var paddle2 = ctx.Paddle_Get(1);
+            var ball = ctx.Ball_Get();
+
+            GamePaddleDomain.RecordSyncTargetPos(ctx, paddle1, paddle1Pos);
         }
 
         public static void TearDown(GameBusinessContext ctx) {

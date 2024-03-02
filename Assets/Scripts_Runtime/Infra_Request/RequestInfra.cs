@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using UnityEngine.AddressableAssets;
+using MortiseFrame.Abacus;
 
 namespace Ping.Requests {
 
@@ -19,14 +19,28 @@ namespace Ping.Requests {
                 return;
             }
 
-            On_ConnectRes(ctx, data);
-            On_JoinRoomRes(ctx, data);
-            On_StartGameBroadRes(ctx, data);
+            OnLogin_ConnectRes(ctx, data);
+            OnLogin_JoinRoomRes(ctx, data);
+            OnLogin_StartGameBroadRes(ctx, data);
 
         }
 
         public static void Tick_Game(RequestInfraContext ctx, float dt) {
-            return;
+            var client = ctx.Client;
+            if (client == null) {
+                return;
+            }
+            if (!client.Poll(0, System.Net.Sockets.SelectMode.SelectRead)) {
+                return;
+            }
+            byte[] data = new byte[4096];
+            int count = client.Receive(data);
+            if (count <= 0) {
+                return;
+            }
+
+            OnGame_EntitiesSyncBroadRes(ctx, data);
+
         }
 
         // Connect
@@ -35,25 +49,37 @@ namespace Ping.Requests {
         }
 
         // Send Req
-        public static void Send_JoinRoomReq(RequestInfraContext ctx, string token) {
+        // - Login
+        public static void SendLogin_JoinRoomReq(RequestInfraContext ctx, string token) {
             RequestJoinRoomDomain.Send_JoinRoomReq(ctx, token);
         }
 
-        public static void Send_GameStartReq(RequestInfraContext ctx) {
+        public static void SendLogin_GameStartReq(RequestInfraContext ctx) {
             RequestGameStartDomain.Send_GameStartReq(ctx);
         }
 
+        // - Game
+        public static void SendGame_PaddleMoveReq(RequestInfraContext ctx, Vector2 axis) {
+            RequestPaddleMoveDomain.Send_PaddleMoveReq(ctx, axis);
+        }
+
         // On Res
-        public static void On_ConnectRes(RequestInfraContext ctx, byte[] data) {
+        // - Login
+        public static void OnLogin_ConnectRes(RequestInfraContext ctx, byte[] data) {
             RequestConnectDomain.On_ConnectRes(ctx, data);
         }
 
-        public static void On_JoinRoomRes(RequestInfraContext ctx, byte[] data) {
+        public static void OnLogin_JoinRoomRes(RequestInfraContext ctx, byte[] data) {
             RequestJoinRoomDomain.On_JoinRoomBroadRes(ctx, data);
         }
 
-        public static void On_StartGameBroadRes(RequestInfraContext ctx, byte[] data) {
+        public static void OnLogin_StartGameBroadRes(RequestInfraContext ctx, byte[] data) {
             RequestGameStartDomain.On_GameStartBroadRes(ctx, data);
+        }
+
+        // - Game
+        public static void OnGame_EntitiesSyncBroadRes(RequestInfraContext ctx, byte[] data) {
+            RequestEntitiesSyncDomain.On_EntitiesSyncBroadRes(ctx, data);
         }
 
     }

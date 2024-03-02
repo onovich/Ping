@@ -21,7 +21,7 @@ namespace Ping.Requests {
 
             msg.FromBytes(data, ref offset);
             var evt = ctx.EventCenter;
-            evt.ConnectRes_On(msg);
+            evt.OnConnect_Res(msg);
 
         }
 
@@ -48,7 +48,7 @@ namespace Ping.Requests {
             } catch (SocketException e) {
                 var errorMsg = RequestErrorMessages.ErrorMessages[(int)e.SocketErrorCode];
                 PLog.Log($"连接失败: {errorMsg}");
-                evt.ConnectRes_OnError(errorMsg);
+                evt.OnConnect_ResError(errorMsg);
             } catch (Exception e) {
                 PLog.LogError($"异常: {e.ToString()}");
             }
