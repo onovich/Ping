@@ -22,14 +22,19 @@ namespace Ping.Business.Login {
             UIApp.Login_Close(ctx.uiAppContext);
         }
 
-        public static void ExitLogin(LoginBusinessContext ctx) {
-            Exit(ctx);
-        }
-
         // On UI Event
         public static void OnUICancleWaitingClick(LoginBusinessContext ctx) {
             UIApp.Login_HideWaitingPanel(ctx.uiAppContext);
             ctx.evt.CancleWaiting();
+        }
+
+        public static void OnUIGameStartClick(LoginBusinessContext ctx) {
+            UIApp.Login_HideStartGameBtn(ctx.uiAppContext);
+            RequestInfra.Send_GameStartReq(ctx.reqContext);
+        }
+
+        public static void OnUIExitGameClick(LoginBusinessContext ctx) {
+            Exit(ctx);
         }
 
         public static async void OnUILoginClick(LoginBusinessContext ctx, string userName) {
@@ -55,6 +60,7 @@ namespace Ping.Business.Login {
             var ownerIndex = msg.ownerIndex;
             var status = msg.status;
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Join Status: {status}; OwnerID: {ownerIndex}; Player1 Name: {userNames[0]}; Player2 Name: {userNames[1]}");
+            UIApp.Login_ShowStartGameBtn(ctx.uiAppContext);
         }
 
         public static void OnNetResGameStart(LoginBusinessContext ctx, GameStartBroadMessage msg) {
@@ -63,7 +69,7 @@ namespace Ping.Business.Login {
         }
 
         public static void TearDown(LoginBusinessContext ctx) {
-            ExitLogin(ctx);
+            Exit(ctx);
         }
 
     }

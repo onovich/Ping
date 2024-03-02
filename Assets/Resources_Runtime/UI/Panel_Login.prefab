@@ -1064,7 +1064,7 @@ MonoBehaviour:
   exitGameBtn: {fileID: 935378754613297077}
   waitingPanel: {fileID: 2097083264163716333}
   cancleJoinRoomBtn: {fileID: 7997325202802974718}
-  startGameBtn: {fileID: 3346734787096074360}
+  gameStartBtn: {fileID: 3346734787096074360}
   roomInfoText: {fileID: 1644917338629938694}
   userNameText: {fileID: 2841744370674069184}
 --- !u!1 &8234079379528206754

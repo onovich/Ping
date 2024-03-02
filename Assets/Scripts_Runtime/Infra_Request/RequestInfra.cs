@@ -36,20 +36,24 @@ namespace Ping.Requests {
 
         // Send Req
         public static void Send_JoinRoomReq(RequestInfraContext ctx, string token) {
-            RequestJoinRoomDomain.SendJoinRoomReq(ctx, token);
+            RequestJoinRoomDomain.Send_JoinRoomReq(ctx, token);
+        }
+
+        public static void Send_GameStartReq(RequestInfraContext ctx) {
+            RequestGameStartDomain.Send_GameStartReq(ctx);
         }
 
         // On Res
         public static void On_ConnectRes(RequestInfraContext ctx, byte[] data) {
-            RequestConnectDomain.OnConnectRes(ctx, data);
+            RequestConnectDomain.On_ConnectRes(ctx, data);
         }
 
         public static void On_JoinRoomRes(RequestInfraContext ctx, byte[] data) {
-            RequestJoinRoomDomain.OnJoinRoomBroadRes(ctx, data);
+            RequestJoinRoomDomain.On_JoinRoomBroadRes(ctx, data);
         }
 
         public static void On_StartGameBroadRes(RequestInfraContext ctx, byte[] data) {
-            RequestStartGameDomain.OnStartGameBroadRes(ctx, data);
+            RequestGameStartDomain.On_GameStartBroadRes(ctx, data);
         }
 
     }

@@ -136,16 +136,20 @@ namespace Ping {
             var uiEventCenter = uiAppContext.eventCenter;
             // UI
             // - Login
-            uiEventCenter.Login_OnStartGameClickHandle += (userName) => {
+            uiEventCenter.Login_OnNewGameClickHandle += (userName) => {
                 LoginBusiness.OnUILoginClick(loginBusinessContext, userName);
             };
 
             uiEventCenter.Login_OnExitGameClickHandle += () => {
-                LoginBusiness.ExitLogin(loginBusinessContext);
+                LoginBusiness.OnUIExitGameClick(loginBusinessContext);
             };
 
             uiEventCenter.Login_OnCancleJoinRoomClickHandle += () => {
                 LoginBusiness.OnUICancleWaitingClick(loginBusinessContext);
+            };
+
+            uiEventCenter.Login_OnGameStartClickHandle += () => {
+                LoginBusiness.OnUIGameStartClick(loginBusinessContext);
             };
 
             // Login

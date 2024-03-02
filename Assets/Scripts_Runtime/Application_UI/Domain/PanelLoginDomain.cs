@@ -12,7 +12,7 @@ namespace Ping.UI {
             panel.Ctor();
 
             panel.OnClickNewGameHandle += (userName) => {
-                ctx.eventCenter.Login_OnStartGameClick(userName);
+                ctx.eventCenter.Login_OnNewGameClick(userName);
             };
 
             panel.OnClickExitGameHandle += () => {
@@ -21,6 +21,10 @@ namespace Ping.UI {
 
             panel.OnClickCancleJoinRoomHandle += () => {
                 ctx.eventCenter.Login_OnCancleJoinRoomClick();
+            };
+
+            panel.OnClickGameStartHandle += () => {
+                ctx.eventCenter.Login_OnGameStartClick();
             };
 
         }

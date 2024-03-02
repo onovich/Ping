@@ -10,14 +10,14 @@ namespace Ping.UI {
         [SerializeField] Button exitGameBtn;
         [SerializeField] Transform waitingPanel;
         [SerializeField] Button cancleJoinRoomBtn;
-        [SerializeField] Button startGameBtn;
+        [SerializeField] Button gameStartBtn;
         [SerializeField] Text roomInfoText;
         [SerializeField] Text userNameText;
 
         public Action<string> OnClickNewGameHandle;
         public Action OnClickExitGameHandle;
         public Action OnClickCancleJoinRoomHandle;
-        public Action OnClickStartGameHandle;
+        public Action OnClickGameStartHandle;
 
         public void Ctor() {
             newGameBtn.onClick.AddListener(() => {
@@ -32,8 +32,8 @@ namespace Ping.UI {
                 OnClickCancleJoinRoomHandle?.Invoke();
             });
 
-            startGameBtn.onClick.AddListener(() => {
-                OnClickStartGameHandle?.Invoke();
+            gameStartBtn.onClick.AddListener(() => {
+                OnClickGameStartHandle?.Invoke();
             });
         }
 
@@ -50,22 +50,22 @@ namespace Ping.UI {
         }
 
         public void ShowStartGameBtn() {
-            startGameBtn.gameObject.SetActive(true);
+            gameStartBtn.gameObject.SetActive(true);
         }
 
         public void HideStartGameBtn() {
-            startGameBtn.gameObject.SetActive(false);
+            gameStartBtn.gameObject.SetActive(false);
         }
 
         void OnDestroy() {
             newGameBtn.onClick.RemoveAllListeners();
             exitGameBtn.onClick.RemoveAllListeners();
             cancleJoinRoomBtn.onClick.RemoveAllListeners();
-            startGameBtn.onClick.RemoveAllListeners();
+            gameStartBtn.onClick.RemoveAllListeners();
             OnClickNewGameHandle = null;
             OnClickExitGameHandle = null;
             OnClickCancleJoinRoomHandle = null;
-            OnClickStartGameHandle = null;
+            OnClickGameStartHandle = null;
         }
 
     }

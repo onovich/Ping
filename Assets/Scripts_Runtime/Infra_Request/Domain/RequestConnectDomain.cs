@@ -10,7 +10,7 @@ namespace Ping.Requests {
     public static class RequestConnectDomain {
 
         // On
-        public static void OnConnectRes(RequestInfraContext ctx, byte[] data) {
+        public static void On_ConnectRes(RequestInfraContext ctx, byte[] data) {
             int offset = 0;
             var msgID = ByteReader.Read<byte>(data, ref offset);
             if (msgID != ProtocolIDConst.RESID_CONNECT) {

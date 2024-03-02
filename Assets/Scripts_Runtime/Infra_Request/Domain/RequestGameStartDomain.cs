@@ -4,31 +4,30 @@ using Ping.Protocol;
 
 namespace Ping.Requests {
 
-    public static class RequestJoinRoomDomain {
+    public static class RequestGameStartDomain {
 
         // On
-        public static void On_JoinRoomBroadRes(RequestInfraContext ctx, byte[] data) {
+        public static void On_GameStartBroadRes(RequestInfraContext ctx, byte[] data) {
 
             int offset = 0;
             var msgID = ByteReader.Read<byte>(data, ref offset);
-            if (msgID != ProtocolIDConst.BROADID_JOINROOM) {
+            if (msgID != ProtocolIDConst.BROADID_STARTGAME) {
                 return;
             }
 
-            var msg = new JoinRoomBroadMessage();
+            var msg = new GameStartBroadMessage();
 
             msg.FromBytes(data, ref offset);
             var evt = ctx.EventCenter;
-            evt.JoinRoom_On(msg);
+            evt.GameStart_OnBroad(msg);
 
         }
 
         // Send
-        public static void Send_JoinRoomReq(RequestInfraContext ctx, string userName) {
+        public static void Send_GameStartReq(RequestInfraContext ctx) {
 
-            var msg = new JoinRoomReqMessage();
-            msg.userName = userName;
-            byte msgID = ProtocolIDConst.REQID_JOINROOM;
+            var msg = new GameStartReqMessage();
+            byte msgID = ProtocolIDConst.REQID_STARTGAME;
 
             byte[] data = msg.ToBytes();
             if (data.Length >= 4096 - 2) {
