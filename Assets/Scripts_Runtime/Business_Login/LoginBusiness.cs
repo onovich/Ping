@@ -29,7 +29,7 @@ namespace Ping.Business.Login {
         }
 
         public static void OnUIGameStartClick(LoginBusinessContext ctx) {
-            UIApp.Login_HideStartGameBtn(ctx.uiAppContext);
+            UIApp.Login_SetStartGameBtnInterectable(ctx.uiAppContext, false);
             RequestInfra.Send_GameStartReq(ctx.reqContext);
         }
 
@@ -61,6 +61,7 @@ namespace Ping.Business.Login {
             var status = msg.status;
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Join Status: {status}; OwnerID: {ownerIndex}; Player1 Name: {userNames[0]}; Player2 Name: {userNames[1]}");
             UIApp.Login_ShowStartGameBtn(ctx.uiAppContext);
+            UIApp.Login_SetStartGameBtnInterectable(ctx.uiAppContext, true);
         }
 
         public static void OnNetResGameStart(LoginBusinessContext ctx, GameStartBroadMessage msg) {

@@ -50,7 +50,7 @@ namespace Ping.UI {
             if (panel == null) {
                 return;
             }
-            panel.ShowStartGameBtn();
+            panel.ShowGameStartBtn();
         }
 
         public static void HideStartGameBtn(UIAppContext ctx) {
@@ -58,7 +58,7 @@ namespace Ping.UI {
             if (panel == null) {
                 return;
             }
-            panel.HideStartGameBtn();
+            panel.HideGameStartBtn();
         }
 
         public static void SetRoomInfo(UIAppContext ctx, string info) {
@@ -67,6 +67,14 @@ namespace Ping.UI {
                 return;
             }
             panel.SetRoomInfo(info);
+        }
+
+        public static void SetStartGameBtnInterectable(UIAppContext ctx, bool interactable) {
+            var panel = ctx.UniquePanel_Get<Panel_Login>();
+            if (panel == null) {
+                return;
+            }
+            panel.SetStartGameBtnInterectable(interactable);
         }
 
         public static void Close(UIAppContext ctx) {

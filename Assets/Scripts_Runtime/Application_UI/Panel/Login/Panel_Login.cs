@@ -13,6 +13,7 @@ namespace Ping.UI {
         [SerializeField] Button gameStartBtn;
         [SerializeField] Text roomInfoText;
         [SerializeField] Text userNameText;
+        [SerializeField] Text gameStartBtnText;
 
         public Action<string> OnClickNewGameHandle;
         public Action OnClickExitGameHandle;
@@ -49,12 +50,17 @@ namespace Ping.UI {
             waitingPanel.gameObject.SetActive(false);
         }
 
-        public void ShowStartGameBtn() {
+        public void ShowGameStartBtn() {
             gameStartBtn.gameObject.SetActive(true);
         }
 
-        public void HideStartGameBtn() {
+        public void HideGameStartBtn() {
             gameStartBtn.gameObject.SetActive(false);
+        }
+
+        public void SetStartGameBtnInterectable(bool interactable) {
+            gameStartBtn.interactable = interactable;
+            gameStartBtnText.text = interactable ? "START" : "Waiting...";
         }
 
         void OnDestroy() {

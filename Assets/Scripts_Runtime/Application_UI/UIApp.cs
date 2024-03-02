@@ -50,6 +50,10 @@ namespace Ping {
             PanelLoginDomain.SetRoomInfo(ctx, info);
         }
 
+        public static void Login_SetStartGameBtnInterectable(UIAppContext ctx, bool interactable) {
+            PanelLoginDomain.SetStartGameBtnInterectable(ctx, interactable);
+        }
+
         // Panel - Score
         public static void Score_Open(UIAppContext ctx) {
             PanelScoreDomain.Open(ctx);
