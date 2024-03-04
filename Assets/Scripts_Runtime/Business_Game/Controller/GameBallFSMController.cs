@@ -55,7 +55,6 @@ namespace Ping.Business.Game {
             BallFSMComponent fsm = ball.FSM_GetComponent();
             if (fsm.dead_isEntering) {
                 fsm.dead_isEntering = false;
-                ball.Move_Stop();
                 ball.Pos_SetPos(Vector2.zero);
                 ball.Trail_Clear();
                 GameGameDomain.Win(ctx, fsm.dead_gatePlayerIndex);

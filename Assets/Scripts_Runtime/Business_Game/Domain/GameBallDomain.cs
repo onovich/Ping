@@ -16,16 +16,6 @@ namespace Ping.Business.Game {
             ball.TearDown();
         }
 
-        public static void MoveAndApplyHit(GameBusinessContext ctx, BallEntity ball, float fixdt, Action<int> hitGate) {
-            BallFSMComponent fsm = ball.FSM_GetComponent();
-            var dir = fsm.movingDir;
-            if (PredictHit(ctx, ball, ball.Attr_GetRadius(), hitGate)) {
-                return;
-            }
-            ball.Move_ByDir(dir, fixdt);
-            CheckHit(ctx, ball, 0.02f, hitGate);
-        }
-
         static bool PredictHit(GameBusinessContext ctx, BallEntity ball, float dis, Action<int> hitGate) {
             var succ = CheckHit(ctx, ball, dis, hitGate);
             return succ;

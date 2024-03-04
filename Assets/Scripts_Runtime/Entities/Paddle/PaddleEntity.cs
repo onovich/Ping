@@ -14,9 +14,6 @@ namespace Ping {
         // Input
         PaddleInputComponent inputCom;
 
-        // Physics
-        [SerializeField] Rigidbody2D rb;
-
         // Sync
         Vector2 syncTargetPos;
 
@@ -41,10 +38,6 @@ namespace Ping {
 
         public Vector2 Pos_GetPos() {
             return transform.position;
-        }
-
-        public Vector2 Pos_GetVolecity() {
-            return rb.velocity;
         }
 
         // FSM

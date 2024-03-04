@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 935267245975897475}
   - component: {fileID: 5391664664218721978}
   m_Layer: 9
-  m_Name: gate_up_2
+  m_Name: gate_up_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 7019335324010376359}
   - component: {fileID: 6377799265916515622}
   m_Layer: 9
-  m_Name: gate_down_1
+  m_Name: gate_down_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

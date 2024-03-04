@@ -16,9 +16,6 @@ namespace Ping {
         // FSM
         BallFSMComponent fsmCom;
 
-        // Physics
-        [SerializeField] Rigidbody2D rb;
-
         // Trail
         [SerializeField] TrailRenderer trail;
 
@@ -73,24 +70,6 @@ namespace Ping {
 
         public void Move_Sync() {
             Pos_SetPos(syncTargetPos);
-        }
-
-        public Vector2 Move_GetVelocity() {
-            return rb.velocity;
-        }
-
-        public void Move_ByDir(Vector2 dir, float dt) {
-            PLog.LogAssert(dir != Vector2.zero, "BallEntity.Move_ByDir: dir is zero");
-            PLog.LogAssert(Attr_GetMoveSpeed() > 0, "BallEntity.Move_ByDir: moveSpeed is zero");
-            Move_Apply(dir, Attr_GetMoveSpeed(), dt);
-        }
-
-        public void Move_Stop() {
-            Move_Apply(Vector2.zero, 0, 0);
-        }
-
-        void Move_Apply(Vector2 dir, float moveSpeed, float fixdt) {
-            rb.velocity = dir.normalized * moveSpeed;
         }
 
         // FSM
