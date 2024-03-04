@@ -25,12 +25,24 @@ namespace Ping.Modifier {
             var dbEntity = new GameConfigDBEntity();
             dbEntity.fieldBoundMax = new MortiseFrame.Abacus.Vector2(clientTM.fieldBoundMax.x, clientTM.fieldBoundMax.y);
             dbEntity.fieldBoundMin = new MortiseFrame.Abacus.Vector2(clientTM.fieldBoundMin.x, clientTM.fieldBoundMin.y);
-            dbEntity.player0PaddleSpawnPos = new MortiseFrame.Abacus.Vector2(clientTM.player0PaddleSpawnPos.x, clientTM.player0PaddleSpawnPos.y);
-            dbEntity.player1PaddleSpawnPos = new MortiseFrame.Abacus.Vector2(clientTM.player1PaddleSpawnPos.x, clientTM.player1PaddleSpawnPos.y);
+
+            dbEntity.wall0Start = new MortiseFrame.Abacus.Vector2(clientTM.wall0Start.x, clientTM.wall0Start.y);
+            dbEntity.wall0End = new MortiseFrame.Abacus.Vector2(clientTM.wall0End.x, clientTM.wall0End.y);
+            dbEntity.wall1Start = new MortiseFrame.Abacus.Vector2(clientTM.wall1Start.x, clientTM.wall1Start.y);
+            dbEntity.wall1End = new MortiseFrame.Abacus.Vector2(clientTM.wall1End.x, clientTM.wall1End.y);
+
+            dbEntity.gate0Start = new MortiseFrame.Abacus.Vector2(clientTM.gate0Start.x, clientTM.gate0Start.y);
+            dbEntity.gate0End = new MortiseFrame.Abacus.Vector2(clientTM.gate0End.x, clientTM.gate0End.y);
+            dbEntity.gate1Start = new MortiseFrame.Abacus.Vector2(clientTM.gate1Start.x, clientTM.gate1Start.y);
+            dbEntity.gate1End = new MortiseFrame.Abacus.Vector2(clientTM.gate1End.x, clientTM.gate1End.y);
+
             dbEntity.ballMoveSpeed = clientTM.ballMoveSpeed;
             dbEntity.ballMoveSpeedMax = clientTM.ballMoveSpeedMax;
             dbEntity.ballRadius = clientTM.ballRadius;
             dbEntity.ballSpawnAngleRange = clientTM.ballSpawnAngleRange;
+
+            dbEntity.player0PaddleSpawnPos = new MortiseFrame.Abacus.Vector2(clientTM.player0PaddleSpawnPos.x, clientTM.player0PaddleSpawnPos.y);
+            dbEntity.player1PaddleSpawnPos = new MortiseFrame.Abacus.Vector2(clientTM.player1PaddleSpawnPos.x, clientTM.player1PaddleSpawnPos.y);
             dbEntity.paddleMoveSpeed = clientTM.paddleMoveSpeed;
             dbEntity.paddleMoveSpeedMax = clientTM.paddleMoveSpeedMax;
             dbEntity.paddleSize = new MortiseFrame.Abacus.Vector2(clientTM.paddleSize.x, clientTM.paddleSize.y);

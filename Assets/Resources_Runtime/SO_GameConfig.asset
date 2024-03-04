@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldBoundMax: {x: 2.48, y: 4.98}
   fieldBoundMin: {x: -2.48, y: -4.98}
-  player0PaddleSpawnPos: {x: 0, y: -4}
-  player1PaddleSpawnPos: {x: 0, y: 4}
   wall0Start: {x: -2.48, y: 4.98}
   wall0End: {x: -2.48, y: -4.98}
   wall1Start: {x: 2.48, y: 4.98}
@@ -28,6 +26,8 @@ MonoBehaviour:
   ballMoveSpeedMax: 10
   ballRadius: 0.07
   ballSpawnAngleRange: 60
+  player0PaddleSpawnPos: {x: 0, y: -4}
+  player1PaddleSpawnPos: {x: 0, y: 4}
   paddleMoveSpeed: 3
   paddleMoveSpeedMax: 10
   paddleSize: {x: 0.6, y: 0.06}

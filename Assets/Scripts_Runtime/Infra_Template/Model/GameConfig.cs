@@ -10,8 +10,6 @@ namespace Ping {
         [Title("Field")]
         public Vector2 fieldBoundMax;
         public Vector2 fieldBoundMin;
-        public Vector2 player0PaddleSpawnPos;
-        public Vector2 player1PaddleSpawnPos;
 
         [Title("Wall")]
         public Vector2 wall0Start;
@@ -32,6 +30,8 @@ namespace Ping {
         public float ballSpawnAngleRange;
 
         [Title("Paddle")]
+        public Vector2 player0PaddleSpawnPos;
+        public Vector2 player1PaddleSpawnPos;
         public float paddleMoveSpeed;
         public float paddleMoveSpeedMax;
         public Vector2 paddleSize;
