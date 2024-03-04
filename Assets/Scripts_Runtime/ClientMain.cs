@@ -95,6 +95,8 @@ namespace Ping {
                 return;
             }
             var dt = Time.deltaTime;
+
+            RequestInfra.Tick_Net(requestInfraContext, dt);
             LoginBusiness.Tick(loginBusinessContext, dt);
             GameBusiness.Tick(gameBusinessContext, dt);
         }

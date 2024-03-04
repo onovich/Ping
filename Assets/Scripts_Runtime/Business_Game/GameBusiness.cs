@@ -24,7 +24,6 @@ namespace Ping.Business.Game {
 
             ResetInput(ctx);
             LocalInput(ctx, dt);
-            OnNetEvent(ctx, dt);
             LogicTick(ctx, dt);
 
             restTime += dt;
@@ -56,10 +55,6 @@ namespace Ping.Business.Game {
             if (status == GameFSMStatus.Gaming) {
                 GameInputDomain.Owner_BakeInput(ctx, ctx.Paddle_GetLocalOwner());
             }
-        }
-
-        static void OnNetEvent(GameBusinessContext ctx, float dt) {
-            RequestInfra.Tick_Game(ctx.reqContext, dt);
         }
 
         static void LogicTick(GameBusinessContext ctx, float dt) {
@@ -112,6 +107,9 @@ namespace Ping.Business.Game {
             GamePaddleDomain.RecordSyncTargetPos(ctx, paddle1, paddle1Pos);
             GamePaddleDomain.RecordSyncTargetPos(ctx, paddle2, paddle2Pos);
             GameBallDomain.RecordSyncTargetPos(ctx, ball, ballPos);
+
+            var player = ctx.Player_GetOwner();
+
         }
 
         public static void TearDown(GameBusinessContext ctx) {

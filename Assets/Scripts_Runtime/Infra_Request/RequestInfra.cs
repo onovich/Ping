@@ -5,7 +5,7 @@ namespace Ping.Requests {
 
     public static class RequestInfra {
 
-        public static void Tick_Login(RequestInfraContext ctx, float dt) {
+        public static void Tick_Net(RequestInfraContext ctx, float dt) {
             var client = ctx.Client;
             if (client == null) {
                 return;
@@ -19,26 +19,12 @@ namespace Ping.Requests {
                 return;
             }
 
+            // Login
             OnLogin_ConnectRes(ctx, data);
             OnLogin_JoinRoomRes(ctx, data);
             OnLogin_StartGameBroadRes(ctx, data);
 
-        }
-
-        public static void Tick_Game(RequestInfraContext ctx, float dt) {
-            var client = ctx.Client;
-            if (client == null) {
-                return;
-            }
-            if (!client.Poll(0, System.Net.Sockets.SelectMode.SelectRead)) {
-                return;
-            }
-            byte[] data = new byte[4096];
-            int count = client.Receive(data);
-            if (count <= 0) {
-                return;
-            }
-
+            // Game
             OnGame_EntitiesSyncBroadRes(ctx, data);
 
         }
