@@ -13,6 +13,18 @@ namespace Ping {
         public Vector2 player0PaddleSpawnPos;
         public Vector2 player1PaddleSpawnPos;
 
+        [Title("Wall")]
+        public Vector2 wall0Start;
+        public Vector2 wall0End;
+        public Vector2 wall1Start;
+        public Vector2 wall1End;
+
+        [Title("Gate")]
+        public Vector2 gate0Start;
+        public Vector2 gate0End;
+        public Vector2 gate1Start;
+        public Vector2 gate1End;
+
         [Title("Ball")]
         public float ballMoveSpeed;
         public float ballMoveSpeedMax;

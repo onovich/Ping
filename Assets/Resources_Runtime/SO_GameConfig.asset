@@ -14,8 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldBoundMax: {x: 2.48, y: 4.98}
   fieldBoundMin: {x: -2.48, y: -4.98}
-  player0PaddleSpawnPos: {x: 0, y: 4}
-  player1PaddleSpawnPos: {x: 0, y: -4}
+  player0PaddleSpawnPos: {x: 0, y: -4}
+  player1PaddleSpawnPos: {x: 0, y: 4}
+  wall0Start: {x: -2.48, y: 4.98}
+  wall0End: {x: -2.48, y: -4.98}
+  wall1Start: {x: 2.48, y: 4.98}
+  wall1End: {x: 2.48, y: -4.98}
+  gate0Start: {x: -2.48, y: -4.98}
+  gate0End: {x: 2.48, y: -4.98}
+  gate1Start: {x: -2.48, y: 4.98}
+  gate1End: {x: 2.48, y: 4.98}
   ballMoveSpeed: 4
   ballMoveSpeedMax: 10
   ballRadius: 0.07
