@@ -16,6 +16,13 @@
       "dependencies": {},
       "hash": "45dc76ed95d3fc7a6aef3749427d770b983194b0"
     },
+    "com.mortise.abacus": {
+      "version": "ssh://git@github.com/onovich/Abacus.git?path=/Assets/com.mortise.abacus#main",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5adeedaf50cd4c9c329b17e1b57c2b346a7466ec"
+    },
     "com.mortise.litio": {
       "version": "ssh://git@github.com/onovich/LitIO.git?path=/Assets/com.mortise.litio#main",
       "depth": 0,
