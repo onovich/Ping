@@ -101,8 +101,8 @@ namespace Ping.Business.Game {
         }
 
         public static void OnNetResEntitiesSync(GameBusinessContext ctx, EntitiesSyncBroadMessage msg) {
-            var paddle1Pos = msg.paddlePos[0];
-            var paddle2Pos = msg.paddlePos[1];
+            var paddle1Pos = msg.paddle1Pos;
+            var paddle2Pos = msg.paddle2Pos;
             var ballPos = msg.ballPos;
 
             var paddle1 = ctx.Paddle_Get(0);
@@ -110,6 +110,8 @@ namespace Ping.Business.Game {
             var ball = ctx.Ball_Get();
 
             GamePaddleDomain.RecordSyncTargetPos(ctx, paddle1, paddle1Pos);
+            GamePaddleDomain.RecordSyncTargetPos(ctx, paddle2, paddle2Pos);
+            GameBallDomain.RecordSyncTargetPos(ctx, ball, ballPos);
         }
 
         public static void TearDown(GameBusinessContext ctx) {

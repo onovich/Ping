@@ -10,6 +10,9 @@ namespace Ping {
         float moveSpeedMax;
         float radius;
 
+        // Sync
+        Vector2 syncTargetPos;
+
         // FSM
         BallFSMComponent fsmCom;
 
@@ -67,6 +70,11 @@ namespace Ping {
         }
 
         // Move
+
+        public void Move_Sync() {
+            Pos_SetPos(syncTargetPos);
+        }
+
         public Vector2 Move_GetVelocity() {
             return rb.velocity;
         }
@@ -96,6 +104,11 @@ namespace Ping {
 
         public void FSM_SetMovingDir(Vector2 dir) {
             fsmCom.movingDir = dir;
+        }
+
+        // Sync
+        public void Sync_RecordSyncTargetPos(Vector2 pos) {
+            syncTargetPos = pos;
         }
 
         public void TearDown() {

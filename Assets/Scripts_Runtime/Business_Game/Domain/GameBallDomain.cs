@@ -93,6 +93,14 @@ namespace Ping.Business.Game {
             ball.FSM_SetMovingDir(drtDir);
         }
 
+        public static void RecordSyncTargetPos(GameBusinessContext ctx, BallEntity ball, MortiseFrame.Abacus.Vector2 pos) {
+            ball.Sync_RecordSyncTargetPos(new UnityEngine.Vector2(pos.x, pos.y));
+        }
+
+        public static void ApplySyncMove(GameBusinessContext ctx, BallEntity ball) {
+            ball.Move_Sync();
+        }
+
     }
 
 }

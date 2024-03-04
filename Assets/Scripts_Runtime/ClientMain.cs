@@ -68,6 +68,10 @@ namespace Ping {
             Binding_Login();
             Binding_UI_Login();
 
+            Binding_Request_Game();
+            Binding_Game();
+            Binding_UI_Game();
+
             Action action = async () => {
                 try {
                     await LoadAssets();
