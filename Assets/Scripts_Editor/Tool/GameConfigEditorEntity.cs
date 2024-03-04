@@ -25,8 +25,8 @@ namespace Ping.Modifier {
             var dbEntity = new GameConfigDBEntity();
             dbEntity.fieldBoundMax = new MortiseFrame.Abacus.Vector2(clientTM.fieldBoundMax.x, clientTM.fieldBoundMax.y);
             dbEntity.fieldBoundMin = new MortiseFrame.Abacus.Vector2(clientTM.fieldBoundMin.x, clientTM.fieldBoundMin.y);
+            dbEntity.player0PaddleSpawnPos = new MortiseFrame.Abacus.Vector2(clientTM.player0PaddleSpawnPos.x, clientTM.player0PaddleSpawnPos.y);
             dbEntity.player1PaddleSpawnPos = new MortiseFrame.Abacus.Vector2(clientTM.player1PaddleSpawnPos.x, clientTM.player1PaddleSpawnPos.y);
-            dbEntity.player2PaddleSpawnPos = new MortiseFrame.Abacus.Vector2(clientTM.player2PaddleSpawnPos.x, clientTM.player2PaddleSpawnPos.y);
             dbEntity.ballMoveSpeed = clientTM.ballMoveSpeed;
             dbEntity.ballMoveSpeedMax = clientTM.ballMoveSpeedMax;
             dbEntity.ballRadius = clientTM.ballRadius;
@@ -64,8 +64,8 @@ namespace Ping.Modifier {
 
             clientTM.fieldBoundMax = new UnityEngine.Vector2(dbEntity.fieldBoundMax.x, dbEntity.fieldBoundMax.y);
             clientTM.fieldBoundMin = new UnityEngine.Vector2(dbEntity.fieldBoundMin.x, dbEntity.fieldBoundMin.y);
+            clientTM.player0PaddleSpawnPos = new UnityEngine.Vector2(dbEntity.player0PaddleSpawnPos.x, dbEntity.player0PaddleSpawnPos.y);
             clientTM.player1PaddleSpawnPos = new UnityEngine.Vector2(dbEntity.player1PaddleSpawnPos.x, dbEntity.player1PaddleSpawnPos.y);
-            clientTM.player2PaddleSpawnPos = new UnityEngine.Vector2(dbEntity.player2PaddleSpawnPos.x, dbEntity.player2PaddleSpawnPos.y);
             clientTM.ballMoveSpeed = dbEntity.ballMoveSpeed;
             clientTM.ballMoveSpeedMax = dbEntity.ballMoveSpeedMax;
             clientTM.ballRadius = dbEntity.ballRadius;

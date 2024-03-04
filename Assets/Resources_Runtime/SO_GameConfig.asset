@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldBoundMax: {x: 2.48, y: 4.98}
   fieldBoundMin: {x: -2.48, y: -4.98}
+  player0PaddleSpawnPos: {x: 0, y: 4}
   player1PaddleSpawnPos: {x: 0, y: -4}
-  player2PaddleSpawnPos: {x: 0, y: 4}
   ballMoveSpeed: 4
   ballMoveSpeedMax: 10
   ballRadius: 0.07

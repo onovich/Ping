@@ -20,7 +20,7 @@ namespace Ping.Business.Game {
         }
 
         public static void ApplySyncMove(GameBusinessContext ctx, PaddleEntity paddleEntity) {
-            paddleEntity.Move_Sync();
+            paddleEntity.Sync_Move();
         }
 
     }

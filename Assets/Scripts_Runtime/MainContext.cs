@@ -1,41 +1,34 @@
+using System.Collections.Generic;
+
 namespace Ping {
 
     public class MainContext {
 
         // Entity
-        public PlayerEntity player1Entity;
-        public PlayerEntity player2Entity;
+        SortedList<int, PlayerEntity> players;
         public int ownerIndex;
 
         public MainContext() {
-            player1Entity = new PlayerEntity(0);
-            player2Entity = new PlayerEntity(1);
+            players = new SortedList<int, PlayerEntity>(2);
+            ownerIndex = -1;
         }
 
         // Player
         public void Player_Add(PlayerEntity playerEntity) {
-            if (playerEntity.GetPlayerIndex() == 0) {
-                player1Entity = playerEntity;
-            }
-            if (playerEntity.GetPlayerIndex() == 1) {
-                player2Entity = playerEntity;
-            }
+            players.Add(playerEntity.GetPlayerIndex(), playerEntity);
         }
 
         public PlayerEntity Player_Get(int index) {
-            if (index == 0) {
-                return player1Entity;
+            var player = players[index];
+            if (player == null) {
+                PLog.LogError("PlayerEntity is null");
             }
-            if (index == 1) {
-                return player2Entity;
-            }
-            return null;
+            return player;
         }
 
         public void Player_Clear() {
-            player1Entity = null;
-            player2Entity = null;
             ownerIndex = -1;
+            players.Clear();
         }
 
     }

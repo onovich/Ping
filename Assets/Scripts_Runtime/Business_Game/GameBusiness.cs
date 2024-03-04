@@ -23,7 +23,8 @@ namespace Ping.Business.Game {
         public static void Tick(GameBusinessContext ctx, float dt) {
 
             ResetInput(ctx);
-            LocalInput(ctx, dt);
+            BakeLocalInput(ctx, dt);
+            SendInputToServer(ctx);
             LogicTick(ctx, dt);
 
             restTime += dt;
@@ -47,14 +48,23 @@ namespace Ping.Business.Game {
             inputEntity.Reset();
         }
 
-        static void LocalInput(GameBusinessContext ctx, float dt) {
-            GameInputDomain.Player_BakeInput(ctx, dt);
-
+        static void SendInputToServer(GameBusinessContext ctx) {
             var game = ctx.gameEntity;
             var status = game.FSM_GetStatus();
-            if (status == GameFSMStatus.Gaming) {
-                GameInputDomain.Owner_BakeInput(ctx, ctx.Paddle_GetLocalOwner());
-            }
+            if (status != GameFSMStatus.Gaming) { return; }
+
+            GameInputDomain.Owner_ApplySendInput(ctx);
+        }
+
+        static void BakeLocalInput(GameBusinessContext ctx, float dt) {
+            var game = ctx.gameEntity;
+            var status = game.FSM_GetStatus();
+            if (status != GameFSMStatus.Gaming) { return; }
+
+            GameInputDomain.Player_BakeInput(ctx, dt);
+            var owner = ctx.Paddle_GetLocalOwner();
+            if (owner == null) { return; }
+            GameInputDomain.Owner_BakeInput(ctx, owner);
         }
 
         static void LogicTick(GameBusinessContext ctx, float dt) {
@@ -73,13 +83,13 @@ namespace Ping.Business.Game {
             GameBallFSMController.FixedTickFSM(ctx, ball, dt);
 
             // Paddle
+            var paddle0 = ctx.Paddle_Get(0);
+            if (paddle0 == null) { return; }
+            GamePaddleFSMController.FixedTickFSM(ctx, paddle0, dt);
+
             var paddle1 = ctx.Paddle_Get(1);
             if (paddle1 == null) { return; }
             GamePaddleFSMController.FixedTickFSM(ctx, paddle1, dt);
-
-            var paddle2 = ctx.Paddle_Get(2);
-            if (paddle2 == null) { return; }
-            GamePaddleFSMController.FixedTickFSM(ctx, paddle2, dt);
 
             Physics2D.Simulate(dt);
 
@@ -96,19 +106,17 @@ namespace Ping.Business.Game {
         }
 
         public static void OnNetResEntitiesSync(GameBusinessContext ctx, EntitiesSyncBroadMessage msg) {
+            var paddle0Pos = msg.paddle0Pos;
             var paddle1Pos = msg.paddle1Pos;
-            var paddle2Pos = msg.paddle2Pos;
             var ballPos = msg.ballPos;
 
-            var paddle1 = ctx.Paddle_Get(0);
-            var paddle2 = ctx.Paddle_Get(1);
+            var paddle0 = ctx.Paddle_Get(0);
+            var paddle1 = ctx.Paddle_Get(1);
             var ball = ctx.Ball_Get();
 
+            GamePaddleDomain.RecordSyncTargetPos(ctx, paddle0, paddle0Pos);
             GamePaddleDomain.RecordSyncTargetPos(ctx, paddle1, paddle1Pos);
-            GamePaddleDomain.RecordSyncTargetPos(ctx, paddle2, paddle2Pos);
             GameBallDomain.RecordSyncTargetPos(ctx, ball, ballPos);
-
-            var player = ctx.Player_GetOwner();
 
         }
 

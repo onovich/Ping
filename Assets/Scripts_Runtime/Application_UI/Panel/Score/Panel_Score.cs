@@ -6,22 +6,22 @@ namespace Ping.UI {
 
     public class Panel_Score : MonoBehaviour {
 
+        [SerializeField] Text player0ScoreText;
         [SerializeField] Text player1ScoreText;
-        [SerializeField] Text player2ScoreText;
         [SerializeField] Text gameTimeText;
 
         public void Ctor() {
+            player0ScoreText.text = "0";
             player1ScoreText.text = "0";
-            player2ScoreText.text = "0";
             gameTimeText.text = "0.0";
         }
 
         public void SetPlayer1Score(int score) {
-            player1ScoreText.text = score.ToString();
+            player0ScoreText.text = score.ToString();
         }
 
         public void SetPlayer2Score(int score) {
-            player2ScoreText.text = score.ToString();
+            player1ScoreText.text = score.ToString();
         }
 
         public void SetGameTime(float time) {

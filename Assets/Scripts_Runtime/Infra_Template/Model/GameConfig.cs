@@ -10,8 +10,8 @@ namespace Ping {
         [Title("Field")]
         public Vector2 fieldBoundMax;
         public Vector2 fieldBoundMin;
+        public Vector2 player0PaddleSpawnPos;
         public Vector2 player1PaddleSpawnPos;
-        public Vector2 player2PaddleSpawnPos;
 
         [Title("Ball")]
         public float ballMoveSpeed;

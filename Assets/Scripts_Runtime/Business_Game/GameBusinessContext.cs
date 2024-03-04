@@ -1,5 +1,6 @@
 using UnityEngine;
 using Ping.Requests;
+using System.Collections.Generic;
 
 namespace Ping.Business.Game {
 
@@ -11,8 +12,7 @@ namespace Ping.Business.Game {
 
         public FieldEntity fieldEntity;
         public BallEntity ballEntity;
-        public PaddleEntity player1PaddleEntity;
-        public PaddleEntity player2PaddleEntity;
+        SortedList<int, PaddleEntity> playerPaddles;
 
         // TEMP
         public Collider2D[] overlapTemp;
@@ -36,13 +36,13 @@ namespace Ping.Business.Game {
             gameEntity = new GameEntity();
             overlapTemp = new Collider2D[1000];
             raycastTemp = new RaycastHit2D[1000];
+            playerPaddles = new SortedList<int, PaddleEntity>(2);
         }
 
-        public void Reset() {
+        public void Clear() {
             fieldEntity = null;
             ballEntity = null;
-            player1PaddleEntity = null;
-            player2PaddleEntity = null;
+            playerPaddles.Clear();
         }
 
         // Player
@@ -65,27 +65,20 @@ namespace Ping.Business.Game {
 
         // Paddle
         public void Paddle_Set(PaddleEntity paddleEntity) {
-            if (paddleEntity.GetPlayerIndex() == 1) {
-                player1PaddleEntity = paddleEntity;
-            } else {
-                player2PaddleEntity = paddleEntity;
-            }
+            playerPaddles[paddleEntity.GetPlayerIndex()] = paddleEntity;
         }
 
         public void Paddle_Clear(PaddleEntity paddleEntity) {
-            if (paddleEntity.GetPlayerIndex() == 1) {
-                player1PaddleEntity = null;
-            } else {
-                player2PaddleEntity = null;
-            }
+            playerPaddles.Remove(paddleEntity.GetPlayerIndex());
         }
 
         public PaddleEntity Paddle_Get(int playerIndex) {
-            if (playerIndex == 1) {
-                return player1PaddleEntity;
-            } else {
-                return player2PaddleEntity;
+            var has = playerPaddles.ContainsKey(playerIndex);
+            if (!has) {
+                PLog.LogError("PaddleEntity is null, index = " + playerIndex);
             }
+            var paddleEntity = playerPaddles[playerIndex];
+            return paddleEntity;
         }
 
         public PaddleEntity Paddle_GetLocalOwner() {

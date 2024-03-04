@@ -133,8 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834e0367d6b290a4983f205e32b143e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1ScoreText: {fileID: 156369859375425556}
-  player2ScoreText: {fileID: 5680768349078016301}
+  player0ScoreText: {fileID: 156369859375425556}
+  player1ScoreText: {fileID: 5680768349078016301}
   gameTimeText: {fileID: 3550108138302220195}
 --- !u!1 &3542735182949816821
 GameObject:
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 1395637471078371771}
   - component: {fileID: 522383439970834005}
   m_Layer: 5
-  m_Name: score_player1
+  m_Name: score_player0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 6175154554375633109}
   - component: {fileID: 156369859375425556}
   m_Layer: 5
-  m_Name: txt_player1
+  m_Name: txt_player0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 5950863992263430168}
   - component: {fileID: 4633319240662270773}
   m_Layer: 5
-  m_Name: label_player1
+  m_Name: label_player0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 3451919996143552565}
   - component: {fileID: 3719261995404335009}
   m_Layer: 5
-  m_Name: label_player2
+  m_Name: label_player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -750,7 +750,7 @@ GameObject:
   - component: {fileID: 5819871187178009039}
   - component: {fileID: 5680768349078016301}
   m_Layer: 5
-  m_Name: txt_player2
+  m_Name: txt_player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -903,7 +903,7 @@ GameObject:
   - component: {fileID: 8674307511720608107}
   - component: {fileID: 163058540080225063}
   m_Layer: 5
-  m_Name: score_player2
+  m_Name: score_player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

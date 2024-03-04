@@ -62,11 +62,6 @@ namespace Ping.Business.Game {
             // Base Info
             paddle.SetPlayerIndex(id);
 
-            // Set Attr
-            paddle.Attr_SetMoveSpeed(config.paddleMoveSpeed);
-            paddle.Attr_SetMoveSpeedMax(config.paddleMoveSpeedMax);
-            paddle.Attr_SetSize(config.paddleSize);
-
             // Set Pos
             paddle.Pos_SetPos(pos);
 
