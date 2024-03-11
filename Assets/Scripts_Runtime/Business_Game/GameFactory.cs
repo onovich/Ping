@@ -14,9 +14,6 @@ namespace Ping.Business.Game {
             var field = GameObject.Instantiate(prefab).GetComponent<FieldEntity>();
             field.Ctor();
 
-            // Set Bound
-            field.SetBound(config.fieldBoundMin, config.fieldBoundMax);
-
             return field;
         }
 

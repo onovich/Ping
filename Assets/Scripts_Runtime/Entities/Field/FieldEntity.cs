@@ -12,14 +12,6 @@ namespace Ping {
 
         }
 
-        public void SetBound(Vector2 min, Vector2 max) {
-            bound = new AABB(min, max);
-        }
-
-        public AABB GetBound() {
-            return bound;
-        }
-
         public void TearDown() {
             foreach (var wall in walls) {
                 wall.TearDown();

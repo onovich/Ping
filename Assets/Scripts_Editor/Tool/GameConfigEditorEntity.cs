@@ -24,18 +24,16 @@ namespace Ping.Modifier {
         public void SaveDB() {
 
             var dbEntity = new GameConfigDBEntity();
-            dbEntity.fieldBoundMax = new FVector2(clientTM.fieldBoundMax.x, clientTM.fieldBoundMax.y);
-            dbEntity.fieldBoundMin = new FVector2(clientTM.fieldBoundMin.x, clientTM.fieldBoundMin.y);
 
-            dbEntity.wall0Start = new FVector2(clientTM.wall0Start.x, clientTM.wall0Start.y);
-            dbEntity.wall0End = new FVector2(clientTM.wall0End.x, clientTM.wall0End.y);
-            dbEntity.wall1Start = new FVector2(clientTM.wall1Start.x, clientTM.wall1Start.y);
-            dbEntity.wall1End = new FVector2(clientTM.wall1End.x, clientTM.wall1End.y);
+            dbEntity.wall0Pos = new FVector2(clientTM.wall0Pos.x, clientTM.wall0Pos.y);
+            dbEntity.wall0Size = new FVector2(clientTM.wall0Size.x, clientTM.wall0Size.y);
+            dbEntity.wall1Pos = new FVector2(clientTM.wall1Pos.x, clientTM.wall1Pos.y);
+            dbEntity.wall1Size = new FVector2(clientTM.wall1Size.x, clientTM.wall1Size.y);
 
-            dbEntity.gate0Start = new FVector2(clientTM.gate0Start.x, clientTM.gate0Start.y);
-            dbEntity.gate0End = new FVector2(clientTM.gate0End.x, clientTM.gate0End.y);
-            dbEntity.gate1Start = new FVector2(clientTM.gate1Start.x, clientTM.gate1Start.y);
-            dbEntity.gate1End = new FVector2(clientTM.gate1End.x, clientTM.gate1End.y);
+            dbEntity.gate0Pos = new FVector2(clientTM.gate0Pos.x, clientTM.gate0Pos.y);
+            dbEntity.gate0Size = new FVector2(clientTM.gate0Size.x, clientTM.gate0Size.y);
+            dbEntity.gate1Pos = new FVector2(clientTM.gate1Pos.x, clientTM.gate1Pos.y);
+            dbEntity.gate1Size = new FVector2(clientTM.gate1Size.x, clientTM.gate1Size.y);
 
             dbEntity.ballMoveSpeed = clientTM.ballMoveSpeed;
             dbEntity.ballMoveSpeedMax = clientTM.ballMoveSpeedMax;
@@ -75,14 +73,23 @@ namespace Ping.Modifier {
             int offset = 0;
             dbEntity.FromBytes(buffer, ref offset);
 
-            clientTM.fieldBoundMax = new UnityEngine.Vector2(dbEntity.fieldBoundMax.x, dbEntity.fieldBoundMax.y);
-            clientTM.fieldBoundMin = new UnityEngine.Vector2(dbEntity.fieldBoundMin.x, dbEntity.fieldBoundMin.y);
-            clientTM.player0PaddleSpawnPos = new UnityEngine.Vector2(dbEntity.player0PaddleSpawnPos.x, dbEntity.player0PaddleSpawnPos.y);
-            clientTM.player1PaddleSpawnPos = new UnityEngine.Vector2(dbEntity.player1PaddleSpawnPos.x, dbEntity.player1PaddleSpawnPos.y);
+            clientTM.wall0Pos = new UnityEngine.Vector2(dbEntity.wall0Pos.x, dbEntity.wall0Pos.y);
+            clientTM.wall0Size = new UnityEngine.Vector2(dbEntity.wall0Size.x, dbEntity.wall0Size.y);
+            clientTM.wall1Pos = new UnityEngine.Vector2(dbEntity.wall1Pos.x, dbEntity.wall1Pos.y);
+            clientTM.wall1Size = new UnityEngine.Vector2(dbEntity.wall1Size.x, dbEntity.wall1Size.y);
+
+            clientTM.gate0Pos = new UnityEngine.Vector2(dbEntity.gate0Pos.x, dbEntity.gate0Pos.y);
+            clientTM.gate0Size = new UnityEngine.Vector2(dbEntity.gate0Size.x, dbEntity.gate0Size.y);
+            clientTM.gate1Pos = new UnityEngine.Vector2(dbEntity.gate1Pos.x, dbEntity.gate1Pos.y);
+            clientTM.gate1Size = new UnityEngine.Vector2(dbEntity.gate1Size.x, dbEntity.gate1Size.y);
+
             clientTM.ballMoveSpeed = dbEntity.ballMoveSpeed;
             clientTM.ballMoveSpeedMax = dbEntity.ballMoveSpeedMax;
             clientTM.ballRadius = dbEntity.ballRadius;
             clientTM.ballSpawnAngleRange = dbEntity.ballSpawnAngleRange;
+
+            clientTM.player0PaddleSpawnPos = new UnityEngine.Vector2(dbEntity.player0PaddleSpawnPos.x, dbEntity.player0PaddleSpawnPos.y);
+            clientTM.player1PaddleSpawnPos = new UnityEngine.Vector2(dbEntity.player1PaddleSpawnPos.x, dbEntity.player1PaddleSpawnPos.y);
             clientTM.paddleMoveSpeed = dbEntity.paddleMoveSpeed;
             clientTM.paddleMoveSpeedMax = dbEntity.paddleMoveSpeedMax;
             clientTM.paddleSize = new UnityEngine.Vector2(dbEntity.paddleSize.x, dbEntity.paddleSize.y);

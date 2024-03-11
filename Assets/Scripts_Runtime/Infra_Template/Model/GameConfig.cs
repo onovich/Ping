@@ -8,20 +8,20 @@ namespace Ping {
     public class GameConfig : ScriptableObject {
 
         [Title("Field")]
-        public Vector2 fieldBoundMax;
-        public Vector2 fieldBoundMin;
+        public Vector2 fieldPos;
+        public Vector2 fieldSize;
 
         [Title("Wall")]
-        public Vector2 wall0Start;
-        public Vector2 wall0End;
-        public Vector2 wall1Start;
-        public Vector2 wall1End;
+        public Vector2 wall0Pos;
+        public Vector2 wall0Size;
+        public Vector2 wall1Pos;
+        public Vector2 wall1Size;
 
         [Title("Gate")]
-        public Vector2 gate0Start;
-        public Vector2 gate0End;
-        public Vector2 gate1Start;
-        public Vector2 gate1End;
+        public Vector2 gate0Pos;
+        public Vector2 gate0Size;
+        public Vector2 gate1Pos;
+        public Vector2 gate1Size;
 
         [Title("Ball")]
         public float ballMoveSpeed;
