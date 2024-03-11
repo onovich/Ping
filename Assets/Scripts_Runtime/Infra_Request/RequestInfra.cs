@@ -45,7 +45,7 @@ namespace Ping.Requests {
         }
 
         // - Game
-        public static void SendGame_PaddleMoveReq(RequestInfraContext ctx, Vector2 axis) {
+        public static void SendGame_PaddleMoveReq(RequestInfraContext ctx, FVector2 axis) {
             RequestPaddleMoveDomain.Send_PaddleMoveReq(ctx, axis);
         }
 

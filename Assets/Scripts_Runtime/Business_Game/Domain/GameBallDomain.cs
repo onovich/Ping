@@ -1,4 +1,5 @@
 using System;
+using MortiseFrame.Abacus;
 using UnityEngine;
 
 namespace Ping.Business.Game {
@@ -83,7 +84,7 @@ namespace Ping.Business.Game {
             ball.FSM_SetMovingDir(drtDir);
         }
 
-        public static void RecordSyncTargetPos(GameBusinessContext ctx, BallEntity ball, MortiseFrame.Abacus.Vector2 pos) {
+        public static void RecordSyncTargetPos(GameBusinessContext ctx, BallEntity ball, FVector2 pos) {
             ball.Sync_RecordSyncTargetPos(new UnityEngine.Vector2(pos.x, pos.y));
         }
 

@@ -21,7 +21,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "5adeedaf50cd4c9c329b17e1b57c2b346a7466ec"
+      "hash": "edc15453eb0fe2036f3ecd19a00f046d90760877"
     },
     "com.mortise.litio": {
       "version": "ssh://git@github.com/onovich/LitIO.git?path=/Assets/com.mortise.litio#main",

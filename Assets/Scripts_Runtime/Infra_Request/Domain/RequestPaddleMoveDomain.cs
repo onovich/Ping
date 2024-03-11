@@ -8,7 +8,7 @@ namespace Ping.Requests {
     public static class RequestPaddleMoveDomain {
 
         // Send
-        public static void Send_PaddleMoveReq(RequestInfraContext ctx, Vector2 axis) {
+        public static void Send_PaddleMoveReq(RequestInfraContext ctx, FVector2 axis) {
 
             var msg = new PaddleMoveReqMessage();
             msg.moveAxis = axis;

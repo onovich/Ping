@@ -1,3 +1,4 @@
+using MortiseFrame.Abacus;
 using UnityEngine;
 
 namespace Ping.Business.Game {
@@ -15,7 +16,7 @@ namespace Ping.Business.Game {
             paddle.TearDown();
         }
 
-        public static void RecordSyncTargetPos(GameBusinessContext ctx, PaddleEntity paddle, MortiseFrame.Abacus.Vector2 pos) {
+        public static void RecordSyncTargetPos(GameBusinessContext ctx, PaddleEntity paddle, FVector2 pos) {
             paddle.Sync_RecordSyncTargetPos(new UnityEngine.Vector2(pos.x, pos.y));
         }
 
