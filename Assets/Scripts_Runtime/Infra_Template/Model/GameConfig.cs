@@ -7,10 +7,6 @@ namespace Ping {
     [CreateAssetMenu(fileName = "SO_GameConfig", menuName = "Ping/GameConfig")]
     public class GameConfig : ScriptableObject {
 
-        [Title("Field")]
-        public Vector2 fieldPos;
-        public Vector2 fieldSize;
-
         [Title("Wall")]
         public Vector2 wall0Pos;
         public Vector2 wall0Size;
