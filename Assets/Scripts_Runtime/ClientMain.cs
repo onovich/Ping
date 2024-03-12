@@ -47,6 +47,11 @@ namespace Ping {
             templateInfraContext = new TemplateInfraContext();
             requestInfraContext = new RequestInfraContext();
 
+            var player0 = new PlayerEntity(0);
+            var player1 = new PlayerEntity(1);
+            mainContext.Player_Add(player0);
+            mainContext.Player_Add(player1);
+
             // Inject
             uiAppContext.canvas = mainCanvas;
             uiAppContext.hudFakeCanvas = hudFakeCanvas;
@@ -174,6 +179,10 @@ namespace Ping {
 
             evt.OnGame_EntitiesSyncBroadHandle += (msg) => {
                 GameBusiness.OnNetResEntitiesSync(gameBusinessContext, msg);
+            };
+
+            evt.OnGame_GameResultBroadHandle += (msg) => {
+                GameBusiness.OnNetResGameResult(gameBusinessContext, msg);
             };
 
         }

@@ -34,12 +34,18 @@ namespace Ping.Requests {
             OnGame_EntitiesSyncBroadHandle?.Invoke(msg);
         }
 
+        public Action<GameResultBroadMessage> OnGame_GameResultBroadHandle;
+        public void OnGame_GameResultBroad(GameResultBroadMessage msg) {
+            OnGame_GameResultBroadHandle?.Invoke(msg);
+        }
+
         public void Clear() {
             OnConnect_ResHandle = null;
             OnConnect_ResErrorHandle = null;
             OnLogin_JoinRoomBroadHandle = null;
             OnLogin_GameStartBroadHandle = null;
             OnGame_EntitiesSyncBroadHandle = null;
+            OnGame_GameResultBroadHandle = null;
         }
 
     }

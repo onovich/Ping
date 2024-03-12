@@ -16,11 +16,11 @@ namespace Ping.UI {
             gameTimeText.text = "0.0";
         }
 
-        public void SetPlayer1Score(int score) {
+        public void SetPlayer0Score(int score) {
             player0ScoreText.text = score.ToString();
         }
 
-        public void SetPlayer2Score(int score) {
+        public void SetPlayer1Score(int score) {
             player1ScoreText.text = score.ToString();
         }
 

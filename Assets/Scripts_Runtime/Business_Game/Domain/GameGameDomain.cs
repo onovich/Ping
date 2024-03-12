@@ -9,7 +9,8 @@ namespace Ping.Business.Game {
 
             // Game
             var game = ctx.gameEntity;
-            game.FSM_EnterGaming();
+            var fsm = game.FSM_GetComponent();
+            fsm.Gaming_Enter();
             game.random = new RandomService(101052099, 0);
 
             // Field
@@ -33,9 +34,11 @@ namespace Ping.Business.Game {
 
             // Game
             var game = ctx.gameEntity;
-            if (game.FSM_GetStatus() == GameFSMStatus.NotInGame) return;
+            var fsm = game.FSM_GetComponent();
+            var status = fsm.Status;
+            if (status == GameFSMStatus.NotInGame) return;
 
-            game.FSM_EnterNotInGame();
+            fsm.NotInGame_Enter();
 
             // Field
             var field = ctx.Field_Get();
@@ -58,12 +61,20 @@ namespace Ping.Business.Game {
 
         }
 
-        public static void Win(GameBusinessContext ctx, int playerIndex) {
+        public static void Win(GameBusinessContext ctx, int turn, int winnerPlayerIndex, int score0, int score1) {
             var game = ctx.gameEntity;
-            game.IncTurn();
-            var player = ctx.Player_GetOwner();
-            player.Score_Inc();
-            UIApp.Score_SetPlayerScore(ctx.uiAppContext, player.Score_Get(), playerIndex);
+            game.SetTurn(turn);
+
+            var player0 = ctx.Player_Get(0);
+            var player1 = ctx.Player_Get(1);
+
+            player0.Score_Set(score0);
+            player1.Score_Set(score1);
+
+            var fsm = game.FSM_GetComponent();
+            fsm.Result_Enter(winnerPlayerIndex);
+
+            var ball = ctx.Ball_Get();
         }
 
     }

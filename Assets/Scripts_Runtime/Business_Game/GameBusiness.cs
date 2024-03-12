@@ -50,7 +50,8 @@ namespace Ping.Business.Game {
 
         static void SendInputToServer(GameBusinessContext ctx) {
             var game = ctx.gameEntity;
-            var status = game.FSM_GetStatus();
+            var fsm = game.FSM_GetComponent();
+            var status = fsm.Status;
             if (status != GameFSMStatus.Gaming) { return; }
 
             GameInputDomain.Owner_ApplySendInput(ctx);
@@ -58,7 +59,8 @@ namespace Ping.Business.Game {
 
         static void BakeLocalInput(GameBusinessContext ctx, float dt) {
             var game = ctx.gameEntity;
-            var status = game.FSM_GetStatus();
+            var fsm = game.FSM_GetComponent();
+            var status = fsm.Status;
             if (status != GameFSMStatus.Gaming) { return; }
 
             GameInputDomain.Player_BakeInput(ctx, dt);
@@ -69,27 +71,38 @@ namespace Ping.Business.Game {
 
         static void LogicTick(GameBusinessContext ctx, float dt) {
 
+            var game = ctx.gameEntity;
+            var fsm = game.FSM_GetComponent();
+            var status = fsm.Status;
+            if (status != GameFSMStatus.Result) { return; }
+
+            if (fsm.result_isEntering) {
+                // fsm.Gaming_Enter();
+                return;
+            }
+
         }
 
         public static void FixedTick(GameBusinessContext ctx, float dt) {
 
             var game = ctx.gameEntity;
-            var status = game.GetStatus();
+            var fsm = game.FSM_GetComponent();
+            var status = fsm.Status;
             if (status != GameFSMStatus.Gaming) { return; }
 
             // Ball
             var ball = ctx.Ball_Get();
             if (ball == null) { return; }
-            GameBallFSMController.FixedTickFSM(ctx, ball, dt);
+            GameBallDomain.ApplySyncMove(ctx, ball);
 
             // Paddle
             var paddle0 = ctx.Paddle_Get(0);
             if (paddle0 == null) { return; }
-            GamePaddleFSMController.FixedTickFSM(ctx, paddle0, dt);
+            GamePaddleDomain.ApplySyncMove(ctx, paddle0);
 
             var paddle1 = ctx.Paddle_Get(1);
             if (paddle1 == null) { return; }
-            GamePaddleFSMController.FixedTickFSM(ctx, paddle1, dt);
+            GamePaddleDomain.ApplySyncMove(ctx, paddle1);
 
             Physics2D.Simulate(dt);
 
@@ -97,11 +110,25 @@ namespace Ping.Business.Game {
 
         static void RenderTick(GameBusinessContext ctx, float dt) {
             var game = ctx.gameEntity;
-            var status = game.GetStatus();
-            if (status != GameFSMStatus.Gaming) { return; }
+            var fsm = game.FSM_GetComponent();
+            var status = fsm.Status;
+            if (status != GameFSMStatus.Result) { return; }
 
-            // Time
-            GameTimeDomain.ApplyGameTime(ctx, dt);
+            if (fsm.result_isEntering) {
+                fsm.result_isEntering = false;
+                var winnerPlayerIndex = fsm.result_winnerPlayerIndex;
+
+                var ball = ctx.Ball_Get();
+                GameBallDomain.ResetBall(ctx, ball);
+
+                var score0 = ctx.Player_Get(0).Score_Get();
+                var score1 = ctx.Player_Get(1).Score_Get();
+                UIApp.Score_SetPlayerScore(ctx.uiAppContext, score0, 0);
+                UIApp.Score_SetPlayerScore(ctx.uiAppContext, score1, 1);
+
+                fsm.Gaming_Enter();
+                return;
+            }
 
         }
 
@@ -118,6 +145,17 @@ namespace Ping.Business.Game {
             GamePaddleDomain.RecordSyncTargetPos(ctx, paddle1, paddle1Pos);
             GameBallDomain.RecordSyncTargetPos(ctx, ball, ballPos);
 
+        }
+
+        public static void OnNetResGameResult(GameBusinessContext ctx, GameResultBroadMessage msg) {
+            var winnerPlayerIndex = msg.winnerPlayerIndex;
+            var gameTurn = msg.gameTurn;
+            var score0 = msg.score0;
+            var score1 = msg.score1;
+
+            var ball = ctx.Ball_Get();
+
+            GameGameDomain.Win(ctx, gameTurn, winnerPlayerIndex, score0, score1);
         }
 
         public static void TearDown(GameBusinessContext ctx) {

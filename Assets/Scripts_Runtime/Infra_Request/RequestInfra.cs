@@ -26,6 +26,7 @@ namespace Ping.Requests {
 
             // Game
             OnGame_EntitiesSyncBroadRes(ctx, data);
+            OnGame_GameResultBroadRes(ctx, data);
 
         }
 
@@ -66,6 +67,10 @@ namespace Ping.Requests {
         // - Game
         public static void OnGame_EntitiesSyncBroadRes(RequestInfraContext ctx, byte[] data) {
             RequestEntitiesSyncDomain.On_EntitiesSyncBroadRes(ctx, data);
+        }
+
+        public static void OnGame_GameResultBroadRes(RequestInfraContext ctx, byte[] data) {
+            RequestGameResultDomain.On_GameResultBroadRes(ctx, data);
         }
 
     }

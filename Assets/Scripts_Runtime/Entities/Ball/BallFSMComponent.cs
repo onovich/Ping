@@ -13,8 +13,6 @@ namespace Ping {
         public bool dead_isEntering;
         public int dead_gatePlayerIndex;
 
-        public Vector2 movingDir;
-
         public BallFSMComponent() { }
 
         public void EnterIdle() {
@@ -22,10 +20,9 @@ namespace Ping {
             idle_isEntering = true;
         }
 
-        public void EnterMoving(Vector2 movingDir) {
+        public void EnterMoving() {
             status = BallFSMStatus.Moving;
             moving_isEntering = true;
-            this.movingDir = movingDir;
         }
 
         public void EnterDead(int gatePlayerIndex) {

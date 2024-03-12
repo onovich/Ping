@@ -32,8 +32,8 @@ namespace Ping {
         }
 
         // Score
-        public void Score_Inc() {
-            score++;
+        public void Score_Set(int score) {
+            this.score = score;
         }
 
         public int Score_Get() {

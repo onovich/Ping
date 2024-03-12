@@ -44,6 +44,7 @@ namespace Ping.Business.Login {
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Server Connect Status: {msg.status} ");
             RequestInfra.SendLogin_JoinRoomReq(ctx.reqContext, ctx.ownerName);
             PLog.Log("Send Join Room Req, Player Index = " + msg.playerIndex);
+            ctx.Player_SetOwnerIndex(msg.playerIndex);
         }
 
         public static void OnNetResConnectError(LoginBusinessContext ctx, string msg) {

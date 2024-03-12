@@ -12,31 +12,19 @@ namespace Ping {
 
         public GameEntity() {
             fsmComponent = new GameFSMComponent();
-            FSM_EnterNotInGame();
+            fsmComponent.NotInGame_Enter();
         }
 
-        public GameFSMStatus GetStatus() {
-            return fsmComponent.status;
-        }
-
-        public void FSM_EnterGaming() {
-            fsmComponent.Gaming_Enter();
-        }
-
-        public void FSM_EnterNotInGame() {
-            fsmComponent.status = GameFSMStatus.NotInGame;
-        }
-
-        public GameFSMStatus FSM_GetStatus() {
-            return fsmComponent.status;
+        public GameFSMComponent FSM_GetComponent() {
+            return fsmComponent;
         }
 
         public int GetTurn() {
             return turn;
         }
 
-        public void IncTurn() {
-            turn++;
+        public void SetTurn(int turn) {
+            this.turn = turn;
         }
 
         public void ResetTurn() {

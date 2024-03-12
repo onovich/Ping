@@ -24,21 +24,15 @@ namespace Ping {
         }
 
         // Trail
-        public void Trail_Clear() {
+        public void Reset() {
+            trail.Clear();
+            transform.position = Vector2.zero;
             trail.Clear();
         }
 
         // Pos
         public void Pos_SetPos(Vector2 pos) {
             transform.position = pos;
-        }
-
-        public Vector2 Pos_GetPos() {
-            return transform.position;
-        }
-
-        public Vector2 Pos_GetDirection() {
-            return fsmCom.movingDir;
         }
 
         // Attr
@@ -72,6 +66,11 @@ namespace Ping {
             Pos_SetPos(syncTargetPos);
         }
 
+        public void Reset_Sync() {
+            syncTargetPos = Vector2.zero;
+            PLog.Log("BallEntity.Reset_Sync");
+        }
+
         // FSM
         public BallFSMStatus FSM_GetStatus() {
             return fsmCom.status;
@@ -79,10 +78,6 @@ namespace Ping {
 
         public BallFSMComponent FSM_GetComponent() {
             return fsmCom;
-        }
-
-        public void FSM_SetMovingDir(Vector2 dir) {
-            fsmCom.movingDir = dir;
         }
 
         // Sync

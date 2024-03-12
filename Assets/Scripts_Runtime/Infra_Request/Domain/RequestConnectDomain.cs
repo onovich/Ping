@@ -32,6 +32,7 @@ namespace Ping.Requests {
 
             try {
                 var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                client.NoDelay = true;
                 string ip = RequestConst.REMOTE_IP;
                 int port = RequestConst.REMOTE_PORT;
 

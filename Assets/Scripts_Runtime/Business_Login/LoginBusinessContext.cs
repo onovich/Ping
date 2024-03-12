@@ -31,6 +31,10 @@ namespace Ping.Business.Login {
             return mainContext.Player_Get(mainContext.ownerIndex);
         }
 
+        public void Player_SetOwnerIndex(int index) {
+            mainContext.ownerIndex = index;
+        }
+
     }
 
 }
