@@ -54,6 +54,10 @@ namespace Ping.Business.Game {
             return mainContext.Player_Get(mainContext.ownerIndex);
         }
 
+        public int Player_GetOwnerIndex() {
+            return mainContext.ownerIndex;
+        }
+
         // Ball
         public void Ball_Set(BallEntity ballEntity) {
             this.ballEntity = ballEntity;

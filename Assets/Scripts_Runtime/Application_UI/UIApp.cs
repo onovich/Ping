@@ -55,8 +55,8 @@ namespace Ping {
         }
 
         // Panel - Score
-        public static void Score_Open(UIAppContext ctx) {
-            PanelScoreDomain.Open(ctx);
+        public static void Score_Open(UIAppContext ctx, string player0Name, string player1Name, int ownerIndex) {
+            PanelScoreDomain.Open(ctx, player0Name, player1Name, ownerIndex);
         }
 
         public static void Score_Close(UIAppContext ctx) {

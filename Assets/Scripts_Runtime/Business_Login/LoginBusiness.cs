@@ -58,6 +58,13 @@ namespace Ping.Business.Login {
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Join Status: {status}; OwnerID: {ownerIndex}; Player1 Name: {userNames[0]}; Player2 Name: {userNames[1]}");
             UIApp.Login_ShowStartGameBtn(ctx.uiAppContext);
             UIApp.Login_SetStartGameBtnInterectable(ctx.uiAppContext, true);
+
+            var ownerPlayer = ctx.Player_GetOwner();
+            ownerPlayer.SetUserName(ctx.ownerName);
+
+            var opponentIndex = 1 - ownerIndex;
+            var opponentPlayer = ctx.Player_Get(opponentIndex);
+            opponentPlayer.SetUserName(userNames[opponentIndex]);
         }
 
         public static void OnNetResGameStart(LoginBusinessContext ctx, GameStartBroadMessage msg) {

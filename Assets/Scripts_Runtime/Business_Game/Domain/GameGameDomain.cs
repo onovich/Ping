@@ -24,9 +24,10 @@ namespace Ping.Business.Game {
             GamePaddleDomain.Spawn(ctx, 1, config.player1PaddleSpawnPos);
 
             // UI
-            UIApp.Score_Open(ctx.uiAppContext);
-
-            // Cursor
+            var player0 = ctx.Player_Get(0);
+            var player1 = ctx.Player_Get(1);
+            var ownerIndex = ctx.Player_GetOwnerIndex();
+            UIApp.Score_Open(ctx.uiAppContext, player0.GetUserName(), player1.GetUserName(), ownerIndex);
 
         }
 
@@ -55,7 +56,6 @@ namespace Ping.Business.Game {
             var paddle1 = ctx.Paddle_Get(1);
             GamePaddleDomain.UnSpawn(ctx, paddle1);
 
-            // Map
             // UI
             UIApp.Score_Close(ctx.uiAppContext);
 

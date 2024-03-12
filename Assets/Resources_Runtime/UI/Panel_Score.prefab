@@ -135,6 +135,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player0ScoreText: {fileID: 156369859375425556}
   player1ScoreText: {fileID: 5680768349078016301}
+  player0NameText: {fileID: 4633319240662270773}
+  player1NameText: {fileID: 3719261995404335009}
   gameTimeText: {fileID: 3550108138302220195}
 --- !u!1 &3542735182949816821
 GameObject:

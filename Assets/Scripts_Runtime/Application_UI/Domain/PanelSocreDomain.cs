@@ -6,9 +6,12 @@ namespace Ping.UI {
 
     public static class PanelScoreDomain {
 
-        public static void Open(UIAppContext ctx) {
+        public static void Open(UIAppContext ctx, string player0Name, string player1Name, int ownerIndex) {
             Panel_Score panel = UIFactory.UniquePanel_Open<Panel_Score>(ctx);
             panel.Ctor();
+            panel.SetOwnerIndex(ownerIndex);
+            panel.SetPlayer0Name(player0Name);
+            panel.SetPlayer1Name(player1Name);
         }
 
         public static void Close(UIAppContext ctx) {
