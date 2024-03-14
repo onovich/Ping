@@ -9,22 +9,6 @@ namespace Ping.Requests {
 
     public static class RequestConnectDomain {
 
-        // On
-        public static void On_ConnectRes(RequestInfraContext ctx, byte[] data) {
-            int offset = 0;
-            var msgID = ByteReader.Read<byte>(data, ref offset);
-            if (msgID != ProtocolIDConst.GetID<ConnectResMessage>()) {
-                return;
-            }
-
-            ConnectResMessage msg = new ConnectResMessage();
-
-            msg.FromBytes(data, ref offset);
-            var evt = ctx.EventCenter;
-            evt.OnConnect_Res(msg);
-
-        }
-
         // Send
         public static async Task ConnectToServerAsync(RequestInfraContext ctx) {
 

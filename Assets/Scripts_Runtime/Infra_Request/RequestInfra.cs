@@ -16,7 +16,7 @@ namespace Ping.Requests {
             if (!client.Poll(0, System.Net.Sockets.SelectMode.SelectRead)) {
                 return;
             }
-            byte[] buff = new byte[4096];
+            byte[] buff = ctx.readBuff;
             int count = client.Receive(buff);
             if (count <= 0) {
                 return;
@@ -26,13 +26,14 @@ namespace Ping.Requests {
             var msgCount = ByteReader.Read<int>(buff, ref offset);
             for (int i = 0; i < msgCount; i++) {
                 var len = ByteReader.Read<int>(buff, ref offset);
-                if (len < 5) {
+                if (len == 0) {
                     break;
                 }
                 PLog.Log("Receive Message: Len: " + len);
                 On(ctx, buff, ref offset);
             }
 
+            ctx.Buffer_Clear();
         }
 
         public static void On(RequestInfraContext ctx, byte[] data, ref int offset) {
@@ -68,7 +69,7 @@ namespace Ping.Requests {
                     PLog.Log("Message is too long");
                 }
 
-                int len = src.Length + 5;
+                int len = src.Length;
                 byte msgID = ProtocolIDConst.GetID(message);
 
                 ByteWriter.Write<int>(buff, len, ref offset);

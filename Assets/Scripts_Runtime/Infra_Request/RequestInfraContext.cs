@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
 using Ping.Protocol;
+using System;
 
 namespace Ping.Requests {
 
@@ -16,9 +17,13 @@ namespace Ping.Requests {
         // Message
         Queue<IMessage> messageQueue;
 
+        // Buffer
+        public byte[] readBuff;
+
         public RequestInfraContext() {
             eventCenter = new RequestEventCenter();
             messageQueue = new Queue<IMessage>();
+            readBuff = new byte[4096];
         }
 
         public void Client_Set(Socket socket) {
@@ -36,6 +41,11 @@ namespace Ping.Requests {
 
         public int Message_GetCount() {
             return messageQueue.Count;
+        }
+
+        // Buffer
+        public void Buffer_Clear() {
+            Array.Clear(readBuff, 0, readBuff.Length);
         }
 
     }
