@@ -29,11 +29,10 @@ namespace Ping.Requests {
                 if (len == 0) {
                     break;
                 }
-                PLog.Log("Receive Message: Len: " + len);
                 On(ctx, buff, ref offset);
             }
 
-            ctx.Buffer_Clear();
+            ctx.Buffer_ClearReadBuffer();
         }
 
         public static void On(RequestInfraContext ctx, byte[] data, ref int offset) {
@@ -45,8 +44,6 @@ namespace Ping.Requests {
             var evt = ctx.EventCenter;
             evt.On(msg);
 
-            PLog.Log("Receive Message: " + msg.GetType().Name + " ID: " + msgID);
-
         }
 
         public static void Tick_Send(RequestInfraContext ctx, float dt) {
@@ -55,7 +52,7 @@ namespace Ping.Requests {
                 return;
             }
 
-            byte[] buff = new byte[4096];
+            byte[] buff = ctx.writeBuff;
             int offset = 0;
             int msgCount = ctx.Message_GetCount();
             if (msgCount == 0) {
@@ -89,7 +86,8 @@ namespace Ping.Requests {
 
             var client = ctx.Client;
             client.Send(buff);
-            PLog.Log("Send Message: Len: " + offset);
+
+            ctx.Buffer_ClearWriteBuffer();
         }
 
         // Connect

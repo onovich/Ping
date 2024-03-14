@@ -19,11 +19,13 @@ namespace Ping.Requests {
 
         // Buffer
         public byte[] readBuff;
+        public byte[] writeBuff;
 
         public RequestInfraContext() {
             eventCenter = new RequestEventCenter();
             messageQueue = new Queue<IMessage>();
             readBuff = new byte[4096];
+            writeBuff = new byte[4096];
         }
 
         public void Client_Set(Socket socket) {
@@ -44,8 +46,12 @@ namespace Ping.Requests {
         }
 
         // Buffer
-        public void Buffer_Clear() {
+        public void Buffer_ClearReadBuffer() {
             Array.Clear(readBuff, 0, readBuff.Length);
+        }
+
+        public void Buffer_ClearWriteBuffer() {
+            Array.Clear(writeBuff, 0, writeBuff.Length);
         }
 
     }

@@ -160,7 +160,6 @@ namespace Ping.Business.Game {
 
         public static void OnNetResKeepAlive(GameBusinessContext ctx, KeepAliveResMessage msg) {
             var timestamp = msg.timestamp;
-            PLog.Log("OnNetResKeepAlive: " + timestamp);
             UIApp.Score_SetGameTime(ctx.uiAppContext, timestamp);
         }
 
