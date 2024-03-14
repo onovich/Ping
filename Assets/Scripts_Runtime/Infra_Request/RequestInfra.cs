@@ -58,6 +58,10 @@ namespace Ping.Requests {
             byte[] buff = new byte[4096];
             int offset = 0;
             int msgCount = ctx.Message_GetCount();
+            if (msgCount == 0) {
+                return;
+            }
+
             ByteWriter.Write<int>(buff, msgCount, ref offset);
             while (ctx.Message_TryDequeue(out IMessage message)) {
                 if (message == null) {
@@ -69,7 +73,7 @@ namespace Ping.Requests {
                     PLog.Log("Message is too long");
                 }
 
-                int len = src.Length;
+                int len = src.Length + 5;
                 byte msgID = ProtocolIDConst.GetID(message);
 
                 ByteWriter.Write<int>(buff, len, ref offset);
@@ -79,11 +83,13 @@ namespace Ping.Requests {
 
             }
 
-            byte[] dst = new byte[offset];
-            Buffer.BlockCopy(buff, 0, dst, 0, offset);
+            if (offset == 0) {
+                return;
+            }
 
             var client = ctx.Client;
-            client.Send(dst);
+            client.Send(buff);
+            PLog.Log("Send Message: Len: " + offset);
         }
 
         // Connect
