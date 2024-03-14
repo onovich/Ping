@@ -77,7 +77,7 @@ namespace Ping.Requests {
                 }
 
                 var client = ctx.Client;
-                client.Send(buff);
+                client.Send(buff, offset, System.Net.Sockets.SocketFlags.None);
 
                 ctx.Buffer_ClearWriteBuffer();
 

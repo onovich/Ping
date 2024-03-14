@@ -100,10 +100,10 @@ namespace Ping {
                 return;
             }
             var dt = Time.deltaTime;
+            SendNetMessages(dt);
             OnNetEvent(dt);
             LoginBusiness.Tick(loginBusinessContext, dt);
             GameBusiness.Tick(gameBusinessContext, dt);
-            SendNetMessages(dt);
         }
 
         public void OnNetEvent(float dt) {
