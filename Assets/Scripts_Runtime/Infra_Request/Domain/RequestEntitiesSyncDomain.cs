@@ -12,7 +12,7 @@ namespace Ping.Requests {
 
             int offset = 0;
             var msgID = ByteReader.Read<byte>(data, ref offset);
-            if (msgID != ProtocolIDConst.BROADID_ENTITIESSYNC) {
+            if (msgID != ProtocolIDConst.GetID<EntitiesSyncBroadMessage>()) {
                 return;
             }
 

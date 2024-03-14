@@ -1,11 +1,14 @@
+using System;
 using System.Threading.Tasks;
 using MortiseFrame.Abacus;
+using MortiseFrame.LitIO;
+using Ping.Protocol;
 
 namespace Ping.Requests {
 
     public static class RequestInfra {
 
-        public static void Tick_Net(RequestInfraContext ctx, float dt) {
+        public static void Tick_On(RequestInfraContext ctx, float dt) {
             var client = ctx.Client;
             if (client == null) {
                 return;
@@ -13,21 +16,74 @@ namespace Ping.Requests {
             if (!client.Poll(0, System.Net.Sockets.SelectMode.SelectRead)) {
                 return;
             }
-            byte[] data = new byte[4096];
-            int count = client.Receive(data);
+            byte[] buff = new byte[4096];
+            int count = client.Receive(buff);
             if (count <= 0) {
                 return;
             }
 
-            // Login
-            OnLogin_ConnectRes(ctx, data);
-            OnLogin_JoinRoomRes(ctx, data);
-            OnLogin_StartGameBroadRes(ctx, data);
+            var offset = 0;
+            var msgCount = ByteReader.Read<int>(buff, ref offset);
+            for (int i = 0; i < msgCount; i++) {
+                var len = ByteReader.Read<int>(buff, ref offset);
+                if (len < 5) {
+                    break;
+                }
+                PLog.Log("Receive Message: Len: " + len);
+                On(ctx, buff, ref offset);
+            }
 
-            // Game
-            OnGame_EntitiesSyncBroadRes(ctx, data);
-            OnGame_GameResultBroadRes(ctx, data);
+        }
 
+        public static void On(RequestInfraContext ctx, byte[] data, ref int offset) {
+
+            var msgID = ByteReader.Read<byte>(data, ref offset);
+            var msg = ProtocolIDConst.GetObject(msgID) as IMessage;
+
+            msg.FromBytes(data, ref offset);
+            var evt = ctx.EventCenter;
+            evt.On(msg);
+
+            PLog.Log("Receive Message: " + msg.GetType().Name + " ID: " + msgID);
+
+        }
+
+        public static void Tick_Send(RequestInfraContext ctx, float dt) {
+
+            if (ctx.Client == null) {
+                return;
+            }
+
+            byte[] buff = new byte[4096];
+            int offset = 0;
+            int msgCount = ctx.Message_GetCount();
+            ByteWriter.Write<int>(buff, msgCount, ref offset);
+            while (ctx.Message_TryDequeue(out IMessage message)) {
+                if (message == null) {
+                    continue;
+                }
+
+                var src = message.ToBytes();
+                if (src.Length >= 4096 - 5) {
+                    PLog.Log("Message is too long");
+                }
+
+                int len = src.Length + 5;
+                byte msgID = ProtocolIDConst.GetID(message);
+
+                ByteWriter.Write<int>(buff, len, ref offset);
+                ByteWriter.Write<byte>(buff, msgID, ref offset);
+                ByteWriter.WriteArray<byte>(buff, src, ref offset);
+
+                PLog.Log("Send Message: " + message.GetType().Name + " ID: " + msgID + " Len: " + len);
+
+            }
+
+            byte[] dst = new byte[offset];
+            Buffer.BlockCopy(buff, 0, dst, 0, offset);
+
+            var client = ctx.Client;
+            client.Send(dst);
         }
 
         // Connect
@@ -48,29 +104,6 @@ namespace Ping.Requests {
         // - Game
         public static void SendGame_PaddleMoveReq(RequestInfraContext ctx, FVector2 axis) {
             RequestPaddleMoveDomain.Send_PaddleMoveReq(ctx, axis);
-        }
-
-        // On Res
-        // - Login
-        public static void OnLogin_ConnectRes(RequestInfraContext ctx, byte[] data) {
-            RequestConnectDomain.On_ConnectRes(ctx, data);
-        }
-
-        public static void OnLogin_JoinRoomRes(RequestInfraContext ctx, byte[] data) {
-            RequestJoinRoomDomain.On_JoinRoomBroadRes(ctx, data);
-        }
-
-        public static void OnLogin_StartGameBroadRes(RequestInfraContext ctx, byte[] data) {
-            RequestGameStartDomain.On_GameStartBroadRes(ctx, data);
-        }
-
-        // - Game
-        public static void OnGame_EntitiesSyncBroadRes(RequestInfraContext ctx, byte[] data) {
-            RequestEntitiesSyncDomain.On_EntitiesSyncBroadRes(ctx, data);
-        }
-
-        public static void OnGame_GameResultBroadRes(RequestInfraContext ctx, byte[] data) {
-            RequestGameResultDomain.On_GameResultBroadRes(ctx, data);
         }
 
     }

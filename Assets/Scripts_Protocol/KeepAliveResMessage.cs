@@ -3,23 +3,20 @@ using MortiseFrame.LitIO;
 
 namespace Ping.Protocol {
 
-    public struct ConnectResMessage : IMessage {
+    public struct KeepAliveResMessage : IMessage {
 
-        public sbyte status; // 1 为成功, -1 为失败
-        public byte playerIndex;
+        public float timestamp;
 
         public void WriteTo(byte[] dst, ref int offset) {
-            ByteWriter.Write<sbyte>(dst, status, ref offset);
-            ByteWriter.Write<byte>(dst, playerIndex, ref offset);
+            ByteWriter.Write<float>(dst, timestamp, ref offset);
         }
 
         public void FromBytes(byte[] src, ref int offset) {
-            status = ByteReader.Read<sbyte>(src, ref offset);
-            playerIndex = ByteReader.Read<byte>(src, ref offset);
+            timestamp = ByteReader.Read<float>(src, ref offset);
         }
 
         public int GetEvaluatedSize(out bool isCertain) {
-            int count = ByteCounter.Count<sbyte>() + ByteCounter.Count<byte>();
+            int count = ByteCounter.Count<float>();
             isCertain = true;
             return count;
         }

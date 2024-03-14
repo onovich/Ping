@@ -158,6 +158,12 @@ namespace Ping.Business.Game {
             GameGameDomain.Win(ctx, gameTurn, winnerPlayerIndex, score0, score1);
         }
 
+        public static void OnNetResKeepAlive(GameBusinessContext ctx, KeepAliveResMessage msg) {
+            var timestamp = msg.timestamp;
+            PLog.Log("OnNetResKeepAlive: " + timestamp);
+            UIApp.Score_SetGameTime(ctx.uiAppContext, timestamp);
+        }
+
         public static void TearDown(GameBusinessContext ctx) {
             ExitGame(ctx);
         }

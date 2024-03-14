@@ -100,10 +100,24 @@ namespace Ping {
                 return;
             }
             var dt = Time.deltaTime;
-
-            RequestInfra.Tick_Net(requestInfraContext, dt);
+            OnNetEvent(dt);
             LoginBusiness.Tick(loginBusinessContext, dt);
             GameBusiness.Tick(gameBusinessContext, dt);
+            SendNetMessages(dt);
+        }
+
+        public void OnNetEvent(float dt) {
+            if (!isLoadedAssets || isTearDown) {
+                return;
+            }
+            RequestInfra.Tick_On(requestInfraContext, dt);
+        }
+
+        public void SendNetMessages(float dt) {
+            if (!isLoadedAssets || isTearDown) {
+                return;
+            }
+            RequestInfra.Tick_Send(requestInfraContext, dt);
         }
 
         void Init() {
@@ -183,6 +197,10 @@ namespace Ping {
 
             evt.OnGame_GameResultBroadHandle += (msg) => {
                 GameBusiness.OnNetResGameResult(gameBusinessContext, msg);
+            };
+
+            evt.KeepAlive_OnHandle += (msg) => {
+                GameBusiness.OnNetResKeepAlive(gameBusinessContext, msg);
             };
 
         }

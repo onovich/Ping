@@ -68,7 +68,6 @@ namespace Ping {
 
         public void Reset_Sync() {
             syncTargetPos = Vector2.zero;
-            PLog.Log("BallEntity.Reset_Sync");
         }
 
         // FSM

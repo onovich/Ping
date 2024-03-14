@@ -1,27 +1,56 @@
+using System;
+
 namespace Ping.Protocol {
 
     public static class ProtocolIDConst {
 
-        // Req
-        public const byte REQID_JOINROOM = 101;
-        public const byte REQID_LEAVEROOM = 102;
-        public const byte REQID_HEARTBEAT = 103;
-        public const byte REQID_PADDLEMOVE = 104;
-        public const byte REQID_RECONNECT = 105;
-        public const byte REQID_STARTGAME = 106;
+        public static object GetObject(byte id) {
+            var has = dict.TryGetByFirst(id, out Type type);
+            if (!has) {
+                throw new ArgumentException("No type found for the given ID.", id.ToString());
+            }
+            if (type == null) {
+                throw new ArgumentException("No type found for the given ID.", id.ToString());
+            }
+            return Activator.CreateInstance(type);
+        }
 
-        // Res
-        public const byte RESID_CONNECT = 202;
-        public const byte RESID_RECONNECT = 203;
+        public static byte GetID(IMessage msg) {
+            var type = msg.GetType();
+            var has = dict.TryGetBySecond(type, out byte id);
+            if (!has) {
+                throw new ArgumentException("ID Not Found");
+            }
+            return id;
+        }
 
-        // Broad
-        public const byte BROADID_JOINROOM = 001;
-        public const byte BROADID_GAMERESULT = 002;
-        public const byte BROADID_LEAVEROOM = 003;
-        public const byte BROADID_STARTGAME = 004;
-        public const byte BROADID_HEARTBEAT = 005;
-        public const byte BROADID_ENTITIESSYNC = 006;
-        public const byte BROADID_BALLMOVE = 007;
+        public static byte GetID<T>() {
+            var has = dict.TryGetBySecond(typeof(T), out byte id);
+            if (!has) {
+                throw new ArgumentException("ID Not Found");
+            }
+            return id;
+        }
+
+        static readonly BiDictionary<byte, Type> dict = new BiDictionary<byte, Type> {
+            // Req
+            {101,typeof(JoinRoomReqMessage)},
+            {102, typeof(LeaveRoomReqMessage)},
+            {104, typeof(PaddleMoveReqMessage)},
+            {106, typeof(GameStartReqMessage)},
+            {107, typeof(KeepAliveReqMessage)},
+
+            // Res
+            {202, typeof(ConnectResMessage)},
+
+            // Broad
+            {001, typeof(JoinRoomBroadMessage)},
+            {002, typeof(GameResultBroadMessage)},
+            {003, typeof(LeaveRoomBroadMessage)},
+            {004, typeof(GameStartBroadMessage)},
+            {005, typeof(KeepAliveResMessage)},
+            {006, typeof(EntitiesSyncBroadMessage)},
+        };
 
     }
 

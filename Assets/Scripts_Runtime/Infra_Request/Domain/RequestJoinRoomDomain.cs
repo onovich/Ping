@@ -11,7 +11,7 @@ namespace Ping.Requests {
 
             int offset = 0;
             var msgID = ByteReader.Read<byte>(data, ref offset);
-            if (msgID != ProtocolIDConst.BROADID_JOINROOM) {
+            if (msgID != ProtocolIDConst.GetID<JoinRoomBroadMessage>()) {
                 return;
             }
 
@@ -28,20 +28,7 @@ namespace Ping.Requests {
 
             var msg = new JoinRoomReqMessage();
             msg.userName = userName;
-            byte msgID = ProtocolIDConst.REQID_JOINROOM;
-
-            byte[] data = msg.ToBytes();
-            if (data.Length >= 4096 - 2) {
-                throw new Exception("Message is too long");
-            }
-
-            byte[] dst = new byte[data.Length + 2];
-            int offset = 0;
-            dst[offset] = msgID;
-            offset += 1;
-            Buffer.BlockCopy(data, 0, dst, offset, data.Length);
-            var client = ctx.Client;
-            client.Send(dst);
+            ctx.Message_Enqueue(msg);
 
         }
 
