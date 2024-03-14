@@ -12,6 +12,10 @@ namespace Ping.Requests {
 
             var msg = new PaddleMoveReqMessage();
             msg.moveAxis = axis;
+
+            if (axis == FVector2.zero) {
+                return;
+            }
             ctx.Message_Enqueue(msg);
 
         }
