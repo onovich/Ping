@@ -29,6 +29,8 @@ namespace Ping.Modifier {
             dbEntity.wall0Size = new FVector2(clientTM.wall0Size.x, clientTM.wall0Size.y);
             dbEntity.wall1Pos = new FVector2(clientTM.wall1Pos.x, clientTM.wall1Pos.y);
             dbEntity.wall1Size = new FVector2(clientTM.wall1Size.x, clientTM.wall1Size.y);
+            dbEntity.wall2Pos = new FVector2(clientTM.wall2Pos.x, clientTM.wall2Pos.y);
+            dbEntity.wall2Size = new FVector2(clientTM.wall2Size.x, clientTM.wall2Size.y);
 
             dbEntity.gate0Pos = new FVector2(clientTM.gate0Pos.x, clientTM.gate0Pos.y);
             dbEntity.gate0Size = new FVector2(clientTM.gate0Size.x, clientTM.gate0Size.y);
@@ -77,6 +79,8 @@ namespace Ping.Modifier {
             clientTM.wall0Size = new UnityEngine.Vector2(dbEntity.wall0Size.x, dbEntity.wall0Size.y);
             clientTM.wall1Pos = new UnityEngine.Vector2(dbEntity.wall1Pos.x, dbEntity.wall1Pos.y);
             clientTM.wall1Size = new UnityEngine.Vector2(dbEntity.wall1Size.x, dbEntity.wall1Size.y);
+            clientTM.wall2Pos = new UnityEngine.Vector2(dbEntity.wall2Pos.x, dbEntity.wall2Pos.y);
+            clientTM.wall2Size = new UnityEngine.Vector2(dbEntity.wall2Size.x, dbEntity.wall2Size.y);
 
             clientTM.gate0Pos = new UnityEngine.Vector2(dbEntity.gate0Pos.x, dbEntity.gate0Pos.y);
             clientTM.gate0Size = new UnityEngine.Vector2(dbEntity.gate0Size.x, dbEntity.gate0Size.y);

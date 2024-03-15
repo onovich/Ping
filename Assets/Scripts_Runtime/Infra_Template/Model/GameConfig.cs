@@ -12,6 +12,8 @@ namespace Ping {
         public Vector2 wall0Size;
         public Vector2 wall1Pos;
         public Vector2 wall1Size;
+        public Vector2 wall2Pos;
+        public Vector2 wall2Size;
 
         [Title("Gate")]
         public Vector2 gate0Pos;
