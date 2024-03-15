@@ -16,8 +16,6 @@ MonoBehaviour:
   wall0Size: {x: 0.02, y: 9.98}
   wall1Pos: {x: 2.48, y: 0}
   wall1Size: {x: 0.02, y: 9.98}
-  wall2Pos: {x: 0, y: 0}
-  wall2Size: {x: 5, y: 0.02}
   gate0Pos: {x: 0, y: -4.98}
   gate0Size: {x: 4.94, y: 0.02}
   gate1Pos: {x: 0, y: 4.98}
@@ -31,3 +29,7 @@ MonoBehaviour:
   paddleMoveSpeed: 3
   paddleMoveSpeedMax: 10
   paddleSize: {x: 0.6, y: 0.06}
+  constraint0Pos: {x: 0, y: -2.48}
+  constraint0Size: {x: 4.94, y: 4.98}
+  constraint1Pos: {x: 0, y: 2.48}
+  constraint1Size: {x: 4.94, y: 4.98}

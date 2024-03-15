@@ -11,7 +11,7 @@ namespace Ping.Modifier {
 
         [SerializeField] GameConfig clientTM;
 
-        const long len = 1024;
+        const long len = 2048;
         byte[] buffer = new byte[len];
 
         [Button("Save")]
@@ -29,8 +29,6 @@ namespace Ping.Modifier {
             dbEntity.wall0Size = new FVector2(clientTM.wall0Size.x, clientTM.wall0Size.y);
             dbEntity.wall1Pos = new FVector2(clientTM.wall1Pos.x, clientTM.wall1Pos.y);
             dbEntity.wall1Size = new FVector2(clientTM.wall1Size.x, clientTM.wall1Size.y);
-            dbEntity.wall2Pos = new FVector2(clientTM.wall2Pos.x, clientTM.wall2Pos.y);
-            dbEntity.wall2Size = new FVector2(clientTM.wall2Size.x, clientTM.wall2Size.y);
 
             dbEntity.gate0Pos = new FVector2(clientTM.gate0Pos.x, clientTM.gate0Pos.y);
             dbEntity.gate0Size = new FVector2(clientTM.gate0Size.x, clientTM.gate0Size.y);
@@ -47,6 +45,11 @@ namespace Ping.Modifier {
             dbEntity.paddleMoveSpeed = clientTM.paddleMoveSpeed;
             dbEntity.paddleMoveSpeedMax = clientTM.paddleMoveSpeedMax;
             dbEntity.paddleSize = new FVector2(clientTM.paddleSize.x, clientTM.paddleSize.y);
+
+            dbEntity.constraint0Pos = new FVector2(clientTM.constraint0Pos.x, clientTM.constraint0Pos.y);
+            dbEntity.constraint0Size = new FVector2(clientTM.constraint0Size.x, clientTM.constraint0Size.y);
+            dbEntity.constraint1Pos = new FVector2(clientTM.constraint1Pos.x, clientTM.constraint1Pos.y);
+            dbEntity.constraint1Size = new FVector2(clientTM.constraint1Size.x, clientTM.constraint1Size.y);
 
             int offset = 0;
             dbEntity.WriteTo(buffer, ref offset);
@@ -79,8 +82,6 @@ namespace Ping.Modifier {
             clientTM.wall0Size = new UnityEngine.Vector2(dbEntity.wall0Size.x, dbEntity.wall0Size.y);
             clientTM.wall1Pos = new UnityEngine.Vector2(dbEntity.wall1Pos.x, dbEntity.wall1Pos.y);
             clientTM.wall1Size = new UnityEngine.Vector2(dbEntity.wall1Size.x, dbEntity.wall1Size.y);
-            clientTM.wall2Pos = new UnityEngine.Vector2(dbEntity.wall2Pos.x, dbEntity.wall2Pos.y);
-            clientTM.wall2Size = new UnityEngine.Vector2(dbEntity.wall2Size.x, dbEntity.wall2Size.y);
 
             clientTM.gate0Pos = new UnityEngine.Vector2(dbEntity.gate0Pos.x, dbEntity.gate0Pos.y);
             clientTM.gate0Size = new UnityEngine.Vector2(dbEntity.gate0Size.x, dbEntity.gate0Size.y);
@@ -97,6 +98,11 @@ namespace Ping.Modifier {
             clientTM.paddleMoveSpeed = dbEntity.paddleMoveSpeed;
             clientTM.paddleMoveSpeedMax = dbEntity.paddleMoveSpeedMax;
             clientTM.paddleSize = new UnityEngine.Vector2(dbEntity.paddleSize.x, dbEntity.paddleSize.y);
+
+            clientTM.constraint0Pos = new UnityEngine.Vector2(dbEntity.constraint0Pos.x, dbEntity.constraint0Pos.y);
+            clientTM.constraint0Size = new UnityEngine.Vector2(dbEntity.constraint0Size.x, dbEntity.constraint0Size.y);
+            clientTM.constraint1Pos = new UnityEngine.Vector2(dbEntity.constraint1Pos.x, dbEntity.constraint1Pos.y);
+            clientTM.constraint1Size = new UnityEngine.Vector2(dbEntity.constraint1Size.x, dbEntity.constraint1Size.y);
 
             PLog.Log("GameConfig loaded");
 
