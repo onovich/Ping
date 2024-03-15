@@ -17,7 +17,7 @@ namespace Ping.Requests {
             try {
                 var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 client.NoDelay = true;
-                string ip = RequestConst.REMOTE_IP;
+                string ip = ctx.isTest ? RequestConst.REMOTE_IP_TEST : RequestConst.REMOTE_IP;
                 int port = RequestConst.REMOTE_PORT;
 
                 IPAddress ipAddress = IPAddress.Parse(ip);

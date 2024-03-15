@@ -11,6 +11,7 @@ namespace Ping {
 
     public class ClientMain : MonoBehaviour {
 
+        [SerializeField] bool isTest;
         InputEntity inputEntity;
         MainContext mainContext;
 
@@ -51,6 +52,8 @@ namespace Ping {
             var player1 = new PlayerEntity(1);
             mainContext.Player_Add(player0);
             mainContext.Player_Add(player1);
+
+            requestInfraContext.isTest = isTest;
 
             // Inject
             uiAppContext.canvas = mainCanvas;

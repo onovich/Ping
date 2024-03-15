@@ -8,6 +8,8 @@ namespace Ping.Requests {
 
     public class RequestInfraContext {
 
+        public bool isTest;
+
         Socket client;
         public Socket Client => client;
 
