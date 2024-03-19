@@ -1,108 +1,103 @@
 using System;
-using System.Threading.Tasks;
 using MortiseFrame.Abacus;
-using MortiseFrame.LitIO;
+using MortiseFrame.Rill;
 using Ping.Protocol;
+using UnityEngine;
 
 namespace Ping.Requests {
 
     public static class RequestInfra {
 
-        public static void Tick_On(RequestInfraContext ctx, float dt) {
-            var client = ctx.Client;
-            if (client == null) {
-                return;
-            }
-            if (!client.Poll(0, System.Net.Sockets.SelectMode.SelectRead)) {
-                return;
-            }
-            byte[] buff = ctx.readBuff;
-            int count = client.Receive(buff);
-            if (count <= 0) {
-                return;
-            }
-
-            var offset = 0;
-            while (offset < count) {
-                var len = ByteReader.Read<int>(buff, ref offset);
-                if (len == 0) {
-                    break;
-                }
-                On(ctx, buff, ref offset);
-            }
-
-            ctx.Buffer_ClearReadBuffer();
+        //  Register
+        public static void RegisterAllProtocol(RequestInfraContext ctx) {
+            var client = ctx.ClientCore;
+            client.Register(typeof(ConnectResMessage));
+            client.Register(typeof(EntitiesSyncBroadMessage));
+            client.Register(typeof(GameResultBroadMessage));
+            client.Register(typeof(GameStartBroadMessage));
+            client.Register(typeof(GameStartReqMessage));
+            client.Register(typeof(JoinRoomBroadMessage));
+            client.Register(typeof(JoinRoomReqMessage));
+            client.Register(typeof(KeepAliveReqMessage));
+            client.Register(typeof(KeepAliveResMessage));
+            client.Register(typeof(LeaveRoomBroadMessage));
+            client.Register(typeof(LeaveRoomReqMessage));
+            client.Register(typeof(PaddleMoveReqMessage));
         }
 
-        public static void On(RequestInfraContext ctx, byte[] data, ref int offset) {
-
-            var msgID = ByteReader.Read<byte>(data, ref offset);
-            var msg = ProtocolIDConst.GetObject(msgID) as IMessage;
-
-            msg.FromBytes(data, ref offset);
-            var evt = ctx.EventCenter;
-            evt.On(msg);
-
+        //  Send
+        public static void Send(RequestInfraContext ctx, IMessage msg) {
+            ctx.ClientCore.Send(msg);
         }
 
-        public static void Tick_Send(RequestInfraContext ctx, float dt) {
-
-            if (ctx.Client == null) {
-                return;
-            }
-
-            while (ctx.Message_TryDequeue(out IMessage message)) {
-                if (message == null) {
-                    continue;
-                }
-
-                byte[] buff = ctx.writeBuff;
-                int offset = 0;
-
-                var src = message.ToBytes();
-                if (src.Length >= 4096 - 5) {
-                    PLog.Log("Message is too long");
-                }
-
-                int len = src.Length + 5;
-                byte msgID = ProtocolIDConst.GetID(message);
-
-                ByteWriter.Write<int>(buff, len, ref offset);
-                ByteWriter.Write<byte>(buff, msgID, ref offset);
-                Buffer.BlockCopy(src, 0, buff, offset, src.Length);
-                offset += src.Length;
-
-                if (offset == 0) {
-                    return;
-                }
-
-                var client = ctx.Client;
-                client.Send(buff, offset, System.Net.Sockets.SocketFlags.None);
-
-                ctx.Buffer_ClearWriteBuffer();
-
-            }
-
+        //  Tick
+        public static void Tick(RequestInfraContext ctx, float dt) {
+            ctx.ClientCore.Tick(dt);
         }
 
-        // Connect
-        public static async Task Connect_ToServer(RequestInfraContext ctx) {
-            await RequestConnectDomain.ConnectToServerAsync(ctx);
+        //  Connect
+        public static void Connect(RequestInfraContext ctx) {
+            var remoteIP = ctx.isTest ? RequestConst.REMOTE_IP_TEST : RequestConst.REMOTE_IP;
+            var port = RequestConst.REMOTE_PORT;
+            ctx.ClientCore.Connect(remoteIP, port);
+        }
+
+        //  On  
+        public static void On<T>(RequestInfraContext ctx, Action<IMessage> listener) where T : IMessage {
+            ctx.ClientCore.On<T>(listener);
+        }
+
+        public static void OnError(RequestInfraContext ctx, Action<string> listener) {
+            ctx.ClientCore.OnError(listener);
+        }
+
+        public static void OnConnected(RequestInfraContext ctx, Action listener) {
+            ctx.ClientCore.OnConnect(listener);
+        }
+
+        public static void OnDisconnected(RequestInfraContext ctx, Action listener) {
+            ctx.ClientCore.OnDisconnect(listener);
+        }
+
+        //  Off
+        public static void Off<T>(RequestInfraContext ctx, Action<IMessage> listener) where T : IMessage {
+            ctx.ClientCore.Off<T>(listener);
+        }
+
+        public static void OffError(RequestInfraContext ctx, Action<string> listener) {
+            ctx.ClientCore.OffError(listener);
+        }
+
+        public static void OffConnected(RequestInfraContext ctx, Action listener) {
+            ctx.ClientCore.OffConnect(listener);
+        }
+
+        public static void OffDisconnected(RequestInfraContext ctx, Action listener) {
+            ctx.ClientCore.OffDisconnect(listener);
+        }
+
+        public static void Stop(RequestInfraContext ctx) {
+            ctx.ClientCore.Stop();
         }
 
         // Send Req
         // - Login
         public static void SendLogin_JoinRoomReq(RequestInfraContext ctx, string token) {
-            RequestJoinRoomDomain.Send_JoinRoomReq(ctx, token);
+            var msg = new JoinRoomReqMessage();
+            msg.userName = token;
+            ctx.ClientCore.Send(msg);
         }
 
         public static void SendLogin_GameStartReq(RequestInfraContext ctx) {
-            RequestGameStartDomain.Send_GameStartReq(ctx);
+            var msg = new GameStartReqMessage();
+            ctx.ClientCore.Send(msg);
         }
 
         // - Game
-        public static void SendGame_PaddleMoveReq(RequestInfraContext ctx, FVector2 axis) {
-            RequestPaddleMoveDomain.Send_PaddleMoveReq(ctx, axis);
+        public static void SendGame_PaddleMoveReq(RequestInfraContext ctx, Vector2 axis) {
+            var msg = new PaddleMoveReqMessage();
+            msg.moveAxis = axis.ToFVector2();
+            ctx.ClientCore.Send(msg);
         }
 
     }

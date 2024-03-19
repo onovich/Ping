@@ -25,24 +25,24 @@ namespace Ping.Business.Login {
 
         public static void OnUIGameStartClick(LoginBusinessContext ctx) {
             UIApp.Login_SetStartGameBtnInterectable(ctx.uiAppContext, false);
-            RequestInfra.SendLogin_GameStartReq(ctx.reqContext);
+            RequestInfra.SendLogin_GameStartReq(ctx.reqInfraContext);
         }
 
         public static void OnUIExitGameClick(LoginBusinessContext ctx) {
             Exit(ctx);
         }
 
-        public static async void OnUILoginClick(LoginBusinessContext ctx, string userName) {
+        public static void OnUILoginClick(LoginBusinessContext ctx, string userName) {
             ctx.ownerName = userName;
             UIApp.Login_ShowWaitingPanel(ctx.uiAppContext);
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, "Connecting To Server...");
-            await RequestInfra.Connect_ToServer(ctx.reqContext);
+            RequestInfra.Connect(ctx.reqInfraContext);
         }
 
         // On Net Res
         public static void OnNetResConnect(LoginBusinessContext ctx, ConnectResMessage msg) {
             UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Server Connect Status: {msg.status} ");
-            RequestInfra.SendLogin_JoinRoomReq(ctx.reqContext, ctx.ownerName);
+            RequestInfra.SendLogin_JoinRoomReq(ctx.reqInfraContext, ctx.ownerName);
             PLog.Log("Send Join Room Req, Player Index = " + msg.playerIndex);
             ctx.Player_SetOwnerIndex(msg.playerIndex);
         }

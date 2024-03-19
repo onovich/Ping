@@ -1,6 +1,7 @@
 using UnityEngine;
-using Ping.Requests;
 using System.Collections.Generic;
+using MortiseFrame.Rill;
+using Ping.Requests;
 
 namespace Ping.Business.Game {
 
@@ -27,10 +28,12 @@ namespace Ping.Business.Game {
         // Infra
         public TemplateInfraContext templateInfraContext;
         public AssetsInfraContext assetsInfraContext;
-        public RequestInfraContext reqContext;
 
         // Main
         public MainContext mainContext;
+
+        // Request
+        public RequestInfraContext reqInfraContext;
 
         public GameBusinessContext() {
             gameEntity = new GameEntity();

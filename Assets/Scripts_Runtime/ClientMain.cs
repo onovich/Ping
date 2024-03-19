@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ping.Business.Game;
 using Ping.Business.Login;
-using Ping.Requests;
 using UnityEngine;
+using MortiseFrame.Rill;
+using Ping.Protocol;
+using Ping.Requests;
 
 namespace Ping {
 
@@ -17,10 +19,11 @@ namespace Ping {
 
         AssetsInfraContext assetsInfraContext;
         TemplateInfraContext templateInfraContext;
+        RequestInfraContext reqInfraContext;
 
         LoginBusinessContext loginBusinessContext;
         GameBusinessContext gameBusinessContext;
-        RequestInfraContext requestInfraContext;
+
 
         UIAppContext uiAppContext;
 
@@ -46,14 +49,12 @@ namespace Ping {
 
             assetsInfraContext = new AssetsInfraContext();
             templateInfraContext = new TemplateInfraContext();
-            requestInfraContext = new RequestInfraContext();
+            reqInfraContext = new RequestInfraContext();
 
             var player0 = new PlayerEntity(0);
             var player1 = new PlayerEntity(1);
             mainContext.Player_Add(player0);
             mainContext.Player_Add(player1);
-
-            requestInfraContext.isTest = isTest;
 
             // Inject
             uiAppContext.canvas = mainCanvas;
@@ -61,8 +62,8 @@ namespace Ping {
             uiAppContext.templateInfraContext = templateInfraContext;
 
             loginBusinessContext.uiAppContext = uiAppContext;
-            loginBusinessContext.reqContext = requestInfraContext;
             loginBusinessContext.mainContext = mainContext;
+            loginBusinessContext.reqInfraContext = reqInfraContext;
 
             gameBusinessContext.inputEntity = inputEntity;
             gameBusinessContext.assetsInfraContext = assetsInfraContext;
@@ -70,15 +71,10 @@ namespace Ping {
             gameBusinessContext.uiAppContext = uiAppContext;
             gameBusinessContext.mainCamera = mainCamera;
             gameBusinessContext.mainContext = mainContext;
-            gameBusinessContext.reqContext = requestInfraContext;
+            gameBusinessContext.reqInfraContext = reqInfraContext;
 
-            Binding_Request_Login();
-            Binding_Login();
-            Binding_UI_Login();
-
-            Binding_Request_Game();
-            Binding_Game();
-            Binding_UI_Game();
+            RegisterProtocols();
+            BindingEvents();
 
             Action action = async () => {
                 try {
@@ -103,24 +99,16 @@ namespace Ping {
                 return;
             }
             var dt = Time.deltaTime;
-            SendNetMessages(dt);
-            OnNetEvent(dt);
+            TickNet(dt);
             LoginBusiness.Tick(loginBusinessContext, dt);
             GameBusiness.Tick(gameBusinessContext, dt);
         }
 
-        public void OnNetEvent(float dt) {
+        public void TickNet(float dt) {
             if (!isLoadedAssets || isTearDown) {
                 return;
             }
-            RequestInfra.Tick_On(requestInfraContext, dt);
-        }
-
-        public void SendNetMessages(float dt) {
-            if (!isLoadedAssets || isTearDown) {
-                return;
-            }
-            RequestInfra.Tick_Send(requestInfraContext, dt);
+            RequestInfra.Tick(reqInfraContext, dt);
         }
 
         void Init() {
@@ -142,77 +130,53 @@ namespace Ping {
 
         }
 
-        void Binding_Request_Login() {
-            var evt = requestInfraContext.EventCenter;
-
-            evt.OnConnect_ResHandle += (msg) => {
-                LoginBusiness.OnNetResConnect(loginBusinessContext, msg);
-            };
-
-            evt.OnConnect_ResErrorHandle += (msg) => {
-                LoginBusiness.OnNetResConnectError(loginBusinessContext, msg);
-            };
-
-            evt.OnLogin_JoinRoomBroadHandle += (msg) => {
-                LoginBusiness.OnNetResJoinRoom(loginBusinessContext, msg);
-            };
-
-            evt.OnLogin_GameStartBroadHandle += (msg) => {
-                LoginBusiness.OnNetResGameStart(loginBusinessContext, msg);
-            };
+        void RegisterProtocols() {
+            RequestInfra.RegisterAllProtocol(reqInfraContext);
         }
 
-        void Binding_UI_Login() {
-            var evt = uiAppContext.eventCenter;
+        void BindingEvents() {
 
-            evt.Login_OnNewGameClickHandle += (userName) => {
-                LoginBusiness.OnUILoginClick(loginBusinessContext, userName);
-            };
+            // Request_Login
+            {
+                RequestInfra.On<ConnectResMessage>(reqInfraContext, (msg) => LoginBusiness.OnNetResConnect(loginBusinessContext, (ConnectResMessage)msg));
+                RequestInfra.On<JoinRoomBroadMessage>(reqInfraContext, (msg) => LoginBusiness.OnNetResJoinRoom(loginBusinessContext, (JoinRoomBroadMessage)msg));
+                RequestInfra.On<GameStartBroadMessage>(reqInfraContext, (msg) => LoginBusiness.OnNetResGameStart(loginBusinessContext, (GameStartBroadMessage)msg));
+                RequestInfra.OnError(reqInfraContext, (msg) => LoginBusiness.OnNetResConnectError(loginBusinessContext, msg));
+            }
 
-            evt.Login_OnExitGameClickHandle += () => {
-                LoginBusiness.OnUIExitGameClick(loginBusinessContext);
-            };
+            // Request_Game
+            {
+                RequestInfra.On<EntitiesSyncBroadMessage>(reqInfraContext, (msg) => GameBusiness.OnNetResEntitiesSync(gameBusinessContext, (EntitiesSyncBroadMessage)msg));
+                RequestInfra.On<GameResultBroadMessage>(reqInfraContext, (msg) => GameBusiness.OnNetResGameResult(gameBusinessContext, (GameResultBroadMessage)msg));
+                RequestInfra.On<KeepAliveResMessage>(reqInfraContext, (msg) => GameBusiness.OnNetResKeepAlive(gameBusinessContext, (KeepAliveResMessage)msg));
+            }
 
-            evt.Login_OnCancleJoinRoomClickHandle += () => {
-                LoginBusiness.OnUICancleWaitingClick(loginBusinessContext);
-            };
+            // UI_Login
+            {
+                var evt = uiAppContext.eventCenter;
+                evt.Login_OnNewGameClickHandle += (userName) => {
+                    LoginBusiness.OnUILoginClick(loginBusinessContext, userName);
+                };
+                evt.Login_OnExitGameClickHandle += () => {
+                    LoginBusiness.OnUIExitGameClick(loginBusinessContext);
+                };
+                evt.Login_OnCancleJoinRoomClickHandle += () => {
+                    LoginBusiness.OnUICancleWaitingClick(loginBusinessContext);
+                };
+                evt.Login_OnGameStartClickHandle += () => {
+                    LoginBusiness.OnUIGameStartClick(loginBusinessContext);
+                };
+            }
 
-            evt.Login_OnGameStartClickHandle += () => {
-                LoginBusiness.OnUIGameStartClick(loginBusinessContext);
-            };
-        }
+            // Login
+            {
+                var evt = loginBusinessContext.evt;
 
-        void Binding_Login() {
-            var evt = loginBusinessContext.evt;
-
-            evt.OnLoginDoneHandle += (userName) => {
-                LoginBusiness.Exit(loginBusinessContext);
-                GameBusiness.StartGame(gameBusinessContext);
-            };
-        }
-
-        void Binding_Request_Game() {
-            var evt = requestInfraContext.EventCenter;
-
-            evt.OnGame_EntitiesSyncBroadHandle += (msg) => {
-                GameBusiness.OnNetResEntitiesSync(gameBusinessContext, msg);
-            };
-
-            evt.OnGame_GameResultBroadHandle += (msg) => {
-                GameBusiness.OnNetResGameResult(gameBusinessContext, msg);
-            };
-
-            evt.KeepAlive_OnHandle += (msg) => {
-                GameBusiness.OnNetResKeepAlive(gameBusinessContext, msg);
-            };
-
-        }
-
-        void Binding_UI_Game() {
-
-        }
-
-        void Binding_Game() {
+                evt.OnLoginDoneHandle += (userName) => {
+                    LoginBusiness.Exit(loginBusinessContext);
+                    GameBusiness.StartGame(gameBusinessContext);
+                };
+            }
 
         }
 
@@ -246,6 +210,7 @@ namespace Ping {
             TemplateInfra.Release(templateInfraContext);
             // TemplateInfra.ReleaseAssets(templateInfraContext);
             // UIApp.TearDown(uiAppContext);
+            RequestInfra.Stop(reqInfraContext);
         }
 
     }

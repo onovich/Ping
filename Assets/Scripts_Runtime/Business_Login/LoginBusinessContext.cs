@@ -1,3 +1,4 @@
+using MortiseFrame.Rill;
 using Ping.Requests;
 
 namespace Ping.Business.Login {
@@ -10,11 +11,11 @@ namespace Ping.Business.Login {
         // UI
         public UIAppContext uiAppContext;
 
-        // Infra
-        public RequestInfraContext reqContext;
-
         // Main
         public MainContext mainContext;
+
+        // Request
+        public RequestInfraContext reqInfraContext;
 
         public string ownerName;
 
