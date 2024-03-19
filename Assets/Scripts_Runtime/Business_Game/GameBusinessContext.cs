@@ -89,7 +89,7 @@ namespace Ping.Business.Game {
         }
 
         public PaddleEntity Paddle_GetLocalOwner() {
-            var ownerID = gameEntity.GetLocalOwnerPlayerIndex();
+            var ownerID = mainContext.ownerIndex;
             return Paddle_Get(ownerID);
         }
 

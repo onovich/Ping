@@ -68,7 +68,6 @@ namespace Ping.Business.Login {
 
             var player2 = ctx.Player_Get(2);
             player2.SetUserName(userName2);
-
         }
 
         public static void OnNetResGameStart(LoginBusinessContext ctx, GameStartBroadMessage msg) {
