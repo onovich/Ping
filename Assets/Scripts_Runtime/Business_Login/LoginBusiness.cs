@@ -52,19 +52,23 @@ namespace Ping.Business.Login {
         }
 
         public static void OnNetResJoinRoom(LoginBusinessContext ctx, JoinRoomBroadMessage msg) {
-            var userNames = msg.userNames;
+            var userName1 = msg.userName1;
+            var userName2 = msg.userName2;
             var ownerIndex = msg.ownerIndex;
             var status = msg.status;
-            UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Join Status: {status}; OwnerID: {ownerIndex}; Player1 Name: {userNames[0]}; Player2 Name: {userNames[1]}");
+            UIApp.Login_SetRoomInfo(ctx.uiAppContext, $"Join Status: {status}; OwnerID: {ownerIndex}; Player1 Name: {userName1}; Player2 Name: {userName2}");
             UIApp.Login_ShowStartGameBtn(ctx.uiAppContext);
             UIApp.Login_SetStartGameBtnInterectable(ctx.uiAppContext, true);
 
             var ownerPlayer = ctx.Player_GetOwner();
             ownerPlayer.SetUserName(ctx.ownerName);
 
-            var opponentIndex = 1 - ownerIndex;
-            var opponentPlayer = ctx.Player_Get(opponentIndex);
-            opponentPlayer.SetUserName(userNames[opponentIndex]);
+            var player1 = ctx.Player_Get(1);
+            player1.SetUserName(userName1);
+
+            var player2 = ctx.Player_Get(2);
+            player2.SetUserName(userName2);
+
         }
 
         public static void OnNetResGameStart(LoginBusinessContext ctx, GameStartBroadMessage msg) {
