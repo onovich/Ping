@@ -30,6 +30,13 @@
       "dependencies": {},
       "hash": "e9bbc5126efa4d8fc1d7ee003cc76f30b8600898"
     },
+    "com.mortise.rill": {
+      "version": "ssh://git@github.com/onovich/Rill.git?path=/Assets/com.mortise.rill#main",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "88871f70a9e00ab816f66ef5b17419b4acb525bf"
+    },
     "com.unity.2d.animation": {
       "version": "9.0.4",
       "depth": 1,

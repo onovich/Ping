@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.mortise.rill": "ssh://git@github.com/onovich/Rill.git?path=/Assets/com.mortise.rill#main",
     "com.codewriter.triinspector": "git@github.com:codewriter-packages/Tri-Inspector.git",
     "com.gamearki.gamefunctions": "ssh://git@github.com/GameArki/GameFunctions.git?path=Assets",
     "com.mortise.litio": "ssh://git@github.com/onovich/LitIO.git?path=/Assets/com.mortise.litio#main",
