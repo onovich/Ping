@@ -50,6 +50,7 @@ namespace Ping {
             assetsInfraContext = new AssetsInfraContext();
             templateInfraContext = new TemplateInfraContext();
             reqInfraContext = new RequestInfraContext();
+            reqInfraContext.isTest = isTest;
 
             var player0 = new PlayerEntity(0);
             var player1 = new PlayerEntity(1);
