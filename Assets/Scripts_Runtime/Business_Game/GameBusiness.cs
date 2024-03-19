@@ -133,8 +133,8 @@ namespace Ping.Business.Game {
         }
 
         public static void OnNetResEntitiesSync(GameBusinessContext ctx, EntitiesSyncBroadMessage msg) {
-            var paddle1Pos = msg.paddle0Pos;
-            var paddle2Pos = msg.paddle1Pos;
+            var paddle1Pos = msg.paddle1Pos;
+            var paddle2Pos = msg.paddle2Pos;
             var ballPos = msg.ballPos;
 
             var paddle1 = ctx.Paddle_Get(1);
@@ -149,8 +149,8 @@ namespace Ping.Business.Game {
         public static void OnNetResGameResult(GameBusinessContext ctx, GameResultBroadMessage msg) {
             var winnerPlayerIndex = msg.winnerPlayerIndex;
             var gameTurn = msg.gameTurn;
-            var score1 = msg.score0;
-            var score2 = msg.score1;
+            var score1 = msg.score1;
+            var score2 = msg.score2;
 
             var ball = ctx.Ball_Get();
 
