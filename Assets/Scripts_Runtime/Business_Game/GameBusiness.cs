@@ -96,13 +96,13 @@ namespace Ping.Business.Game {
             GameBallDomain.ApplySyncMove(ctx, ball);
 
             // Paddle
-            var paddle0 = ctx.Paddle_Get(0);
-            if (paddle0 == null) { return; }
-            GamePaddleDomain.ApplySyncMove(ctx, paddle0);
-
             var paddle1 = ctx.Paddle_Get(1);
             if (paddle1 == null) { return; }
             GamePaddleDomain.ApplySyncMove(ctx, paddle1);
+
+            var paddle2 = ctx.Paddle_Get(2);
+            if (paddle2 == null) { return; }
+            GamePaddleDomain.ApplySyncMove(ctx, paddle2);
 
             Physics2D.Simulate(dt);
 
@@ -121,10 +121,10 @@ namespace Ping.Business.Game {
                 var ball = ctx.Ball_Get();
                 GameBallDomain.ResetBall(ctx, ball);
 
-                var score0 = ctx.Player_Get(0).Score_Get();
                 var score1 = ctx.Player_Get(1).Score_Get();
-                UIApp.Score_SetPlayerScore(ctx.uiAppContext, score0, 0);
+                var score2 = ctx.Player_Get(2).Score_Get();
                 UIApp.Score_SetPlayerScore(ctx.uiAppContext, score1, 1);
+                UIApp.Score_SetPlayerScore(ctx.uiAppContext, score2, 2);
 
                 fsm.Gaming_Enter();
                 return;
@@ -133,29 +133,28 @@ namespace Ping.Business.Game {
         }
 
         public static void OnNetResEntitiesSync(GameBusinessContext ctx, EntitiesSyncBroadMessage msg) {
-            var paddle0Pos = msg.paddle0Pos;
-            var paddle1Pos = msg.paddle1Pos;
+            var paddle1Pos = msg.paddle0Pos;
+            var paddle2Pos = msg.paddle1Pos;
             var ballPos = msg.ballPos;
 
-            var paddle0 = ctx.Paddle_Get(0);
             var paddle1 = ctx.Paddle_Get(1);
+            var paddle2 = ctx.Paddle_Get(2);
             var ball = ctx.Ball_Get();
 
-            GamePaddleDomain.RecordSyncTargetPos(ctx, paddle0, paddle0Pos);
             GamePaddleDomain.RecordSyncTargetPos(ctx, paddle1, paddle1Pos);
+            GamePaddleDomain.RecordSyncTargetPos(ctx, paddle2, paddle2Pos);
             GameBallDomain.RecordSyncTargetPos(ctx, ball, ballPos);
-
         }
 
         public static void OnNetResGameResult(GameBusinessContext ctx, GameResultBroadMessage msg) {
             var winnerPlayerIndex = msg.winnerPlayerIndex;
             var gameTurn = msg.gameTurn;
-            var score0 = msg.score0;
-            var score1 = msg.score1;
+            var score1 = msg.score0;
+            var score2 = msg.score1;
 
             var ball = ctx.Ball_Get();
 
-            GameGameDomain.Win(ctx, gameTurn, winnerPlayerIndex, score0, score1);
+            GameGameDomain.Win(ctx, gameTurn, winnerPlayerIndex, score1, score2);
         }
 
         public static void OnNetResKeepAlive(GameBusinessContext ctx, KeepAliveResMessage msg) {

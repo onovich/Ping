@@ -52,10 +52,10 @@ namespace Ping {
             reqInfraContext = new RequestInfraContext();
             reqInfraContext.isTest = isTest;
 
-            var player0 = new PlayerEntity(0);
             var player1 = new PlayerEntity(1);
-            mainContext.Player_Add(player0);
+            var player2 = new PlayerEntity(2);
             mainContext.Player_Add(player1);
+            mainContext.Player_Add(player2);
 
             // Inject
             uiAppContext.canvas = mainCanvas;
