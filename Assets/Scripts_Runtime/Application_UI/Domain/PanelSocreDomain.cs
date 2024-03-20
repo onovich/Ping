@@ -10,8 +10,8 @@ namespace Ping.UI {
             Panel_Score panel = UIFactory.UniquePanel_Open<Panel_Score>(ctx);
             panel.Ctor();
             panel.SetOwnerIndex(ownerIndex);
-            panel.SetPlayer0Name(player1Name);
-            panel.SetPlayer1Name(player2Name);
+            panel.SetPlayer1Name(player1Name);
+            panel.SetPlayer2Name(player2Name);
         }
 
         public static void Close(UIAppContext ctx) {
@@ -28,10 +28,10 @@ namespace Ping.UI {
                 PLog.LogError("Panel_Score not found");
             }
             if (playerIndex == 0) {
-                panel.SetPlayer0Score(score);
+                panel.SetPlayer1Score(score);
             }
             if (playerIndex == 1) {
-                panel.SetPlayer1Score(score);
+                panel.SetPlayer2Score(score);
             }
         }
 

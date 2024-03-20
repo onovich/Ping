@@ -23,30 +23,30 @@ namespace Ping.UI {
             player2ScoreText.color = Color.white;
         }
 
-        public void SetPlayer0Name(string name) {
+        public void SetPlayer1Name(string name) {
             player1NameText.text = "PLAYER1 " + name;
         }
 
-        public void SetPlayer1Name(string name) {
+        public void SetPlayer2Name(string name) {
             player2NameText.text = "PLAYER2 " + name;
         }
 
         public void SetOwnerIndex(int ownerIndex) {
-            if (ownerIndex == 0) {
+            if (ownerIndex == 1) {
                 player1NameText.color = Color.yellow;
                 player1ScoreText.color = Color.yellow;
             }
-            if (ownerIndex == 1) {
+            if (ownerIndex == 2) {
                 player2ScoreText.color = Color.yellow;
                 player2NameText.color = Color.yellow;
             }
         }
 
-        public void SetPlayer0Score(int score) {
+        public void SetPlayer1Score(int score) {
             player1ScoreText.text = score.ToString();
         }
 
-        public void SetPlayer1Score(int score) {
+        public void SetPlayer2Score(int score) {
             player2ScoreText.text = score.ToString();
         }
 
