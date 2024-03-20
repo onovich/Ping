@@ -27,10 +27,10 @@ namespace Ping.UI {
             if (panel == null) {
                 PLog.LogError("Panel_Score not found");
             }
-            if (playerIndex == 0) {
+            if (playerIndex == 1) {
                 panel.SetPlayer1Score(score);
             }
-            if (playerIndex == 1) {
+            if (playerIndex == 2) {
                 panel.SetPlayer2Score(score);
             }
         }
