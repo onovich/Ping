@@ -51,6 +51,10 @@ namespace Ping.Modifier {
             dbEntity.constraint2Pos = new FVector2(clientTM.constraint2Pos.x, clientTM.constraint2Pos.y);
             dbEntity.constraint2Size = new FVector2(clientTM.constraint2Size.x, clientTM.constraint2Size.y);
 
+            dbEntity.remoteIP_test = clientTM.REMOTE_IP_TEST;
+            dbEntity.remotePort = clientTM.REMOTE_PORT;
+            dbEntity.remoteIP = clientTM.REMOTE_IP;
+
             int offset = 0;
             dbEntity.WriteTo(buffer, ref offset);
             FileHelper.SaveBytes("GameConfig.bytes", buffer, offset);
@@ -103,6 +107,10 @@ namespace Ping.Modifier {
             clientTM.constraint1Size = new UnityEngine.Vector2(dbEntity.constraint1Size.x, dbEntity.constraint1Size.y);
             clientTM.constraint2Pos = new UnityEngine.Vector2(dbEntity.constraint2Pos.x, dbEntity.constraint2Pos.y);
             clientTM.constraint2Size = new UnityEngine.Vector2(dbEntity.constraint2Size.x, dbEntity.constraint2Size.y);
+
+            clientTM.REMOTE_IP_TEST = dbEntity.remoteIP_test;
+            clientTM.REMOTE_PORT = dbEntity.remotePort;
+            clientTM.REMOTE_IP = dbEntity.remoteIP;
 
             PLog.Log("GameConfig loaded");
 
