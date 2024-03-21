@@ -38,6 +38,11 @@ namespace Ping {
         public Vector2 constraint2Pos;
         public Vector2 constraint2Size;
 
+        [Title("Request")]
+        public string REMOTE_IP_TEST;
+        public int REMOTE_PORT;
+        public string REMOTE_IP;
+
     }
 
 }

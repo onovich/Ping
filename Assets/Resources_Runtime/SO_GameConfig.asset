@@ -33,3 +33,6 @@ MonoBehaviour:
   constraint1Size: {x: 4.94, y: 4.98}
   constraint2Pos: {x: 0, y: 2.48}
   constraint2Size: {x: 4.94, y: 4.98}
+  REMOTE_IP_TEST: 127.0.0.1
+  REMOTE_PORT: 5050
+  REMOTE_IP: 0.0.0.0

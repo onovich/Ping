@@ -37,8 +37,9 @@ namespace Ping.Requests {
 
         //  Connect
         public static void Connect(RequestInfraContext ctx) {
-            var remoteIP = ctx.isTest ? RequestConst.REMOTE_IP_TEST : RequestConst.REMOTE_IP;
-            var port = RequestConst.REMOTE_PORT;
+            var config = ctx.templateInfraContext.Config_Get();
+            var remoteIP = ctx.isTest ? config.REMOTE_IP_TEST : config.REMOTE_IP;
+            var port = config.REMOTE_PORT;
             ctx.ClientCore.Connect(remoteIP, port);
             PLog.Log("Connect to " + remoteIP + ":" + port);
         }

@@ -14,6 +14,7 @@ namespace Ping {
     public class ClientMain : MonoBehaviour {
 
         [SerializeField] bool isTest;
+
         InputEntity inputEntity;
         MainContext mainContext;
 
@@ -73,6 +74,8 @@ namespace Ping {
             gameBusinessContext.mainCamera = mainCamera;
             gameBusinessContext.mainContext = mainContext;
             gameBusinessContext.reqInfraContext = reqInfraContext;
+
+            reqInfraContext.templateInfraContext = templateInfraContext;
 
             RegisterProtocols();
             BindingEvents();
